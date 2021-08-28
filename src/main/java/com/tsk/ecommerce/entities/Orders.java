@@ -138,6 +138,14 @@ public class Orders implements Serializable {
 	public void setCostDelivery(Double costDelivery) {
 		this.costDelivery = costDelivery;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Orders [idOrder=" + idOrder + ", description=" + description + ", total=" + total + ", createdAt="
+				+ createdAt + ", costDelivery=" + costDelivery + ", payed=" + payed + ", delivered=" + delivered
+				+ ", customer=" + customer + ", pannier=" + pannier + "]";
+	}
 	
 	
 	

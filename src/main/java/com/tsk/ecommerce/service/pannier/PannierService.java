@@ -8,7 +8,7 @@ import com.tsk.ecommerce.entities.Pannier;
 
 public interface PannierService {
 
-	public Pannier create(List<OrderLine> orderLines);
+	public Pannier create();
 	
 	public void deletePannier(Long id);
 	

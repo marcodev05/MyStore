@@ -143,18 +143,19 @@ public class OrderServiceImpl implements OrderService {
 		ord.setCustomer(customerService.create(customer));
 		
 		
-		
+		Pannier pannier = pannierService.create();
 		
 		List<OrderLine> orderlines = new ArrayList<OrderLine>();
 		for(OrderlineRequest o : orderRequest.getOrderlineRequests()) {
 			
-			OrderLine orderline = orderlineService.create(new OrderLine(o.getQuantity(), o.getProduct()));
-			orderlines.add(orderline);
+			OrderLine orderline = new OrderLine(o.getQuantity(), o.getProduct(), pannier);
+			orderlines.add(orderlineService.create(orderline));
 			
 		}
 		
-		Pannier pannier = pannierService.create(orderlines);
-		ord.setPannier(pannier);
+		//pannier.setOrderLines(orderlines);
+		
+		
 		
 		
 		
@@ -170,6 +171,10 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		calculCostDelivery(orderRequest, ord, subTotal);
+		
+		pannier.setSubtotal(subTotal);
+		ord.setPannier(pannierRepository.save(pannier));
+		
 		ord.setCreatedAt(new Date());
 		ord.setDelivered(false);
 		ord.setPayed(false);

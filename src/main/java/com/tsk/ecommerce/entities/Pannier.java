@@ -34,10 +34,6 @@ public class Pannier implements Serializable{
 		super();
 	}
 
-	public Pannier(Collection<OrderLine> orderLines) {
-		super();
-		this.orderLines = orderLines;
-	}
 
 	public Long getIdPannier() {
 		return idPannier;
@@ -69,6 +65,13 @@ public class Pannier implements Serializable{
 
 	public void setSubtotal(Double subtotal) {
 		this.subtotal = subtotal;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Pannier [idPannier=" + idPannier + ", orderLines=" + orderLines + ", orders=" + orders + ", subtotal="
+				+ subtotal + "]";
 	}
 
 	

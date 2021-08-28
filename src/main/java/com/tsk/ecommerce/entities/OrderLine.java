@@ -27,6 +27,7 @@ public class OrderLine implements Serializable {
 	@JoinColumn(name = "product")
 	private Product product;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "pannier")
 	private Pannier pannier;
@@ -36,11 +37,20 @@ public class OrderLine implements Serializable {
 	}
 
 
-	public OrderLine(Integer quantity, Product product) {
+
+
+
+
+	public OrderLine(Integer quantity, Product product, Pannier pannier) {
 		super();
 		this.quantity = quantity;
 		this.product = product;
+		this.pannier = pannier;
 	}
+
+
+
+
 
 
 	public Long getIdOrderLine() {
@@ -81,6 +91,13 @@ public class OrderLine implements Serializable {
 
 	public void setPannier(Pannier pannier) {
 		this.pannier = pannier;
+	}
+
+
+	@Override
+	public String toString() {
+		return "OrderLine [idOrderLine=" + idOrderLine + ", quantity=" + quantity + ", total=" + total + ", product="
+				+ product + "]";
 	}
 	
 	

@@ -65,11 +65,11 @@ public class OrderLineServiceImpl implements OrderLineService {
 		} else
 			throw new FormatDataInvalidException(" Il faut préciser le produit!");
 
-//		if (orderLine.getPannier() != null) {
-//			Pannier pan = pannierService.getPannierById(orderLine.getPannier().getIdPannier());
-//			ordln.setPannier(pan);
-//		} else
-//			throw new FormatDataInvalidException(" Il faut préciser le panier!");
+		if (orderLine.getPannier() != null) {
+			Pannier pan = pannierService.getPannierById(orderLine.getPannier().getIdPannier());
+			ordln.setPannier(pan);
+		} else
+			throw new FormatDataInvalidException(" Il faut préciser le panier!");
 
 		return orderLineRepository.save(ordln);
 	}

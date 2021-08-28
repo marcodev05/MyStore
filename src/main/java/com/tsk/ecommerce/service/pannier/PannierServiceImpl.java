@@ -25,8 +25,8 @@ public class PannierServiceImpl implements PannierService {
 	OrderLineService orderLineService;
 	
 	@Override
-	public Pannier create(List<OrderLine> orderLines) {
-		Pannier pannier = new Pannier(orderLines);
+	public Pannier create() {
+		Pannier pannier = new Pannier();
 		return pannierRepository.save(pannier);
 	}
 	
