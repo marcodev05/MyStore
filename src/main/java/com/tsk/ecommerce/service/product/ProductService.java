@@ -3,6 +3,7 @@ package com.tsk.ecommerce.service.product;
 import java.util.List;
 import java.util.Optional;
 
+import com.tsk.ecommerce.entities.OrderLine;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 
@@ -23,6 +24,8 @@ public interface ProductService {
 	public List<Picture> getAllPictureByProduct(Long idProduct);
 	
 	public List<Product> findProductByName(String name);
+	
+	public void reduceQtyByOrderLine(OrderLine orderLine);
 	
 //	public Product addPicture(Long idProduct, Picture picture);
 	

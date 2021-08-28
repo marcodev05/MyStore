@@ -50,11 +50,11 @@ public class OrderLineServiceImpl implements OrderLineService {
 					Double total = pu * orderQty;
 					ordln.setTotal(total);
 
-					Integer restStock = p.getStock() - orderLine.getQuantity();
-					p.setStock(restStock);
-					if (restStock == 0)
-						p.setAvailable(false);
-					productRepository.save(p);
+//					Integer restStock = p.getStock() - orderLine.getQuantity();
+//					p.setStock(restStock);
+//					if (restStock == 0)
+//						p.setAvailable(false);
+//					productRepository.save(p);
 
 				} else
 					throw new FormatDataInvalidException("Le stock est insuffisant, reste: " + p.getStock());
@@ -65,11 +65,11 @@ public class OrderLineServiceImpl implements OrderLineService {
 		} else
 			throw new FormatDataInvalidException(" Il faut préciser le produit!");
 
-		if (orderLine.getPannier() != null) {
-			Pannier pan = pannierService.getPannierById(orderLine.getPannier().getIdPannier());
-			ordln.setPannier(pan);
-		} else
-			throw new FormatDataInvalidException(" Il faut préciser le panier!");
+//		if (orderLine.getPannier() != null) {
+//			Pannier pan = pannierService.getPannierById(orderLine.getPannier().getIdPannier());
+//			ordln.setPannier(pan);
+//		} else
+//			throw new FormatDataInvalidException(" Il faut préciser le panier!");
 
 		return orderLineRepository.save(ordln);
 	}

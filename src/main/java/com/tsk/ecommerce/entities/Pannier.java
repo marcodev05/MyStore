@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,15 +19,24 @@ public class Pannier implements Serializable{
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPannier;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "pannier")
+	
+	@OneToMany(mappedBy = "pannier" , fetch = FetchType.LAZY)
 	private Collection<OrderLine> orderLines;
 	
+	@JsonIgnore
 	@OneToOne
 	private Orders orders;
+	
+	private Double subtotal;
 
+	
 	public Pannier() {
 		super();
+	}
+
+	public Pannier(Collection<OrderLine> orderLines) {
+		super();
+		this.orderLines = orderLines;
 	}
 
 	public Long getIdPannier() {
@@ -51,6 +61,14 @@ public class Pannier implements Serializable{
 
 	public void setOrders(Orders orders) {
 		this.orders = orders;
+	}
+
+	public Double getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(Double subtotal) {
+		this.subtotal = subtotal;
 	}
 
 	

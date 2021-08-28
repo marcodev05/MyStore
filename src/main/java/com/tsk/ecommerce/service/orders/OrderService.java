@@ -1,12 +1,14 @@
 package com.tsk.ecommerce.service.orders;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.tsk.ecommerce.entities.Orders;
+import com.tsk.ecommerce.model.OrderRequest;
 
 public interface OrderService {
 
-	public Orders create(Orders orders);
+	public Orders create(OrderRequest orderRequest) throws IOException;
 	
 	public Orders update(Long id, Orders order);
 	

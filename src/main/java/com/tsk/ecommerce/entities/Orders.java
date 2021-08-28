@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,19 +28,19 @@ public class Orders implements Serializable {
 	private Long idOrder;
 	private String description;
 	private Double total;
-	private Date date;
+	private Date createdAt;
+	private Double costDelivery;
+	private Boolean payed;
+	private Boolean delivered;
 	
 	@NotBlank(message = "L'identité du client est obligatoire")
 	@ManyToOne
 	@JoinColumn(name = "customer")
 	private Customer customer;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Pannier pannier;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "order")
-	private Collection<Delivery> deliveries;
 
 	public Orders() {
 		super();
@@ -79,13 +80,16 @@ public class Orders implements Serializable {
 		this.total = total;
 	}
 
-	public Date getDate() {
-		return date;
+
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
+
 
 	public Customer getCustomer() {
 		return customer;
@@ -93,14 +97,6 @@ public class Orders implements Serializable {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
-	}
-
-	public Collection<Delivery> getDeliveries() {
-		return deliveries;
-	}
-
-	public void setDeliveries(Collection<Delivery> deliveries) {
-		this.deliveries = deliveries;
 	}
 
 
@@ -112,6 +108,38 @@ public class Orders implements Serializable {
 	public void setPannier(Pannier pannier) {
 		this.pannier = pannier;
 	}
+
+
+	public Boolean getPayed() {
+		return payed;
+	}
+
+
+	public void setPayed(Boolean payed) {
+		this.payed = payed;
+	}
+
+
+	public Boolean getDelivered() {
+		return delivered;
+	}
+
+
+	public void setDelivered(Boolean delivered) {
+		this.delivered = delivered;
+	}
+
+
+	public Double getCostDelivery() {
+		return costDelivery;
+	}
+
+
+	public void setCostDelivery(Double costDelivery) {
+		this.costDelivery = costDelivery;
+	}
+	
+	
 	
 	
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tsk.ecommerce.entities.OrderLine;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exception.ResourceNotFoundException;
@@ -102,6 +103,20 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> findProductByName(String name) {
 		return productRepository.findByNameProductContains(name)
 				.orElseThrow(() -> new ResourceNotFoundException("Le resultat de la recherche est vide"));
+	}
+
+
+	@Override
+	public void reduceQtyByOrderLine(OrderLine orderLine) {
+		
+		Product p = this.getProductById(orderLine.getProduct().getIdProduct());
+		Integer restStock = p.getStock() - orderLine.getQuantity();
+		p.setStock(restStock);
+		
+		if (restStock == 0) {
+			p.setAvailable(false);
+		}
+		productRepository.save(p);	
 	}
 
 

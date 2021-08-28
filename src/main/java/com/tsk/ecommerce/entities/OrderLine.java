@@ -36,11 +36,10 @@ public class OrderLine implements Serializable {
 	}
 
 
-	public OrderLine(Integer quantity, Product product, Pannier pannier) {
+	public OrderLine(Integer quantity, Product product) {
 		super();
 		this.quantity = quantity;
 		this.product = product;
-		this.pannier = pannier;
 	}
 
 

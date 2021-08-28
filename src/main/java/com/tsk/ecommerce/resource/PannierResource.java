@@ -37,14 +37,14 @@ public class PannierResource {
 	 * http://localhost:8080/swagger-ui.html
 	 */
 	
-	@Operation(summary = "Create a new Pannier")
-	@ApiResponse(responseCode = "201", description = "Pannier is created")
-	@PostMapping(PUBLIC + "/add")
-	public ResponseEntity<Pannier> addPannier() {
-		Pannier pan = service.create();
-		return new ResponseEntity<>(pan, HttpStatus.CREATED);
-	}
-	
+//	@Operation(summary = "Create a new Pannier")
+//	@ApiResponse(responseCode = "201", description = "Pannier is created")
+//	@PostMapping(PUBLIC + "/add")
+//	public ResponseEntity<Pannier> addPannier() {
+//		Pannier pan = service.create();
+//		return new ResponseEntity<>(pan, HttpStatus.CREATED);
+//	}
+//	
 	
 	
 	@Operation(summary = "Get a Pannier by Id")

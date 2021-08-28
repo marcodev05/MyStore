@@ -1,7 +1,10 @@
 package com.tsk.ecommerce.resource;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tsk.ecommerce.entities.Orders;
+import com.tsk.ecommerce.model.OrderRequest;
 import com.tsk.ecommerce.service.orders.OrderService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,23 +40,26 @@ public class OrderResource {
 	 * Documentation path
 	 * 
 	 * http://localhost:8080/swagger-ui.html
+	 * @throws IOException 
 	 */
 	
 	@Operation(summary = "Add a new Orders")
 	@ApiResponse(responseCode = "201", description = "Order is created")
 	@PostMapping(PUBLIC + "/add")
-	public ResponseEntity<Orders> createOrder(@RequestBody Orders order) {
-		Orders ord = service.create(order);
+	public ResponseEntity<Orders> createOrder(@Valid @RequestBody OrderRequest orderRequest) throws IOException {
+		Orders ord = service.create(orderRequest);
 		return new ResponseEntity<>(ord, HttpStatus.CREATED);
 	}
 	
-	
-//	@Operation(summary = "Get all categories")
-//	@GetMapping()
-//	public ResponseEntity<List<Orders>> getAllCategories(){
-//		List<Orders> categories = service.findAllOrders();
-//		return new ResponseEntity<>(categories, HttpStatus.OK);
+//	
+//	@Operation(summary = "create a new Orders")
+//	@ApiResponse(responseCode = "201", description = "Order is created")
+//	@PostMapping(PUBLIC + "/valid")
+//	public ResponseEntity<Orders> orderValidation(@Valid @RequestBody OrderRequest orderRequest) {
+//		
+//		return new ResponseEntity<>(ord, HttpStatus.CREATED);
 //	}
+	
 	
 	
 	@Operation(summary = "Get a Order by Id")

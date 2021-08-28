@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,20 +20,15 @@ public class Delivery implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Boolean status;
+	private Double cost;
 	
-	@ManyToOne
-	@JoinColumn(name = "orders")
+	@OneToOne
 	private Orders order;
 
 	public Delivery() {
 		super();
 	}
 
-	public Delivery(Boolean status, Orders order) {
-		super();
-		this.status = status;
-		this.order = order;
-	}
 
 	public Long getId() {
 		return id;
@@ -57,6 +53,16 @@ public class Delivery implements Serializable {
 	public void setOrder(Orders order) {
 		this.order = order;
 	}
+
+	public Double getCost() {
+		return cost;
+	}
+
+	public void setCost(Double cost) {
+		this.cost = cost;
+	}
+	
+	
 	
 	
 }

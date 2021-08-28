@@ -25,12 +25,11 @@ public class PannierServiceImpl implements PannierService {
 	OrderLineService orderLineService;
 	
 	@Override
-	public Pannier create() {
-		Pannier pannier = new Pannier();
-		Collection<OrderLine> ordLines = new ArrayList<OrderLine>();
-		pannier.setOrderLines(ordLines);
+	public Pannier create(List<OrderLine> orderLines) {
+		Pannier pannier = new Pannier(orderLines);
 		return pannierRepository.save(pannier);
 	}
+	
 
 	
 	@Override
@@ -58,5 +57,7 @@ public class PannierServiceImpl implements PannierService {
 		
 		return pannierRepository.findOrderLineInPannier(id);
 	}
+	
+
 
 }

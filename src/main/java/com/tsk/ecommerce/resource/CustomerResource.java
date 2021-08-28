@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tsk.ecommerce.entities.Customer;
+import com.tsk.ecommerce.model.NotificationMail;
 import com.tsk.ecommerce.service.customer.CustomerService;
 import com.tsk.ecommerce.utils.email.NotificationService;
 
@@ -38,6 +39,8 @@ public class CustomerResource {
 	
 	@Autowired
 	NotificationService notificationService;
+	
+	
 	/**
 	 * Documentation path
 	 * 
@@ -75,10 +78,10 @@ public class CustomerResource {
 	@RequestMapping(value=PUBLIC + "/add", method=RequestMethod.POST)
 	public ResponseEntity<Customer> addCustomer(@RequestBody Customer Customer) throws IOException {
 		Customer c = service.create(Customer);
-		notificationService.sendNotification(c);
+		notificationService.sendNotification(new NotificationMail(c.getEmail(), c.getLastName(), "121", null, c.getAddress()));
 		return new ResponseEntity<>(c, HttpStatus.CREATED);
 	}
-	
+
 	
 	@Operation(summary = "Update a Customer by Id")
 	@PutMapping(PUBLIC + "/update/{id}")
