@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	
+	<body>
+
+			<p>Bonjour Mme/Mr <span th:text="${nameClient}"></span> </p>
+
+			<p>A la date du 21 Aout 2021, Vous avez passé commande de produits tels que: </p>
+			
+			<ul> 
+				<li> Tee-shirt : 15000Ar </li>
+				<li> Telephone samsung s6 : 400000 Ar </li>	
+			</ul>
+			
+			<p>Votre commande a bien été prise en compte. Elle sera acheminée par "Colis Express" à l'adresse suivant :</p>
+			
+			<p  > <b><span th:text="${nameClient}"></span> </b></p>
+			<p> <b><span th:text="${address.lot}"></span> - <span th:text="${address.city}"></span> </b></p>	
+			
+			<p>Votre colis devrais vous parvenir sous délai de 3 jours</p>	
+			
+			<p>La boutique <b>  E-varotra Antarandolo</b> vous remercie de votre confiance </p>	
+			
+			<p>Coordialement</p>	
+			
+	</body>
+</html>
