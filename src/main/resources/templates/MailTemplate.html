@@ -7,25 +7,28 @@
 	
 	<body>
 
-			<p>Bonjour Mme/Mr <span th:text="${nameClient}"></span> </p>
+			<p>Bonjour,</p>
 
-			<p>A la date du 21 Aout 2021, Vous avez passé commande de produits tels que: </p>
+			<p>A la date du <span th:text="${date}"></span>, Vous avez passé commande sur notre site, tels que: </p>
 			
 			<ul> 
-				<li> Tee-shirt : 15000Ar </li>
-				<li> Telephone samsung s6 : 400000 Ar </li>	
+				<li  th:each="orderLine : ${orderLines}"> <b><span th:text="${orderLine.product.nameProduct}"></span></b>  :  <span style="color: green" th:text="${orderLine.quantity}"></span> x <span th:text="${orderLine.product.price}"></span> Ar </li>
 			</ul>
 			
-			<p>Votre commande a bien été prise en compte. Elle sera acheminée par "Colis Express" à l'adresse suivant :</p>
+			<p>Votre commande a bien été prise en compte. Elle sera acheminée par <span style="color: red" > "Colis Express" </span>  à l'adresse suivante :</p>
 			
-			<p  > <b><span th:text="${nameClient}"></span> </b></p>
-			<p> <b><span th:text="${address.lot}"></span> - <span th:text="${address.city}"></span> </b></p>	
+			<p style="text-align: center "> -- <b><span th:text="${nameClient}"></span> </b> --</p>
+			<p style="text-align: center "> <b> Lot : <span th:text="${address.lot}"></span> - <span th:text="${address.city}"></span> </b> </p>	
 			
-			<p>Votre colis devrais vous parvenir sous délai de 3 jours</p>	
 			
-			<p>La boutique <b>  E-varotra Antarandolo</b> vous remercie de votre confiance </p>	
+			<p>
+				<span th:if="${address.city.toLowerCase == 'fianarantsoa'}">Votre colis devrais vous parvenir sous délai de  24h</span>
+	   			<span th:unless="${address.city.toLowerCase == 'fianarantsoa'}">Votre colis devrais vous parvenir sous délai de 3 jours</span>
+			</p>	
 			
-			<p>Coordialement</p>	
+			<p>La boutique <b style="color: green; font-size: 18px">  E-varotra Antarandolo</b> vous remercie de votre confiance </p>	
+			
+			<p>Cordialement,</p>	
 			
 	</body>
 </html>

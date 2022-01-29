@@ -1,8 +1,12 @@
 package com.tsk.ecommerce.service.product;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
+
+import javax.print.attribute.standard.DateTimeAtCreation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,16 +35,19 @@ public class ProductServiceImpl implements ProductService {
 		p.setCategory(product.getCategory());
 		p.setAvailable(true);
 		p.setSelected(false);
+		p.setCreatedAt(Date.from(Instant.now()));
 		
 		Random r = new Random();
 		Integer rate = r.nextInt(5) + 1; //[1 - 5[
-		p.setRate(rate);
+		p.setRating(rate);
 		List<Picture> pictures = new ArrayList<Picture>();
 		p.setPictures(pictures);
 
 		return productRepository.save(p);
 	}
 
+	
+	
 	
 	@Override
 	public Product update(Long id, Product product) {
@@ -64,12 +71,16 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	
+	
+	
 	@Override
 	public Product getProductById(Long id) {
 		Product p = productRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Le produit est introuvable"));
 		return p;
 	}
+	
+	
 	
 	
 	@Override
@@ -80,6 +91,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 
+	
+	
 	@Override
 	public Product addToStock(Long id, Integer qty) {
 		Product p = this.getProductById(id);
@@ -91,6 +104,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 
+	
 	
 	@Override
 	public List<Picture> getAllPictureByProduct(Long idProduct) {
@@ -106,6 +120,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 
+	
+	
+	
 	@Override
 	public void reduceQtyByOrderLine(OrderLine orderLine) {
 		

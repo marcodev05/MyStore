@@ -18,7 +18,9 @@ import com.tsk.ecommerce.model.AuthRequest;
 import com.tsk.ecommerce.model.AuthResponse;
 import com.tsk.ecommerce.service.user.UserService;
 
-@CrossOrigin
+import io.swagger.v3.oas.annotations.Operation;
+
+@CrossOrigin("*")
 @RestController
 public class UserResource {
 	
@@ -31,22 +33,22 @@ public class UserResource {
 	@Autowired
 	JwtProvider jwtProvider;
 	
+	@Operation(summary = "Add a new user admin")
 	@PostMapping(ADMIN + "/register")
-	public ResponseEntity<UserEntity> registerUser(@Valid @RequestBody UserEntity userEntity) throws IOException{		
+	public ResponseEntity<String> registerUser(@Valid @RequestBody UserEntity userEntity) throws IOException{		
 		UserEntity u = userService.register(userEntity);
-		return new ResponseEntity<>(u, HttpStatus.CREATED);	
+		return new ResponseEntity<>("Enregistrement réussi !", HttpStatus.CREATED);	
 	}
 	
 	
 	
+	@Operation(summary = "verify username and passord")
 	@PostMapping(PUBLIC + "/login")
 	public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest authRequest){		
-
 		userService.getByUsernameAndPassword(authRequest.getUsername(), authRequest.getPassword());
 		String token = jwtProvider.generateToken(authRequest.getPassword());
 		AuthResponse response = new AuthResponse(token);
-		return new ResponseEntity<>(response, HttpStatus.CREATED);
-		
+		return new ResponseEntity<>(response, HttpStatus.CREATED);	
 	}
 	
 	

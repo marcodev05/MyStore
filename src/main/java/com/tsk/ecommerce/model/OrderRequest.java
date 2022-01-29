@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+
 
 import com.tsk.ecommerce.entities.OrderLine;
 
@@ -12,8 +13,6 @@ import com.tsk.ecommerce.entities.OrderLine;
 
 public class OrderRequest {
 	
-	
-	private String description;
 	
 	/*****	 Customer information 	******/
 	private String firstName;
@@ -27,8 +26,9 @@ public class OrderRequest {
 	@NotBlank(message = "Ce champs ne doit pas être vide")
 	private String lot;
 	private String addrPlus;
-	@NotBlank(message = "Ce champs est obligatoire")
-	@NotNull
+	
+	@NotBlank(message = "obligatoire")
+	@NotEmpty
 	private String city;
 	
 	/***	Orderline	****/
@@ -42,13 +42,12 @@ public class OrderRequest {
 
 
 
-	public OrderRequest(String description, String firstName, String lastName,
+	public OrderRequest(String firstName, String lastName,
 			@Email @NotBlank(message = "email ne doit pas être vide") String email, String phone,
 			@NotBlank(message = "Ce champs ne doit pas être vide") String lot, String addrPlus,
-			@NotBlank(message = "Ce champs est obligatoire") @NotNull String city,
+			@NotBlank(message = "Ce champs est obligatoire")String city,
 			List<OrderlineRequest> orderlineRequests) {
 		super();
-		this.description = description;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -60,16 +59,6 @@ public class OrderRequest {
 	}
 
 
-
-
-	public String getDescription() {
-		return description;
-	}
-
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 
 	public String getFirstName() {

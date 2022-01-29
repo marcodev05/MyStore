@@ -8,7 +8,7 @@ import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exception.ResourceNotFoundException;
 import com.tsk.ecommerce.repository.PictureRepository;
-import com.tsk.ecommerce.service.exception.FormatDataInvalidException;
+import com.tsk.ecommerce.exception.FormatDataInvalidException;
 import com.tsk.ecommerce.service.product.ProductService;
 
 @Service
@@ -26,7 +26,7 @@ public class PictureServiceImpl implements PictureService {
 	@Override
 	public Picture addPicture(Picture picture) {
 		Picture pic = new Picture();
-
+		
 		if (picture.getProduct() != null) {
 			Product p = productService.getProductById(picture.getProduct().getIdProduct());
 			pic.setProduct(p);

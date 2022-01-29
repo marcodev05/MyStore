@@ -26,7 +26,6 @@ public class Orders implements Serializable {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idOrder;
-	private String description;
 	private Double total;
 	private Date createdAt;
 	private Double costDelivery;
@@ -47,9 +46,8 @@ public class Orders implements Serializable {
 	}
 
 	
-	public Orders(String description, Customer customer, Pannier pannier) {
+	public Orders(Customer customer, Pannier pannier) {
 		super();
-		this.description = description;
 		this.customer = customer;
 		this.pannier = pannier;
 	}
@@ -64,13 +62,6 @@ public class Orders implements Serializable {
 		this.idOrder = idOrder;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public Double getTotal() {
 		return total;
@@ -142,7 +133,7 @@ public class Orders implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Orders [idOrder=" + idOrder + ", description=" + description + ", total=" + total + ", createdAt="
+		return "Orders [idOrder=" + idOrder + ", total=" + total + ", createdAt="
 				+ createdAt + ", costDelivery=" + costDelivery + ", payed=" + payed + ", delivered=" + delivered
 				+ ", customer=" + customer + ", pannier=" + pannier + "]";
 	}

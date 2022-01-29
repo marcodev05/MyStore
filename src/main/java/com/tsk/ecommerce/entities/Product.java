@@ -2,6 +2,7 @@ package com.tsk.ecommerce.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -19,7 +20,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -32,22 +36,26 @@ public class Product implements Serializable{
 	@NotBlank(message = "Ce champs est obligatoire")
 	private String description;
 	@NotBlank(message = "Le prix est obligatoire")
+	@Column(nullable = false)
 	private Double price;
 	
-	@NotNull
+	@Column(nullable = false)
 	private Integer stock;
 	private Boolean available;
 	private Boolean selected;
 	
+	@CreatedDate
+	private Date createdAt;
+	
 	@Max(value = 5)
 	@Min(value = 0)
-	private Integer rate;
+	private Integer rating;
 	
 	@OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
 	private Collection<Picture> pictures;
 	
 	@ManyToOne
-	@JoinColumn(name = "category", nullable = false)
+	@JoinColumn(name = "category")
 	private Category category;
 	
 	@JsonBackReference
@@ -171,13 +179,23 @@ public class Product implements Serializable{
 	}
 
 
-	public Integer getRate() {
-		return rate;
+	public Integer getRating() {
+		return rating;
 	}
 
 
-	public void setRate(Integer rate) {
-		this.rate = rate;
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
+
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 	
 	

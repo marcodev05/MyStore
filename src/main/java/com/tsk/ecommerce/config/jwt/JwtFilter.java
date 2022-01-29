@@ -17,7 +17,6 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import com.tsk.ecommerce.config.CustomUserDetails;
 import com.tsk.ecommerce.config.CustomUserDetailsService;
-import com.tsk.ecommerce.service.exception.FormatDataInvalidException;
 
 @Component
 public class JwtFilter extends GenericFilterBean{

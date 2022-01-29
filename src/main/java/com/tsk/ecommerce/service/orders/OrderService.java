@@ -14,6 +14,8 @@ public interface OrderService {
 	
 	public List<Orders> findAllOrders();
 	
+	public List<Orders> getAllNewCommands();
+	
 	public Orders getOrdersById(Long id);
 	
 	public Orders getOrdersByCustomerEmail(String email);

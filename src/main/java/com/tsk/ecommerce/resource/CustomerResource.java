@@ -37,9 +37,6 @@ public class CustomerResource {
 	@Autowired
 	CustomerService service;
 	
-	@Autowired
-	NotificationService notificationService;
-	
 	
 	/**
 	 * Documentation path
@@ -72,16 +69,16 @@ public class CustomerResource {
 	
 	
 	
-	@Transactional
+	
 	@Operation(summary = "Add a new Customer")
 	@ApiResponse(responseCode = "201", description = "Customer is created")
 	@RequestMapping(value=PUBLIC + "/add", method=RequestMethod.POST)
 	public ResponseEntity<Customer> addCustomer(@RequestBody Customer Customer) throws IOException {
 		Customer c = service.create(Customer);
-		notificationService.sendNotification(new NotificationMail(c.getEmail(), c.getLastName(), "121", null, c.getAddress()));
 		return new ResponseEntity<>(c, HttpStatus.CREATED);
 	}
 
+	
 	
 	@Operation(summary = "Update a Customer by Id")
 	@PutMapping(PUBLIC + "/update/{id}")
@@ -89,6 +86,7 @@ public class CustomerResource {
 		Customer c = service.update(id, Customer);
 		return new ResponseEntity<>(c, HttpStatus.OK);
 	}
+	
 	
 	
 	@Operation(summary = "Delete a Customer by Id")

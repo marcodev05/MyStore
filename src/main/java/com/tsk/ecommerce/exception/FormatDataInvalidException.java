@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.service.exception;
+package com.tsk.ecommerce.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

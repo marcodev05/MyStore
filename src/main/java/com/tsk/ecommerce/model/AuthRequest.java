@@ -4,10 +4,12 @@ package com.tsk.ecommerce.model;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor
+@Builder
 public class AuthRequest {
 
 	@NotEmpty

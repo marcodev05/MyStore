@@ -13,5 +13,9 @@ public interface UserService {
 	public UserEntity getByUsernameAndPassword(String username, String password);
 	
 	public Boolean isUsernameExist(String username);
+	
+	public Boolean isEmailExist(String email);
+	
+	public void delete(Long idUser);
 
 }

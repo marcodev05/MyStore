@@ -12,7 +12,7 @@ import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.exception.ResourceNotFoundException;
 import com.tsk.ecommerce.repository.CustomerRepository;
 import com.tsk.ecommerce.service.address.AddressService;
-import com.tsk.ecommerce.service.exception.FormatDataInvalidException;
+import com.tsk.ecommerce.exception.FormatDataInvalidException;
 import com.tsk.ecommerce.utils.email.EmailUtil;
 
 @Service
@@ -31,12 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer create(Customer customer) throws IOException {
 		Customer c = new Customer();
 		if (EmailUtil.isEmailFormat(customer.getEmail())) {
-			
-			if (this.isEmailExist(customer.getEmail()))
-				throw new FormatDataInvalidException("Ce email existe dejà !");
-			else {
-				c.setEmail(customer.getEmail());
-			}
+				c.setEmail(customer.getEmail());	
 		} else
 			throw new FormatDataInvalidException("Email invalid !");
 
@@ -92,7 +87,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Customer getCustomerById(Long id) {
 		return customerRepository.findById(id)
-									.orElseThrow(() -> new ResourceNotFoundException("L'identifiant du client est non reconnu"));
+									.orElseThrow(() -> new ResourceNotFoundException("L'identifiant est non reconnu"));
 	}
 
 	
@@ -108,12 +103,6 @@ public class CustomerServiceImpl implements CustomerService {
 	public Customer getCustomerByEmail(String email) {
 		return customerRepository.findByEmail(email)
 							.orElseThrow(() -> new ResourceNotFoundException("Email non reconnu"));
-	}
-
-
-	@Override
-	public Boolean isEmailExist(String email) {
-		return customerRepository.existsByEmail(email);
 	}
 
 }

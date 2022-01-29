@@ -6,36 +6,36 @@ import com.tsk.ecommerce.entities.Product;
 
 public class OrderlineRequest {
 
-		private Product product;
+		private Product produit;
 		
 		@Min(1)
-		private Integer quantity;
+		private Integer qte;
 
 		
-		public OrderlineRequest(Product product, @Min(1) Integer quantity) {
+		public OrderlineRequest(Product produit, @Min(1) Integer qte) {
 			super();
-			this.product = product;
-			this.quantity = quantity;
+			this.produit = produit;
+			this.qte = qte;
 		}
 
 		public OrderlineRequest() {
 			super();
 		}
 
-		public Product getProduct() {
-			return product;
+		public Product getProduit() {
+			return produit;
 		}
 
-		public void setProduct(Product product) {
-			this.product = product;
+		public void setProduit(Product product) {
+			this.produit = product;
 		}
 
-		public Integer getQuantity() {
-			return quantity;
+		public Integer getQte() {
+			return qte;
 		}
 
-		public void setQuantity(Integer quantity) {
-			this.quantity = quantity;
+		public void setQte(Integer qte) {
+			this.qte = qte;
 		}
 
 	

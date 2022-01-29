@@ -17,8 +17,6 @@ public interface CustomerService {
 	
 	public Customer getCustomerByEmail(String email);
 	
-	public Boolean isEmailExist(String email);
-	
 	public void deleteCustomer(Long id);
 	
 }

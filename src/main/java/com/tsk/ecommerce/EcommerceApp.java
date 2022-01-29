@@ -1,7 +1,6 @@
 package com.tsk.ecommerce;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.entities.auth.RoleEntity;
 import com.tsk.ecommerce.entities.auth.UserEntity;
-import com.tsk.ecommerce.model.OrderRequest;
 import com.tsk.ecommerce.model.OrderlineRequest;
 import com.tsk.ecommerce.repository.PictureRepository;
 import com.tsk.ecommerce.repository.RoleEntityRepository;
@@ -28,9 +26,10 @@ import com.tsk.ecommerce.service.product.ProductService;
 import com.tsk.ecommerce.service.user.UserService;
 
 
-@SpringBootApplication
-public class EcommerceApplication implements CommandLineRunner{
 
+@SpringBootApplication
+public class EcommerceApp implements CommandLineRunner {
+	
 	@Autowired
 	RoleEntityRepository roleEntityRepository;
 	
@@ -54,11 +53,15 @@ public class EcommerceApplication implements CommandLineRunner{
 	
 	@Autowired
 	UserService userService;
-	
+
 	public static void main(String[] args) {
-		SpringApplication.run(EcommerceApplication.class, args);
+		// TODO Auto-generated method stub
+		SpringApplication.run(EcommerceApp.class, args);
+
 	}
 
+	
+	
 	@Override
 	public void run(String... args) throws Exception {
 		
@@ -91,8 +94,7 @@ public class EcommerceApplication implements CommandLineRunner{
 		lines.add(line);
 		lines.add(line2);
 		
-		OrderRequest ordRequest = new OrderRequest("commande divers", customer1.getFirstName(), customer1.getLastName(), customer1.getEmail(), customer1.getPhone(), addr1.getLot(), addr1.getAddrPlus(), addr1.getCity(), lines);
-		System.out.println(orderService.create(ordRequest));
+		//OrderRequest ordRequest = new OrderRequest("commande divers", customer1.getFirstName(), customer1.getLastName(), customer1.getEmail(), customer1.getPhone(), addr1.getLot(), addr1.getAddrPlus(), addr1.getCity(), lines);
+		//System.out.println(orderService.create(ordRequest));
 	}
-
 }

@@ -1,5 +1,8 @@
 package com.tsk.ecommerce.utils.email;
 
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,14 +29,21 @@ public class MailContentBuilder {
 		super();
 	}
 
-	public String build(String nameClient, String numCommand, List<OrderLine> orderLines, Address address) {
+	public String build(String nameClient, Long long1, Collection<OrderLine> orderLines, Address address) {
 		
 		Context context = new Context();
 		
 		Map<String, Object> props = new HashMap<String, Object>();
 		props.put("nameClient", nameClient);
-		props.put("numCommand", numCommand);
+		props.put("numCommand", long1);
 		props.put("address", address);
+		props.put("orderLines",orderLines);
+		
+		String pattern = "dd-MM-yyyy HH:mm";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String stringDate= simpleDateFormat.format(new Date());
+		props.put("date", stringDate);
+
 		
 		context.setVariables(props);
 		

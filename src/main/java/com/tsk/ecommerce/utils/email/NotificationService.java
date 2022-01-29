@@ -1,5 +1,7 @@
 package com.tsk.ecommerce.utils.email;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,6 +10,7 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.tsk.ecommerce.entities.Orders;
 import com.tsk.ecommerce.model.NotificationMail;
 
 
@@ -23,17 +26,19 @@ public class NotificationService {
 	
 	
 	@Async
-	public void sendNotification(NotificationMail notifMail) {
+	public void sendNotification(Orders orders) {
 		
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 			
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 			
 			messageHelper.setFrom(MAIL_SHOP);
-			messageHelper.setTo(notifMail.getEmailRecipient());
+			messageHelper.setTo(orders.getCustomer().getEmail());
 			messageHelper.setSubject("Confirmation de l'envoie d'une commande");
 			
-			String html = mailContent.build(notifMail.getClientName(), notifMail.getNumCommand(), null, notifMail.getAddress());
+			String name = orders.getCustomer().getFirstName() + " " + orders.getCustomer().getLastName();
+			//String html2 = mailContent.build(notifMail.getClientName(), notifMail.getNumCommand(), null, notifMail.getAddress());
+			String html = mailContent.build(name, orders.getIdOrder(), orders.getPannier().getOrderLines(),orders.getCustomer().getAddress());
 			messageHelper.setText(html, true);
 			
 		};

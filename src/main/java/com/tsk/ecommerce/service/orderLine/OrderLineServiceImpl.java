@@ -11,7 +11,7 @@ import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exception.ResourceNotFoundException;
 import com.tsk.ecommerce.repository.OrderLineRepository;
 import com.tsk.ecommerce.repository.ProductRepository;
-import com.tsk.ecommerce.service.exception.FormatDataInvalidException;
+import com.tsk.ecommerce.exception.FormatDataInvalidException;
 import com.tsk.ecommerce.service.pannier.PannierService;
 import com.tsk.ecommerce.service.product.ProductService;
 

@@ -44,7 +44,8 @@ public class UserEntity {
 	public UserEntity() {
 		super();
 	}
-
+	
+	
 	public Long getUserId() {
 		return userId;
 	}
