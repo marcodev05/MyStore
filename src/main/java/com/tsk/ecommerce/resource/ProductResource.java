@@ -27,7 +27,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
-@CrossOrigin
+@CrossOrigin("*")
 @RestController
 public class ProductResource  {
 	
@@ -80,7 +80,7 @@ public class ProductResource  {
 	
 	@Operation(summary = "Add a new product")
 	@ApiResponse(responseCode = "201", description = "Product is created")
-	@RequestMapping(value= ADMIN + "/add", method=RequestMethod.POST)
+	@RequestMapping(value= PUBLIC + "/add", method=RequestMethod.POST)
 	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
 		Product p = service.create(product);
 		return new ResponseEntity<>(p, HttpStatus.CREATED);
