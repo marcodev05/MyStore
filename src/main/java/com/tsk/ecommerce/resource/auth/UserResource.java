@@ -18,6 +18,7 @@ import com.tsk.ecommerce.model.AuthRequest;
 import com.tsk.ecommerce.model.AuthResponse;
 import com.tsk.ecommerce.service.user.UserService;
 
+import io.jsonwebtoken.security.InvalidKeyException;
 import io.swagger.v3.oas.annotations.Operation;
 
 @CrossOrigin("*")
@@ -34,7 +35,7 @@ public class UserResource {
 	JwtProvider jwtProvider;
 	
 	@Operation(summary = "Add a new user admin")
-	@PostMapping(ADMIN + "/register")
+	@PostMapping(PUBLIC + "/register")
 	public ResponseEntity<String> registerUser(@Valid @RequestBody UserEntity userEntity) throws IOException{		
 		UserEntity u = userService.register(userEntity);
 		return new ResponseEntity<>("Enregistrement réussi !", HttpStatus.CREATED);	
@@ -44,9 +45,9 @@ public class UserResource {
 	
 	@Operation(summary = "verify username and passord")
 	@PostMapping(PUBLIC + "/login")
-	public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest authRequest){		
+	public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest authRequest) throws InvalidKeyException, Exception{		
 		userService.getByUsernameAndPassword(authRequest.getUsername(), authRequest.getPassword());
-		String token = jwtProvider.generateToken(authRequest.getPassword());
+		String token = jwtProvider.generateToken(authRequest.getUsername());
 		AuthResponse response = new AuthResponse(token);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);	
 	}
