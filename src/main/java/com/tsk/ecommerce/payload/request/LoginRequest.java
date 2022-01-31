@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.model;
+package com.tsk.ecommerce.payload.request;
 
 
 import javax.validation.constraints.NotEmpty;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Builder
-public class AuthRequest {
+public class LoginRequest {
 
 	@NotEmpty
 	private String username;
@@ -18,7 +18,7 @@ public class AuthRequest {
 	private String password;
 	
 	
-	public AuthRequest(@NotEmpty String username, @NotEmpty String password) {
+	public LoginRequest(@NotEmpty String username, @NotEmpty String password) {
 		super();
 		this.username = username;
 		this.password = password;

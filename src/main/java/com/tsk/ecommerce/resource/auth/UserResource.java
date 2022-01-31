@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tsk.ecommerce.config.jwt.JwtProvider;
 import com.tsk.ecommerce.entities.auth.UserEntity;
-import com.tsk.ecommerce.model.AuthRequest;
-import com.tsk.ecommerce.model.AuthResponse;
+import com.tsk.ecommerce.payload.request.LoginRequest;
+import com.tsk.ecommerce.payload.request.SignUpRequest;
+import com.tsk.ecommerce.payload.response.LoginResponse;
 import com.tsk.ecommerce.service.user.UserService;
 
 import io.jsonwebtoken.security.InvalidKeyException;
@@ -36,8 +37,8 @@ public class UserResource {
 	
 	@Operation(summary = "Add a new user admin")
 	@PostMapping(PUBLIC + "/register")
-	public ResponseEntity<String> registerUser(@Valid @RequestBody UserEntity userEntity) throws IOException{		
-		UserEntity u = userService.register(userEntity);
+	public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpRequest request) throws IOException{		
+		UserEntity u = userService.register(request);
 		return new ResponseEntity<>("Enregistrement réussi !", HttpStatus.CREATED);	
 	}
 	
@@ -45,10 +46,11 @@ public class UserResource {
 	
 	@Operation(summary = "verify username and passord")
 	@PostMapping(PUBLIC + "/login")
-	public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest authRequest) throws InvalidKeyException, Exception{		
-		userService.getByUsernameAndPassword(authRequest.getUsername(), authRequest.getPassword());
-		String token = jwtProvider.generateToken(authRequest.getUsername());
-		AuthResponse response = new AuthResponse(token);
+	public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) throws InvalidKeyException, Exception{		
+		userService.getByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
+		String token = jwtProvider.generateToken(loginRequest.getUsername());
+		UserEntity usr = userService.getByUsername(loginRequest.getUsername());
+		LoginResponse response = new LoginResponse(token, usr.getRole().getName().toString());
 		return new ResponseEntity<>(response, HttpStatus.CREATED);	
 	}
 	

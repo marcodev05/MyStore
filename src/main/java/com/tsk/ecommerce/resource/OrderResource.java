@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tsk.ecommerce.entities.Orders;
-import com.tsk.ecommerce.model.NotificationMail;
-import com.tsk.ecommerce.model.OrderRequest;
+import com.tsk.ecommerce.payload.NotificationMail;
+import com.tsk.ecommerce.payload.OrderRequest;
 import com.tsk.ecommerce.service.orders.OrderService;
 import com.tsk.ecommerce.utils.email.NotificationService;
 

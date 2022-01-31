@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tsk.ecommerce.entities.Customer;
-import com.tsk.ecommerce.model.NotificationMail;
+import com.tsk.ecommerce.payload.NotificationMail;
 import com.tsk.ecommerce.service.customer.CustomerService;
 import com.tsk.ecommerce.utils.email.NotificationService;
 

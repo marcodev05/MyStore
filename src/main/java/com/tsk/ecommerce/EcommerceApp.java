@@ -13,9 +13,10 @@ import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
+import com.tsk.ecommerce.entities.auth.ERole;
 import com.tsk.ecommerce.entities.auth.RoleEntity;
 import com.tsk.ecommerce.entities.auth.UserEntity;
-import com.tsk.ecommerce.model.OrderlineRequest;
+import com.tsk.ecommerce.payload.OrderlineRequest;
 import com.tsk.ecommerce.repository.PictureRepository;
 import com.tsk.ecommerce.repository.RoleEntityRepository;
 import com.tsk.ecommerce.service.address.AddressService;
@@ -68,12 +69,14 @@ public class EcommerceApp implements CommandLineRunner {
 		/*
 		 * compte user
 		 */
-		RoleEntity r1 = new RoleEntity ("ROLE_ADMIN");
-		RoleEntity r2 = new RoleEntity ("ROLE_USER");
+		RoleEntity r1 = new RoleEntity (ERole.ROLE_ADMIN);
+		RoleEntity r2 = new RoleEntity (ERole.ROLE_VENDOR);
+		RoleEntity r3 = new RoleEntity (ERole.ROLE_USER);
 		roleEntityRepository.save(r1);
 		roleEntityRepository.save(r2);
+		roleEntityRepository.save(r3);
 		
-		userService.register(new UserEntity("root", "root", "root@gmail.com"));
+		//userService.register(new UserEntity("root", "root", "root@gmail.com"));
 		
 		
 		

@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-import com.tsk.ecommerce.model.SmsRequest;
+import com.tsk.ecommerce.payload.SmsRequest;
 import com.tsk.ecommerce.utils.sms.SmsSender;
 
 @RestController

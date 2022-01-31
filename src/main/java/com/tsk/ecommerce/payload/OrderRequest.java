@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.model;
+package com.tsk.ecommerce.payload;
 
 import java.util.List;
 

@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tsk.ecommerce.entities.Orders;
-import com.tsk.ecommerce.model.NotificationMail;
+import com.tsk.ecommerce.payload.NotificationMail;
 
 
 @Service
