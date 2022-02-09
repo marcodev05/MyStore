@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>Email notification</title>
 	</head>
 	
 	<body>
@@ -12,18 +12,18 @@
 			<p>A la date du <span th:text="${date}"></span>, Vous avez passé commande sur notre site, tels que: </p>
 			
 			<ul> 
-				<li  th:each="orderLine : ${orderLines}"> <b><span th:text="${orderLine.product.nameProduct}"></span></b>  :  <span style="color: green" th:text="${orderLine.quantity}"></span> x <span th:text="${orderLine.product.price}"></span> Ar </li>
+				<li  th:each="orderLine : ${order.orderLines}"> <b><span th:text="${orderLine.product.nameProduct}"></span></b>  :  <span style="color: green" th:text="${orderLine.quantity}"></span> x <span th:text="${orderLine.product.price}"></span> Ar </li>
 			</ul>
 			
 			<p>Votre commande a bien été prise en compte. Elle sera acheminée par <span style="color: red" > "Colis Express" </span>  à l'adresse suivante :</p>
 			
-			<p style="text-align: center "> -- <b><span th:text="${nameClient}"></span> </b> --</p>
-			<p style="text-align: center "> <b> Lot : <span th:text="${address.lot}"></span> - <span th:text="${address.city}"></span> </b> </p>	
+			<p style="text-align: center "> -- <b><span th:text="${order.customer.firstName}"> </span> <span th:text="${order.customer.lastName}"> </span> </b> --</p>
+			<p style="text-align: center "> <b> Lot : <span th:text="${order.customer.addr1}"></span> - <span th:text="${order.customer.addr2}"></span> </b> </p>	
 			
 			
 			<p>
-				<span th:if="${address.city.toLowerCase == 'fianarantsoa'}">Votre colis devrais vous parvenir sous délai de  24h</span>
-	   			<span th:unless="${address.city.toLowerCase == 'fianarantsoa'}">Votre colis devrais vous parvenir sous délai de 3 jours</span>
+				<span th:if="${order.customer.city.toLowerCase == 'fianarantsoa'}">Votre colis devrais vous parvenir sous délai de  24h</span>
+	   			<span th:unless="${order.customer.city.toLowerCase == 'fianarantsoa'}">Votre colis devrais vous parvenir sous délai de 3 jours</span>
 			</p>	
 			
 			<p>La boutique <b style="color: green; font-size: 18px">  E-varotra Antarandolo</b> vous remercie de votre confiance </p>	

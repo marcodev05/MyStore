@@ -1,6 +1,5 @@
 package com.tsk.ecommerce.utils.email;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -11,7 +10,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.tsk.ecommerce.entities.Orders;
-import com.tsk.ecommerce.payload.NotificationMail;
 
 
 @Service
@@ -36,9 +34,9 @@ public class NotificationService {
 			messageHelper.setTo(orders.getCustomer().getEmail());
 			messageHelper.setSubject("Confirmation de l'envoie d'une commande");
 			
-			String name = orders.getCustomer().getFirstName() + " " + orders.getCustomer().getLastName();
+			//String name = orders.getCustomer().getFirstName() + " " + orders.getCustomer().getLastName();
 			//String html2 = mailContent.build(notifMail.getClientName(), notifMail.getNumCommand(), null, notifMail.getAddress());
-			String html = mailContent.build(name, orders.getIdOrder(), orders.getPannier().getOrderLines(),orders.getCustomer().getAddress());
+			String html = mailContent.build(orders);
 			messageHelper.setText(html, true);
 			
 		};

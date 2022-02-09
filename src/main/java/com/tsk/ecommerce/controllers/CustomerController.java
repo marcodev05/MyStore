@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.resource;
+package com.tsk.ecommerce.controllers;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tsk.ecommerce.dto.NotificationMail;
 import com.tsk.ecommerce.entities.Customer;
-import com.tsk.ecommerce.payload.NotificationMail;
 import com.tsk.ecommerce.service.customer.CustomerService;
 import com.tsk.ecommerce.utils.email.NotificationService;
 
@@ -29,7 +29,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @CrossOrigin
 @RestController
-public class CustomerResource {
+public class CustomerController {
 	
 	private static final String ADMIN = "/admin/v1/customers";
 	private static final String PUBLIC = "/api/v1/customers";

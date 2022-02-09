@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.payload.request;
+package com.tsk.ecommerce.dto.request;
 
 
 import javax.validation.constraints.Email;

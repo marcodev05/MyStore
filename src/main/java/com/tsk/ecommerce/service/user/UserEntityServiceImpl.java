@@ -7,12 +7,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tsk.ecommerce.dto.request.SignUpRequest;
 import com.tsk.ecommerce.entities.auth.ERole;
 import com.tsk.ecommerce.entities.auth.RoleEntity;
 import com.tsk.ecommerce.entities.auth.UserEntity;
 import com.tsk.ecommerce.exception.ForbiddenException;
 import com.tsk.ecommerce.exception.ResourceNotFoundException;
-import com.tsk.ecommerce.payload.request.SignUpRequest;
 import com.tsk.ecommerce.repository.RoleEntityRepository;
 import com.tsk.ecommerce.repository.UserEntityRepository;
 import com.tsk.ecommerce.exception.FormatDataInvalidException;

@@ -7,13 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tsk.ecommerce.entities.Address;
 import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.exception.ResourceNotFoundException;
 import com.tsk.ecommerce.repository.CustomerRepository;
-import com.tsk.ecommerce.service.address.AddressService;
 import com.tsk.ecommerce.exception.FormatDataInvalidException;
 import com.tsk.ecommerce.utils.email.EmailUtil;
+
 
 @Service
 @Transactional
@@ -22,29 +21,23 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	CustomerRepository customerRepository;
 	
-	@Autowired
-	AddressService addressService;
-	
-	
 	
 	@Override
 	public Customer create(Customer customer) throws IOException {
 		Customer c = new Customer();
+		
 		if (EmailUtil.isEmailFormat(customer.getEmail())) {
 				c.setEmail(customer.getEmail());	
 		} else
 			throw new FormatDataInvalidException("Email invalid !");
 
-		
-		if (customer.getAddress() != null) {
-			Address addr = addressService.create(customer.getAddress());
-			c.setAddress(addr);
-		} else
-			throw new FormatDataInvalidException(" L'adresse est vide !");
-
 		c.setFirstName(customer.getFirstName());
 		c.setLastName(customer.getLastName());
 		c.setPhone(customer.getPhone());
+		
+		c.setAddr1(customer.getAddr1());
+		c.setAddr2(customer.getAddr2());
+		c.setCity(customer.getCity());
 
 		return customerRepository.save(c);
 	}
@@ -61,12 +54,6 @@ public class CustomerServiceImpl implements CustomerService {
 			c.setEmail(customer.getEmail());
 		} else
 			throw new FormatDataInvalidException("Email invalid !");
-
-		if (customer.getAddress() != null) {
-			Address addr = addressService.create(customer.getAddress());
-			c.setAddress(addr);
-		} else
-			throw new FormatDataInvalidException(" L'adresse est vide !");
 
 		c.setFirstName(customer.getFirstName());
 		c.setLastName(customer.getLastName());

@@ -2,8 +2,8 @@ package com.tsk.ecommerce.service.user;
 
 import java.io.IOException;
 
+import com.tsk.ecommerce.dto.request.SignUpRequest;
 import com.tsk.ecommerce.entities.auth.UserEntity;
-import com.tsk.ecommerce.payload.request.SignUpRequest;
 
 public interface UserService {
 	

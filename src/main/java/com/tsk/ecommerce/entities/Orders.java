@@ -32,26 +32,23 @@ public class Orders implements Serializable {
 	private Boolean payed;
 	private Boolean delivered;
 	
-	@NotBlank(message = "L'identité du client est obligatoire")
 	@ManyToOne
 	@JoinColumn(name = "customer")
 	private Customer customer;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private Pannier pannier;
+	@OneToMany(mappedBy = "order")
+	private Collection<OrderLine> orderLines;
 	
-
+	
 	public Orders() {
 		super();
 	}
 
-	
-	public Orders(Customer customer, Pannier pannier) {
+	public Orders(Customer customer, Collection<OrderLine> orderLines) {
 		super();
 		this.customer = customer;
-		this.pannier = pannier;
+		this.orderLines = orderLines;
 	}
-
 
 
 	public Long getIdOrder() {
@@ -90,17 +87,6 @@ public class Orders implements Serializable {
 		this.customer = customer;
 	}
 
-
-	public Pannier getPannier() {
-		return pannier;
-	}
-
-
-	public void setPannier(Pannier pannier) {
-		this.pannier = pannier;
-	}
-
-
 	public Boolean getPayed() {
 		return payed;
 	}
@@ -129,14 +115,24 @@ public class Orders implements Serializable {
 	public void setCostDelivery(Double costDelivery) {
 		this.costDelivery = costDelivery;
 	}
+	
 
+	public Collection<OrderLine> getOrderLines() {
+		return orderLines;
+	}
+
+	public void setOrderLines(Collection<OrderLine> orderLines) {
+		this.orderLines = orderLines;
+	}
 
 	@Override
 	public String toString() {
-		return "Orders [idOrder=" + idOrder + ", total=" + total + ", createdAt="
-				+ createdAt + ", costDelivery=" + costDelivery + ", payed=" + payed + ", delivered=" + delivered
-				+ ", customer=" + customer + ", pannier=" + pannier + "]";
+		return "Orders [idOrder=" + idOrder + ", total=" + total + ", createdAt=" + createdAt + ", costDelivery="
+				+ costDelivery + ", payed=" + payed + ", delivered=" + delivered + ", customer=" + customer + "]";
 	}
+
+
+
 	
 	
 	

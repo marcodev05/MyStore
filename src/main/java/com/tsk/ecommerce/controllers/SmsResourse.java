@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.resource;
+package com.tsk.ecommerce.controllers;
 
 import javax.validation.Valid;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tsk.ecommerce.payload.SmsRequest;
+import com.tsk.ecommerce.dto.SmsRequest;
 import com.tsk.ecommerce.utils.sms.SmsSender;
 
 @RestController

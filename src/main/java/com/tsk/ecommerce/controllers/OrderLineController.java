@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.resource;
+package com.tsk.ecommerce.controllers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +25,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @CrossOrigin
 @RestController
-public class OrderLineResourse {
+public class OrderLineController {
 	
 	private static final String PUBLIC = "/api/v1/orderlines";
 	

@@ -21,36 +21,36 @@ public class OrderLine implements Serializable {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idOrderLine;
 	private Integer quantity;
-	private Double total;
+	private Double subTotal;
 	
 	@ManyToOne
 	@JoinColumn(name = "product")
 	private Product product;
 	
-	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "pannier")
-	private Pannier pannier;
+	@JoinColumn(name = "id_order")
+	private Orders order;
 
 	public OrderLine() {
 		super();
 	}
 
 
-
-
-
-
-	public OrderLine(Integer quantity, Product product, Pannier pannier) {
+	public OrderLine(Integer quantity, Product product) {
 		super();
 		this.quantity = quantity;
 		this.product = product;
-		this.pannier = pannier;
 	}
 
 
+	public Double getSubTotal() {
+		return subTotal;
+	}
 
 
+	public void setSubTotal(Double subTotal) {
+		this.subTotal = subTotal;
+	}
 
 
 	public Long getIdOrderLine() {
@@ -69,13 +69,6 @@ public class OrderLine implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public Double getTotal() {
-		return total;
-	}
-
-	public void setTotal(Double total) {
-		this.total = total;
-	}
 
 	public Product getProduct() {
 		return product;
@@ -85,24 +78,13 @@ public class OrderLine implements Serializable {
 		this.product = product;
 	}
 
-	public Pannier getPannier() {
-		return pannier;
-	}
-
-	public void setPannier(Pannier pannier) {
-		this.pannier = pannier;
-	}
-
 
 	@Override
 	public String toString() {
-		return "OrderLine [idOrderLine=" + idOrderLine + ", quantity=" + quantity + ", total=" + total + ", product="
+		return "OrderLine [idOrderLine=" + idOrderLine + ", quantity=" + quantity + ", total=" + subTotal + ", product="
 				+ product + "]";
 	}
 	
 	
-	
-
-
 	
 }

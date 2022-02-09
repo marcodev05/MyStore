@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.resource;
+package com.tsk.ecommerce.controllers;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin("*")
 @RestController
-public class CatalogueResource {
+public class CatalogueController {
 	
 	
 	@Autowired

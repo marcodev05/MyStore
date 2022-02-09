@@ -1,25 +1,20 @@
 package com.tsk.ecommerce;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.tsk.ecommerce.entities.Address;
+
 import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.entities.auth.ERole;
 import com.tsk.ecommerce.entities.auth.RoleEntity;
-import com.tsk.ecommerce.entities.auth.UserEntity;
-import com.tsk.ecommerce.payload.OrderlineRequest;
 import com.tsk.ecommerce.repository.PictureRepository;
 import com.tsk.ecommerce.repository.RoleEntityRepository;
-import com.tsk.ecommerce.service.address.AddressService;
 import com.tsk.ecommerce.service.category.CategoryService;
 import com.tsk.ecommerce.service.customer.CustomerService;
 import com.tsk.ecommerce.service.orders.OrderService;
@@ -46,8 +41,6 @@ public class EcommerceApp implements CommandLineRunner {
 	@Autowired
 	CategoryService categoryService;
 	
-	@Autowired
-	AddressService addressService;
 	
 	@Autowired
 	CustomerService customerService;
@@ -87,15 +80,14 @@ public class EcommerceApp implements CommandLineRunner {
 		Picture pic = new Picture("https://images.unsplash.com/photo-1527814050087-3793815479db?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1528&q=80",prod1);
 		pictureRepo.save(pic);
 		
-		Address addr1 = new Address("Lot 127 A1/ 3283 Ambatomena", null, "manakara");
-		Customer customer1 = new Customer("RAINIBE", "Jean", "r_jean56@gmail.com", "032 08 802 58", null);
+		//Customer customer1 = new Customer("RAINIBE", "Jean", "r_jean56@gmail.com", "032 08 802 58", "Lot 127 A1/ 3283 Ambatomena", null, "manakara");
 		//customerService.create(customer1);
 		
-		OrderlineRequest line = new OrderlineRequest(prod1, 7);
-		OrderlineRequest line2 = new OrderlineRequest(prod2, 1);
-		List<OrderlineRequest> lines = new ArrayList<OrderlineRequest>();
-		lines.add(line);
-		lines.add(line2);
+//		OrderlineRequest line = new OrderlineRequest(prod1, 7);
+//		OrderlineRequest line2 = new OrderlineRequest(prod2, 1);
+//		List<OrderlineRequest> lines = new ArrayList<OrderlineRequest>();
+//		lines.add(line);
+//		lines.add(line2);
 		
 		//OrderRequest ordRequest = new OrderRequest("commande divers", customer1.getFirstName(), customer1.getLastName(), customer1.getEmail(), customer1.getPhone(), addr1.getLot(), addr1.getAddrPlus(), addr1.getCity(), lines);
 		//System.out.println(orderService.create(ordRequest));

@@ -24,6 +24,8 @@ import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 
 @Entity
@@ -31,17 +33,22 @@ public class Product implements Serializable{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idProduct;
-	@NotBlank(message = "le nom du produie est obligatoire")
+	
+	@NotBlank(message = "le nom du produit est obligatoire")
 	private String nameProduct;
+	
 	@NotBlank(message = "Ce champs est obligatoire")
 	private String description;
+	
 	@NotBlank(message = "Le prix est obligatoire")
 	@Column(nullable = false)
 	private Double price;
 	
 	@Column(nullable = false)
 	private Integer stock;
+	
 	private Boolean available;
+	
 	private Boolean selected;
 	
 	@CreatedDate
@@ -58,7 +65,7 @@ public class Product implements Serializable{
 	@JoinColumn(name = "category")
 	private Category category;
 	
-	@JsonBackReference
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@OneToMany(mappedBy = "product")
 	private Collection<OrderLine> orderLines;
 	

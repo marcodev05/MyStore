@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.payload.response;
+package com.tsk.ecommerce.dto.response;
 
 public class LoginResponse {
 	

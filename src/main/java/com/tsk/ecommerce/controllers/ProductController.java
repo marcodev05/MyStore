@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.resource;
+package com.tsk.ecommerce.controllers;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @CrossOrigin("*")
 @RestController
-public class ProductResource  {
+public class ProductController  {
 	
 	private static final String ADMIN = "/admin/v1/products";
 	private static final String PUBLIC = "/api/v1/products";

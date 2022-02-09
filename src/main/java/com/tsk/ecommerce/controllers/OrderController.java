@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.resource;
+package com.tsk.ecommerce.controllers;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,21 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tsk.ecommerce.dto.request.OrderRequest;
 import com.tsk.ecommerce.entities.Orders;
-import com.tsk.ecommerce.payload.NotificationMail;
-import com.tsk.ecommerce.payload.OrderRequest;
 import com.tsk.ecommerce.service.orders.OrderService;
 import com.tsk.ecommerce.utils.email.NotificationService;
 
@@ -35,7 +31,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @CrossOrigin("*")
 @RestController
 @Transactional
-public class OrderResource {
+public class OrderController {
 	
 	private static final String ADMIN = "/admin/v1/orders";
 	private static final String PUBLIC = "/api/v1/orders";
@@ -56,9 +52,9 @@ public class OrderResource {
 	@Operation(summary = "Add a new Orders")
 	@ApiResponse(responseCode = "201", description = "Order is created")
 	@PostMapping(PUBLIC + "/add")
-	public ResponseEntity<Orders> createOrder(@RequestBody OrderRequest orderRequest) throws IOException {
+	public ResponseEntity<Orders> createOrder(@RequestBody @Valid OrderRequest orderRequest) throws IOException {
 		Orders ord = service.create(orderRequest);
-		notificationService.sendNotification(ord);
+		//notificationService.sendNotification(ord);
 
 		return new ResponseEntity<>(ord, HttpStatus.CREATED);
 	}
@@ -87,12 +83,12 @@ public class OrderResource {
 	
 	
 	
-	@Operation(summary = "Update an Order by id")
-	@PutMapping(PUBLIC + "/update/{id}")
-	public ResponseEntity<Orders> updateOrders(@PathVariable("id") Long id, @RequestBody Orders Orders) {
-		Orders c = service.update(id, Orders);
-		return new ResponseEntity<>(c, HttpStatus.OK);
-	}
+//	@Operation(summary = "Update an Order by id")
+//	@PutMapping(PUBLIC + "/update/{id}")
+//	public ResponseEntity<Orders> updateOrders(@PathVariable("id") Long id, @RequestBody Orders Orders) {
+//		Orders c = service.update(id, Orders);
+//		return new ResponseEntity<>(c, HttpStatus.OK);
+//	}
 	
 	
 	

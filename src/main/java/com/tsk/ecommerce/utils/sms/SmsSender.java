@@ -1,6 +1,6 @@
 package com.tsk.ecommerce.utils.sms;
 
-import com.tsk.ecommerce.payload.SmsRequest;
+import com.tsk.ecommerce.dto.SmsRequest;
 
 public interface SmsSender {
 	

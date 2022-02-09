@@ -6,13 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tsk.ecommerce.entities.OrderLine;
-import com.tsk.ecommerce.entities.Pannier;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exception.ResourceNotFoundException;
 import com.tsk.ecommerce.repository.OrderLineRepository;
 import com.tsk.ecommerce.repository.ProductRepository;
 import com.tsk.ecommerce.exception.FormatDataInvalidException;
-import com.tsk.ecommerce.service.pannier.PannierService;
 import com.tsk.ecommerce.service.product.ProductService;
 
 @Service
@@ -24,9 +22,6 @@ public class OrderLineServiceImpl implements OrderLineService {
 	
 	@Autowired
 	ProductService productService;
-	
-	@Autowired
-	PannierService pannierService;
 	
 	@Autowired
 	ProductRepository productRepository;
@@ -47,8 +42,8 @@ public class OrderLineServiceImpl implements OrderLineService {
 				if (p.getStock() >= orderLine.getQuantity()) {
 
 					Integer orderQty = orderLine.getQuantity();
-					Double total = pu * orderQty;
-					ordln.setTotal(total);
+					Double subtotal = pu * orderQty;
+					ordln.setSubTotal(subtotal);
 
 //					Integer restStock = p.getStock() - orderLine.getQuantity();
 //					p.setStock(restStock);
@@ -65,11 +60,6 @@ public class OrderLineServiceImpl implements OrderLineService {
 		} else
 			throw new FormatDataInvalidException(" Il faut préciser le produit!");
 
-		if (orderLine.getPannier() != null) {
-			Pannier pan = pannierService.getPannierById(orderLine.getPannier().getIdPannier());
-			ordln.setPannier(pan);
-		} else
-			throw new FormatDataInvalidException(" Il faut préciser le panier!");
 
 		return orderLineRepository.save(ordln);
 	}

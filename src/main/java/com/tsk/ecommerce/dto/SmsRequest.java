@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.payload;
+package com.tsk.ecommerce.dto;
 
 import javax.validation.constraints.NotBlank;
 

@@ -7,34 +7,40 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 public class Customer implements Serializable {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idCustomer;
+	
 	@NotBlank(message = "Votre nom est obligatoire")
 	private String firstName;
+	
 	private String lastName;
 	
 	@Email
 	@NotBlank(message = "email ne doit pas être vide")
 	private String email;
+	
 	private String phone;
 	
-	@ManyToOne
-	@JoinColumn(name = "address")
-	private Address address;
+	@NotBlank(message = "Ce champs ne doit pas être vide")
+	private String addr1;
+	
+	
+	private String addr2;
+	
+	@NotBlank(message = "Ce champs est obligatoire")
+	@NotNull
+	private String city;
+	
 	
 
 	@JsonIgnore
@@ -45,14 +51,21 @@ public class Customer implements Serializable {
 		super();
 	}
 
-	public Customer(String firstName, String lastName, String email, String phone, Address address) {
+
+	public Customer(@NotBlank(message = "Votre nom est obligatoire") String firstName, String lastName,
+			@Email @NotBlank(message = "email ne doit pas être vide") String email, String phone,
+			@NotBlank(message = "Ce champs ne doit pas être vide") String addr1, String addr2,
+			@NotBlank(message = "Ce champs est obligatoire") @NotNull String city) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phone = phone;
-		this.address = address;
+		this.addr1 = addr1;
+		this.addr2 = addr2;
+		this.city = city;
 	}
+
 
 	public Long getIdCustomer() {
 		return idCustomer;
@@ -94,21 +107,42 @@ public class Customer implements Serializable {
 		this.phone = phone;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-
 	public Collection<Orders> getOrders() {
 		return orders;
 	}
 
 	public void setOrders(Collection<Orders> orders) {
 		this.orders = orders;
+	}
+
+
+	public String getAddr1() {
+		return addr1;
+	}
+
+
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+
+
+	public String getAddr2() {
+		return addr2;
+	}
+
+
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
+	}
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 

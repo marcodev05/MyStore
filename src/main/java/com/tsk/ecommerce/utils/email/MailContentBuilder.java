@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.tsk.ecommerce.entities.Address;
+import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.entities.OrderLine;
+import com.tsk.ecommerce.entities.Orders;
 
 @Component
 @Service
@@ -29,15 +30,12 @@ public class MailContentBuilder {
 		super();
 	}
 
-	public String build(String nameClient, Long long1, Collection<OrderLine> orderLines, Address address) {
+	public String build(Orders order) {
 		
 		Context context = new Context();
 		
 		Map<String, Object> props = new HashMap<String, Object>();
-		props.put("nameClient", nameClient);
-		props.put("numCommand", long1);
-		props.put("address", address);
-		props.put("orderLines",orderLines);
+		props.put("order", order);
 		
 		String pattern = "dd-MM-yyyy HH:mm";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
