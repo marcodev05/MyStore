@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tsk.ecommerce.dto.request.ProductRequest;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.service.product.ProductService;
@@ -78,7 +79,7 @@ public class ProductController  {
 	@Operation(summary = "Add a new product")
 	@ApiResponse(responseCode = "201", description = "Product is created")
 	@RequestMapping(value= 	PUBLIC + "/add", method=RequestMethod.POST)
-	public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+	public ResponseEntity<Product> addProduct(@RequestBody ProductRequest product) {
 		Product p = service.create(product);
 		return new ResponseEntity<>(p, HttpStatus.CREATED);
 	}

@@ -34,7 +34,7 @@ public class Customer implements Serializable {
 	@NotBlank(message = "Ce champs ne doit pas être vide")
 	private String addr1;
 	
-	
+	 
 	private String addr2;
 	
 	@NotBlank(message = "Ce champs est obligatoire")

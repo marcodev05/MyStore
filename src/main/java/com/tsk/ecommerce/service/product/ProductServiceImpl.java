@@ -12,11 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tsk.ecommerce.dto.request.ProductRequest;
+import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.entities.OrderLine;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exception.ResourceNotFoundException;
 import com.tsk.ecommerce.repository.ProductRepository;
+import com.tsk.ecommerce.service.category.CategoryService;
 
 @Service
 @Transactional
@@ -25,21 +28,27 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductRepository productRepository;
 	
+	@Autowired
+	CategoryService categoryService;
+	
 	@Override
-	public Product create(Product product) {
+	public Product create(ProductRequest product) {
 		Product p = new Product();
 		p.setNameProduct(product.getNameProduct());
 		p.setDescription(product.getDescription());
 		p.setPrice(product.getPrice());
 		p.setStock(product.getStock());
-		p.setCategory(product.getCategory());
 		p.setAvailable(true);
 		p.setSelected(false);
 		p.setCreatedAt(Date.from(Instant.now()));
 		
-		Random r = new Random();
-		Integer rate = r.nextInt(5) + 1; //[1 - 5[
-		p.setRating(rate);
+		Category c = categoryService.getCategoryById(product.getIdCategory());
+		p.setCategory(c);
+		
+//		Random r = new Random();
+//		Integer rate = r.nextInt(5) + 1; //[1 - 5[
+//		p.setRating(rate);
+		
 		List<Picture> pictures = new ArrayList<Picture>();
 		p.setPictures(pictures);
 
@@ -120,8 +129,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 
-	
-	
 	
 	@Override
 	public void reduceQtyByOrderLine(OrderLine orderLine) {
