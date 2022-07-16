@@ -16,8 +16,8 @@ import com.tsk.ecommerce.entities.Orders;
 public class NotificationService {
 	
 	private static final String MAIL_SHOP = "maminiainamarco@gmail.com";
-	@Autowired
-	private JavaMailSender javaMailSender;
+	//@Autowired
+	//private JavaMailSender javaMailSender;
 	
 	@Autowired
 	private MailContentBuilder mailContent;
@@ -41,7 +41,7 @@ public class NotificationService {
 			
 		};
 		
-		javaMailSender.send(messagePreparator);
+		//javaMailSender.send(messagePreparator);
 		
 		try {
 			
