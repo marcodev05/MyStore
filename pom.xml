@@ -20,8 +20,7 @@
 	
 	<dependencies>
 	
-	 <!-- JPA && WEB DEPENDANCE  -->
-	
+	 <!-- WEB DEPENDENCY	  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -35,44 +34,31 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		
-		<!-- DATABASE DEPENDANCE -->
-		
+		<!-- DATABASE DEPENDENCY-->
 		 <dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
-		</dependency> 
-		
-		
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- MESSAGE DEPENDENCY  -->
 		 <dependency>
 		    <groupId>com.twilio.sdk</groupId>
 		    <artifactId>twilio</artifactId>
 		    <version>8.19.1</version>
-		</dependency> 
-		<!-- EMAIL DEPENDANCE  -->
+		</dependency>
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-mail</artifactId>
 		    <version>2.3.4.RELEASE</version>
 		</dependency>
-		
-<!-- 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>  -->
-		
 
-	
-		
-		<!-- DOCUMENTATION API DEPENDANCE -->
-		
+		<!-- DOCUMENTATION DEPENDENCY -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
@@ -84,14 +70,7 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!--<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>  -->
-		
-		<!-- SECURITY DEPENDANCE -->
-		
+		<!-- SECURITY DEPENDENCY -->
 		<dependency>
   			<groupId>org.springframework.boot</groupId>
  			<artifactId>spring-boot-starter-security</artifactId>
@@ -107,14 +86,23 @@
 		    <artifactId>jjwt</artifactId>
 		    <version>0.9.1</version>
 		</dependency>
-		
-	
+		<!-- <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>  -->
+
+		<!-- DEVELOPMENT TOOLS DEPENDENCY -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<build>

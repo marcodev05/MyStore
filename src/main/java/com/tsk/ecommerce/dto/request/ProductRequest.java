@@ -5,7 +5,9 @@ import java.util.Collection;
 import javax.validation.constraints.NotBlank;
 
 import com.tsk.ecommerce.entities.Picture;
+import lombok.Data;
 
+@Data
 public class ProductRequest {
 
 	@NotBlank(message = "le nom du produit est obligatoire")
@@ -33,55 +35,5 @@ public class ProductRequest {
 		this.pictures = pictures;
 		this.idCategory = idCategory;
 	}
-
-	public String getNameProduct() {
-		return nameProduct;
-	}
-
-	public void setNameProduct(String nameProduct) {
-		this.nameProduct = nameProduct;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Double getPrice() {
-		return price;
-	}
-
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-
-	public Integer getStock() {
-		return stock;
-	}
-
-	public void setStock(Integer stock) {
-		this.stock = stock;
-	}
-
-	public Collection<Picture> getPictures() {
-		return pictures;
-	}
-
-	public void setPictures(Collection<Picture> pictures) {
-		this.pictures = pictures;
-	}
-
-	public Integer getIdCategory() {
-		return idCategory;
-	}
-
-	public void setIdCategory(Integer idCategory) {
-		this.idCategory = idCategory;
-	}
-	
-	
 	
 }

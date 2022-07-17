@@ -86,15 +86,20 @@ public class ProductController  {
 	
 	
 	
+
+
+	/************************** *********** *********************\
+	 * 							ADMIN ROUTES
+	 *************************************************************/
+
 	@Operation(summary = "Update a product by Id")
 	@PutMapping(ADMIN + "/update/{id}")
 	public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable("id") Long id ) {
 		Product p = service.update(id, product);
 		return new ResponseEntity<>(p, HttpStatus.OK);
 	}
-	
-	
-	
+
+
 	@Operation(summary = "Add to stock of product")
 	@PutMapping(ADMIN + "/addStock/{id}/{qty}")
 	public ResponseEntity<Product> addStockProduct( @PathVariable("id") Long id, @PathVariable("qty") Integer qty) {
@@ -102,10 +107,8 @@ public class ProductController  {
 		return new ResponseEntity<>(p, HttpStatus.OK);
 	}
 	
-	
-	
-	
-	
+
+
 	@Operation(summary = "Delete a product by Id")
 	@DeleteMapping(ADMIN + "/delete/{id}")
 	public Map<String, Boolean> deleteProduct(@PathVariable("id") Long id) {
