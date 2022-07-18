@@ -25,6 +25,8 @@ import com.tsk.ecommerce.service.product.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
+import javax.validation.Valid;
+
 @CrossOrigin("*")
 @RestController
 public class ProductController  {
@@ -79,7 +81,7 @@ public class ProductController  {
 	@Operation(summary = "Add a new product")
 	@ApiResponse(responseCode = "201", description = "Product is created")
 	@RequestMapping(value= 	PUBLIC + "/add", method=RequestMethod.POST)
-	public ResponseEntity<Product> addProduct(@RequestBody ProductRequest product) {
+	public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductRequest product) {
 		Product p = service.create(product);
 		return new ResponseEntity<>(p, HttpStatus.CREATED);
 	}

@@ -28,8 +28,7 @@ public class JwtFilter extends GenericFilterBean{
 	private CustomUserDetailsService customUserDetailsService;
 	
 	private static final String AUTHORIZATION = "Authorization";
-	
-	
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -45,11 +44,7 @@ public class JwtFilter extends GenericFilterBean{
 						new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
 			
 				SecurityContextHolder.getContext().setAuthentication(auth);
-				
-				
-				
 			}
-		
 			chain.doFilter(request, response);
 			
 		} catch (Exception e) {
@@ -58,18 +53,13 @@ public class JwtFilter extends GenericFilterBean{
 
 	}
 	
-	
-	
-	
+
 	public String getTokenFromRequest(HttpServletRequest request) {
-		
 		String bearer = request.getHeader(AUTHORIZATION);
 		if(StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")){
 			return bearer.substring(7);
 		}
-		
 		return null;
-		
 	}
 
 }
