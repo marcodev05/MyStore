@@ -73,12 +73,12 @@ public class EcommerceApp implements CommandLineRunner {
 		
 		
 		
-		Category c1 = categoryService.create(new Category("Materiel info", "outils et matériel informatique"));
-		Product prod1 = productService.create(new ProductRequest("souris","souris sans fils avec garanti 1mois", 5000.0, 12, null, c1.getIdCateg()));
-		Product prod2 = productService.create(new ProductRequest("Telephone nexus s6"," ram: 4go, memoire:32go ", 300000.0, 5, null, c1.getIdCateg()));
+		//Category c1 = categoryService.create(new Category("Materiel info", "outils et matériel informatique"));
+		//Product prod1 = productService.create(new ProductRequest("souris","souris sans fils avec garanti 1mois", 5000.0, 12, null, c1.getIdCateg()));
+		//Product prod2 = productService.create(new ProductRequest("Telephone nexus s6"," ram: 4go, memoire:32go ", 300000.0, 5, null, c1.getIdCateg()));
 		
-		Picture pic = new Picture("https://images.unsplash.com/photo-1527814050087-3793815479db?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1528&q=80",prod1);
-		pictureRepo.save(pic);
+		//Picture pic = new Picture("https://images.unsplash.com/photo-1527814050087-3793815479db?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1528&q=80",prod1);
+		//pictureRepo.save(pic);
 
 	}
 }

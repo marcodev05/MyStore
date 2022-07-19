@@ -36,14 +36,11 @@ public class Product implements Serializable{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idProduct;
-	
-	@NotBlank(message = "le nom du produit est obligatoire")
+
 	private String nameProduct;
-	
-	@NotBlank(message = "Ce champs est obligatoire")
+
 	private String description;
-	
-	@NotBlank(message = "Le prix est obligatoire")
+
 	@Column(nullable = false)
 	private Double price;
 	
