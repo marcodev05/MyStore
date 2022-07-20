@@ -1,10 +1,13 @@
 package com.tsk.ecommerce.service.product;
 
+import com.tsk.ecommerce.EcommerceApp;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -12,7 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest
 class ProductServiceTest {
 
@@ -30,15 +33,13 @@ class ProductServiceTest {
         product.setDescription("AZERTY alignment");
         product.setPrice(400.0);
         product.setStock(10);
-
         Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(product));
     }
 
     @Test
     public void whenProductIdExist_then_productFound(){
         Long id = 1L;
-        Product found = productService.getProductById(id);
-
+        Product found = productService.getProductById(1L);
         assertEquals(id, found.getIdProduct());
     }
 }

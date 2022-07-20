@@ -1,59 +1,41 @@
 package com.tsk.ecommerce.repository;
 
 import com.tsk.ecommerce.entities.Product;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJdbcTest
+@DataJpaTest
 class ProductRepositoryTest {
 
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private TestEntityManager testEntityManager;
-
     @BeforeEach
     void setUp() {
-        Product product = new Product();
-        product.setIdProduct(1L);
-        product.setNameProduct("KeyBoard");
-        product.setDescription("AZERTY alignment");
-        product.setPrice(400.0);
-        product.setStock(10);
-
-        testEntityManager.persist(product);
+        Product inputProduct = new Product();
+        inputProduct.setNameProduct("KeyBoard");
+        inputProduct.setDescription("AZERTY alignment");
+        inputProduct.setPrice(400.0);
+        inputProduct.setStock(10);
+        productRepository.save(inputProduct);
     }
 
-
-    @Test
-    public void repoTest(){
-
-        assertTrue(true);
+    @AfterEach
+    void tearDown() {
+        productRepository.deleteAll();
     }
 
     @Test
     public void whenFindByName_thenReturnProducts(){
-        Optional<List<Product>> products = productRepository.findByNameProductContains("KeyBoard");
-        assertTrue(products.isPresent());
+       List<Product> products = productRepository.findByNameProductContains("KeyBoard").get();
+        assertTrue(products.size() > 0);
     }
-
-    @Test
-    @Disabled
-    public void whenFindById_thenReturnProducts(){
-        productRepository.findById(1L).get();
-    }
-
 
 }

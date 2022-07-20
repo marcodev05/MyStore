@@ -26,27 +26,27 @@ import com.tsk.ecommerce.service.user.UserService;
 @SpringBootApplication
 public class EcommerceApp implements CommandLineRunner {
 	
-	@Autowired
-	RoleEntityRepository roleEntityRepository;
+	//@Autowired
+	//RoleEntityRepository roleEntityRepository;
 	
-	@Autowired
-	OrderService orderService;
+	//@Autowired
+	//OrderService orderService;
 	
-	@Autowired
-	PictureRepository pictureRepo;
+	//@Autowired
+	//PictureRepository pictureRepo;
 	
-	@Autowired
-	ProductService productService;
+	//@Autowired
+	//ProductService productService;
 	
-	@Autowired
-	CategoryService categoryService;
+	//@Autowired
+	//CategoryService categoryService;
 	
 	
-	@Autowired
-	CustomerService customerService;
+	//@Autowired
+	//CustomerService customerService;
 	
-	@Autowired
-	UserService userService;
+	//@Autowired
+	//UserService userService;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -65,9 +65,9 @@ public class EcommerceApp implements CommandLineRunner {
 		RoleEntity r1 = new RoleEntity (ERole.ROLE_ADMIN);
 		RoleEntity r2 = new RoleEntity (ERole.ROLE_VENDOR);
 		RoleEntity r3 = new RoleEntity (ERole.ROLE_USER);
-		roleEntityRepository.save(r1);
-		roleEntityRepository.save(r2);
-		roleEntityRepository.save(r3);
+		//roleEntityRepository.save(r1);
+		//roleEntityRepository.save(r2);
+		//roleEntityRepository.save(r3);
 		
 		//userService.register(new UserEntity("root", "root1234", "root@gmail.com"));
 		
