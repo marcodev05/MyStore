@@ -15,11 +15,11 @@ spring:
         username: marco
         password: 1234
         url: jdbc:postgresql://localhost:5432/ventedb
-        schema: classpath:/migration.sql
+#       schema: classpath:/data.sql
     jpa:
         show-sql: 'true'
         hibernate:
-            ddl-auto: create
+            ddl-auto: update
     servlet:
         multipart:
             enabled: 'true'

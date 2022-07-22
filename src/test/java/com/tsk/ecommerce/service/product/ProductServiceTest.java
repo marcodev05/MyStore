@@ -1,7 +1,7 @@
 package com.tsk.ecommerce.service.product;
 
-import com.tsk.ecommerce.EcommerceApp;
 import com.tsk.ecommerce.entities.Product;
+import com.tsk.ecommerce.exception.ResourceNotFoundException;
 import com.tsk.ecommerce.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,6 +40,19 @@ class ProductServiceTest {
     public void whenProductIdExist_then_productFound(){
         Long id = 1L;
         Product found = productService.getProductById(1L);
+        Mockito.verify(productRepository).findById(1L);
+        assertNotNull(found);
         assertEquals(id, found.getIdProduct());
+    }
+
+    @Test
+    public void whenProductIdDoesNotExist_then_ResourceNotFoundException(){
+        Long id = 2L;
+        Exception exception = assertThrows(ResourceNotFoundException.class, ()->{
+            Product found = productService.getProductById(2L);
+        });
+        String expectedMessage = "Le produit est introuvable";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 }

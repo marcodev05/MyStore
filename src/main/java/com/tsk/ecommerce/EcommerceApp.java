@@ -63,7 +63,7 @@ public class EcommerceApp implements CommandLineRunner {
 		 * compte user
 		 */
 		RoleEntity r1 = new RoleEntity (ERole.ROLE_ADMIN);
-		RoleEntity r2 = new RoleEntity (ERole.ROLE_VENDOR);
+		RoleEntity r2 = new RoleEntity (ERole.ROLE_SELLER);
 		RoleEntity r3 = new RoleEntity (ERole.ROLE_USER);
 		//roleEntityRepository.save(r1);
 		//roleEntityRepository.save(r2);

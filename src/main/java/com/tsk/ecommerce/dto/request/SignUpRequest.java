@@ -8,18 +8,17 @@ import javax.validation.constraints.Size;
 public class SignUpRequest {
 	
 	  @NotBlank
-	  @Size(min = 3, max = 20)
+	  @Size(min = 3, max = 20, message = "username should have 3 letter in min and 20 letters in max")
 	  private String username;
 
 	  @NotBlank
-	  @Size(max = 50)
-	  @Email
+	  @Email(message = "invalid email")
 	  private String email;
 
 	  private String role;
 
 	  @NotBlank
-	  @Size(min = 6, max = 40)
+	  @Size(min = 6, max = 40, message = "password should have 3 letter in min and 20 letters in max")
 	  private String password;
 
 	public SignUpRequest(@NotBlank @Size(min = 3, max = 20) String username,

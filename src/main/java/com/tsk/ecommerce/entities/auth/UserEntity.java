@@ -1,16 +1,10 @@
 package com.tsk.ecommerce.entities.auth;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email"),
@@ -31,11 +25,15 @@ public class UserEntity {
 	private String firstName;
 	private String lastName;
 	
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private RoleEntity role;
-	
-
+	@ManyToMany
+	@JoinTable(
+			name = "users_roles",
+			joinColumns = @JoinColumn(
+					name = "user_id"),
+			inverseJoinColumns = @JoinColumn(
+					name = "role_id")
+	)
+	private Collection<RoleEntity> roles;
 
 
 	public UserEntity(@NotEmpty String username, @NotEmpty String password, @Email @NotEmpty String email) {
@@ -74,12 +72,12 @@ public class UserEntity {
 		this.password = password;
 	}
 
-	public RoleEntity getRole() {
-		return role;
+	public Collection<RoleEntity> getRoles() {
+		return roles;
 	}
 
-	public void setRole(RoleEntity role) {
-		this.role = role;
+	public void setRoles(Collection<RoleEntity> roles) {
+		this.roles = roles;
 	}
 
 	public String getEmail() {

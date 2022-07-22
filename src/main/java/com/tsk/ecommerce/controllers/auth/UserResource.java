@@ -1,6 +1,8 @@
 package com.tsk.ecommerce.controllers.auth;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -22,12 +24,12 @@ import com.tsk.ecommerce.service.user.UserService;
 import io.jsonwebtoken.security.InvalidKeyException;
 import io.swagger.v3.oas.annotations.Operation;
 
+import static com.tsk.ecommerce.utils.Constants.PUBLIC_URL;
+
 @CrossOrigin("*")
 @RestController
 public class UserResource {
-	
-	private static final String ADMIN = "/admin/v1";
-	private static final String PUBLIC = "/api/v1";
+
 	
 	@Autowired
 	UserService userService;
@@ -36,7 +38,7 @@ public class UserResource {
 	JwtProvider jwtProvider;
 	
 	@Operation(summary = "Add a new user admin")
-	@PostMapping(PUBLIC + "/register")
+	@PostMapping(PUBLIC_URL + "/register")
 	public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpRequest request) throws IOException{		
 		UserEntity u = userService.register(request);
 		return new ResponseEntity<>("Enregistrement réussi !", HttpStatus.CREATED);	
@@ -45,15 +47,16 @@ public class UserResource {
 	
 	
 	@Operation(summary = "verify username and passord")
-	@PostMapping(PUBLIC + "/login")
-	public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) throws InvalidKeyException, Exception{		
+	@PostMapping(PUBLIC_URL + "/login")
+	public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) throws InvalidKeyException, Exception {
 		userService.getByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
 		String token = jwtProvider.generateToken(loginRequest.getUsername());
 		UserEntity usr = userService.getByUsername(loginRequest.getUsername());
-		LoginResponse response = new LoginResponse(token, usr.getRole().getName().toString());
-		return new ResponseEntity<>(response, HttpStatus.CREATED);	
+		List<String> roles = usr.getRoles().stream()
+				.map((roleEntity) -> {
+					return roleEntity.getName().toString();
+				}).collect(Collectors.toList());
+		LoginResponse response = new LoginResponse(token, roles);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	
-	
-
 }

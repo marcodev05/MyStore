@@ -1,6 +1,7 @@
 package com.tsk.ecommerce.service.user;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +12,6 @@ import com.tsk.ecommerce.dto.request.SignUpRequest;
 import com.tsk.ecommerce.entities.auth.ERole;
 import com.tsk.ecommerce.entities.auth.RoleEntity;
 import com.tsk.ecommerce.entities.auth.UserEntity;
-import com.tsk.ecommerce.exception.ForbiddenException;
 import com.tsk.ecommerce.exception.ResourceNotFoundException;
 import com.tsk.ecommerce.repository.RoleEntityRepository;
 import com.tsk.ecommerce.repository.UserEntityRepository;
@@ -34,63 +34,48 @@ public class UserEntityServiceImpl implements UserService {
 	@Override
 	public UserEntity register(SignUpRequest request) throws IOException {
 		UserEntity newUser = new UserEntity();
-		
 		//String id = UUID.randomUUID().toString();
-	
-		
-		if(!this.isUsernameExist(request.getUsername())) {
+
+		if (!this.isUsernameExist(request.getUsername())) {
 			newUser.setUsername(request.getUsername());
-		}else throw new ForbiddenException("Ce nom d'utilisateur existe dejà !");
-		
+		} else throw new FormatDataInvalidException("already exist");
 		if (EmailUtil.isEmailFormat(request.getEmail())) {
-			
-			if (this.isEmailExist(request.getEmail()))
-				throw new FormatDataInvalidException("Ce email existe dejà !");
+			if (this.isEmailExist(request.getEmail())) throw new FormatDataInvalidException("Ce email existe dejà !");
 			else {
 				newUser.setEmail(request.getEmail());
 			}
-				
 		} else
 			throw new FormatDataInvalidException("Email format invalid !");
-		
-		
-		
 		newUser.setPassword(passWordEncoder.encode(request.getPassword()));
-		
-		if(request.getRole() == null || request.getRole().isEmpty()) {
+
+		if (request.getRole() == null || request.getRole().isEmpty()) {
 			RoleEntity role = roleRepository.findByName(ERole.ROLE_USER)
-											.orElseThrow(()-> new ResourceNotFoundException("role is not found.")); 
-			newUser.setRole(role);
-		}else {
-			
+					.orElseThrow(() -> new ResourceNotFoundException("role is not found."));
+			newUser.setRoles(Collections.singletonList(role));
+		} else {
 			 switch (request.getRole().toLowerCase()) {
 		        case "admin":
 		          RoleEntity adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
 		              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-		          newUser.setRole(adminRole);
+		          newUser.setRoles(Collections.singletonList(adminRole));
 		          break;
 		          
 		        case "vendor":
-		        	RoleEntity vendorRole = roleRepository.findByName(ERole.ROLE_VENDOR)
+		        	RoleEntity sellerRole = roleRepository.findByName(ERole.ROLE_SELLER)
 		              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-		        	newUser.setRole(vendorRole);
+					newUser.setRoles(Collections.singletonList(sellerRole));
 		          break;
 		          
 		        default:
 		        	RoleEntity userRole = roleRepository.findByName(ERole.ROLE_USER)
 		              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-		        	newUser.setRole(userRole);
+		        	newUser.setRoles(Collections.singletonList(userRole));
 		          break;
-		          
 		        }
-			
 		}
-		
 		return userRepository.save(newUser);
 	}
 
-	
-	
 
 	@Override
 	public UserEntity getByUsernameAndPassword(String username, String password) {	
@@ -98,7 +83,6 @@ public class UserEntityServiceImpl implements UserService {
 		if(passWordEncoder.matches(password, user.getPassword())) {
 			return user;
 		}else throw new ResourceNotFoundException("Echec d'authentification !");
-		
 	}
 
 	
@@ -108,7 +92,6 @@ public class UserEntityServiceImpl implements UserService {
 		return userRepository.findByUsername(username)
 								.orElseThrow(() -> new ResourceNotFoundException("Echec d'authentification !"));
 	}
-
 
 
 
