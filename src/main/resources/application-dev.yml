@@ -14,7 +14,7 @@ spring:
     servlet:
         multipart:
             enabled: 'true'
-            max-file-size: 50MB
+            max-file-size: 100MB
 twilio:
     account_sid: AC42eb71ec7d3ed278469d88a6380132f8
     auth_token: 6e8807d1a72316a69c007f819a95e5cf
