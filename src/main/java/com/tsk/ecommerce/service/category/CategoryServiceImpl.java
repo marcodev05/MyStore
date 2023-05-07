@@ -2,6 +2,7 @@ package com.tsk.ecommerce.service.category;
 
 import java.util.List;
 
+import com.tsk.ecommerce.dto.request.CategoryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
 	CategoryRepository categoryRepository;
 	
 	@Override
-	public Category create(Category category) {
+	public Category create(CategoryRequest category) {
 		Category c = new Category();
 		c.setName(category.getName());
 		c.setDescription(category.getDescription());

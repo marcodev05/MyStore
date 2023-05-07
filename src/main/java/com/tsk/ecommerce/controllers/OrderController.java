@@ -28,14 +28,13 @@ import com.tsk.ecommerce.utils.email.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
+import static com.tsk.ecommerce.utils.Constants.*;
+
 @CrossOrigin("*")
 @RestController
 @Transactional
 public class OrderController {
-	
-	private static final String ADMIN = "/admin/v1/orders";
-	private static final String PUBLIC = "/api/v1/orders";
-	
+
 	@Autowired
 	OrderService service;
 	
@@ -44,61 +43,60 @@ public class OrderController {
 	 
 	/**
 	 * Documentation path
-	 * 
-	 * http://localhost:8080/swagger-ui.html
-	 * @throws IOException 
-	 */ 
-	
-	@Operation(summary = "Add a new Orders")
+	 *
+	 * http://localhost:8081/swagger-ui.html
+	 */
+
+
+	/************************** *********** *********************\
+	 * 							USER ROUTES
+	 *************************************************************/
+
+	@Operation(summary = "Create a new Orders")
 	@ApiResponse(responseCode = "201", description = "Order is created")
-	@PostMapping(PUBLIC + "/add")
-	public ResponseEntity<Orders> createOrder(@RequestBody @Valid OrderRequest orderRequest) throws IOException {
+	@PostMapping(USER_URL + "/orders/add")
+	public ResponseEntity<Orders> createOrder(@Valid @RequestBody OrderRequest orderRequest) throws IOException {
 		Orders ord = service.create(orderRequest);
 		//notificationService.sendNotification(ord);
-
 		return new ResponseEntity<>(ord, HttpStatus.CREATED);
 	}
-	
-	
-	
-	
-	
-	@Operation(summary = "Get all new Order for admin notification")
-	@GetMapping(ADMIN + "/newOrders")
-	public ResponseEntity<List<Orders>> getAllNewOrders(){
-		List<Orders> orders = service.getAllNewCommands();
-		return new ResponseEntity<>(orders , HttpStatus.OK);
-	}
-	
-	
-	
-	
-	
-	@Operation(summary = "Get a Order by Id")
-	@GetMapping(ADMIN + "/{id}")
-	public ResponseEntity<Orders> getOrdersById(@PathVariable("id")Long id){
-		Orders ord = service.getOrdersById(id);
-		return new ResponseEntity<>(ord, HttpStatus.OK);
-	}
-	
-	
-	
-//	@Operation(summary = "Update an Order by id")
-//	@PutMapping(PUBLIC + "/update/{id}")
-//	public ResponseEntity<Orders> updateOrders(@PathVariable("id") Long id, @RequestBody Orders Orders) {
-//		Orders c = service.update(id, Orders);
-//		return new ResponseEntity<>(c, HttpStatus.OK);
-//	}
-	
-	
-	
-	@Operation(summary = "Delete an Order by Id")
-	@DeleteMapping(PUBLIC + "/delete/{id}")
+
+
+	@Operation(summary = "Delete my own Order by ID")
+	@DeleteMapping(USER_URL + "/orders/delete/{id}")
 	public Map<String, Boolean> deleteOrdersById(@PathVariable("id")Long id) {
 		service.deleteOrders(id);
 		Map<String, Boolean> response = new HashMap<String, Boolean>();
 		response.put("delete", Boolean.TRUE);
 		return response;
 	}
+
+
+	/************************** *********** *********************\
+	 * 							SELLER ROUTES
+	 *************************************************************/
+	
+
+	@Operation(summary = "Get all new Order for seller notification")
+	@GetMapping(SELLER_URL + "/orders/newOrders")
+	public ResponseEntity<List<Orders>> getAllNewOrders(){
+		List<Orders> orders = service.getAllNewCommands();
+		return new ResponseEntity<>(orders , HttpStatus.OK);
+	}
+	
+
+	@Operation(summary = "Get a Order by Id")
+	@GetMapping(SELLER_URL + "/orders/{id}")
+	public ResponseEntity<Orders> getOrdersById(@PathVariable("id")Long id){
+		Orders ord = service.getOrdersById(id);
+		return new ResponseEntity<>(ord, HttpStatus.OK);
+	}
+
+//	@Operation(summary = "Update an Order by id")
+//	@PutMapping(USER_URL + "/orders/update/{id}")
+//	public ResponseEntity<Orders> updateOrders(@PathVariable("id") Long id, @RequestBody Orders Orders) {
+//		Orders c = service.update(id, Orders);
+//		return new ResponseEntity<>(c, HttpStatus.OK);
+//	}
 
 }

@@ -23,29 +23,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-	
-		http
-			.httpBasic().disable()
-			.csrf().disable()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and()
-			.authorizeRequests()
-			.antMatchers("/admin/**").hasRole("ADMIN")
-			.antMatchers("/api/v1/*").permitAll()
-			.antMatchers("/v2/api-docs",
-				            "/swagger-resources",
-				            "/swagger-resources/**",
-				            "/configuration/ui",
-				            "/configuration/security",
-				            "/swagger-ui.html",
-				            "/webjars/**",
-				            // -- Swagger UI v3 (OpenAPI)
-				            "/v3/api-docs/**",
-				            "/swagger-ui/**").permitAll()
-			.and()
-			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
+		http
+				.httpBasic().disable()
+				.csrf().disable()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.authorizeRequests()
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/seller/**").hasRole("SELLER")
+				.antMatchers("/user/**").hasRole("USER")
+				.antMatchers("/public/**").permitAll()
+				.antMatchers("/v2/api-docs",
+						"/swagger-resources",
+						"/swagger-resources/**",
+						"/configuration/ui",
+						"/configuration/security",
+						"/swagger-ui.html",
+						"/webjars/**",
+						// -- Swagger UI v3 (OpenAPI)
+						"/v3/api-docs/**",
+						"/swagger-ui/**").permitAll()
+				.and()
+				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	
@@ -54,7 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public PasswordEncoder passWordEncoder() {
 		
 		return new BCryptPasswordEncoder();
-		
 	}
 	
 }

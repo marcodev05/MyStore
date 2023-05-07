@@ -10,7 +10,7 @@ import com.tsk.ecommerce.entities.Product;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
-	@Query("Select c.products from Category c where c.idCateg = ?1")
+	@Query("Select c.products from Category c where c.categoryId = ?1")
 	public Collection<Product> findAllProductsByCategory(Integer idCategory);
 	
 }

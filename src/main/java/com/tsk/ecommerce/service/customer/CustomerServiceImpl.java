@@ -3,6 +3,8 @@ package com.tsk.ecommerce.service.customer;
 import java.io.IOException;
 import java.util.List;
 
+import com.tsk.ecommerce.dto.request.CustomerRequest;
+import com.tsk.ecommerce.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,56 +22,47 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	CustomerRepository customerRepository;
-	
-	
-	@Override
-	public Customer create(Customer customer) throws IOException {
-		Customer c = new Customer();
-		
-		if (EmailUtil.isEmailFormat(customer.getEmail())) {
-				c.setEmail(customer.getEmail());	
-		} else
-			throw new FormatDataInvalidException("Email invalid !");
 
+	@Autowired
+	UserService userService;
+
+	@Override
+	public Customer create(CustomerRequest customer) throws IOException {
+		Customer c = Customer.builder()
+				.build();
+		c.setEmail(customer.getEmail());
 		c.setFirstName(customer.getFirstName());
 		c.setLastName(customer.getLastName());
 		c.setPhone(customer.getPhone());
-		
-		c.setAddr1(customer.getAddr1());
-		c.setAddr2(customer.getAddr2());
+		c.setAddress1(customer.getAddress1());
+		c.setAddress2(customer.getAddress2());
 		c.setCity(customer.getCity());
-
+		if (customer.getSignUpRequest() != null) {
+			userService.register(customer.getSignUpRequest());
+		}
 		return customerRepository.save(c);
 	}
 
-	
-	
-	
+
 	@Override
-	public Customer update(Long id, Customer customer) throws IOException {
-
+	public Customer update(Long id, CustomerRequest customer) throws IOException {
 		Customer c = this.getCustomerById(id);
-
-		if (EmailUtil.isEmailFormat(customer.getEmail())) {
-			c.setEmail(customer.getEmail());
-		} else
-			throw new FormatDataInvalidException("Email invalid !");
-
+		c.setEmail(customer.getEmail());
 		c.setFirstName(customer.getFirstName());
 		c.setLastName(customer.getLastName());
 		c.setPhone(customer.getPhone());
-
+		c.setAddress1(customer.getAddress1());
+		c.setAddress2(customer.getAddress2());
+		c.setCity(customer.getCity());
 		return customerRepository.save(c);
 	}
 
-	
-	
+
 	@Override
 	public List<Customer> findAllCustomer() {
 		return customerRepository.findAll();
 	}
 
-	
 	
 	@Override
 	public Customer getCustomerById(Long id) {
@@ -84,7 +77,6 @@ public class CustomerServiceImpl implements CustomerService {
 		customerRepository.delete(c);
 	}
 
-	
 
 	@Override
 	public Customer getCustomerByEmail(String email) {

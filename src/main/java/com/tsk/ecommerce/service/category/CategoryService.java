@@ -2,12 +2,13 @@ package com.tsk.ecommerce.service.category;
 
 import java.util.List;
 
+import com.tsk.ecommerce.dto.request.CategoryRequest;
 import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.entities.Product;
 
 public interface CategoryService {
 	
-	public Category create(Category category);
+	public Category create(CategoryRequest category);
 	
 	public Category update(Integer id, Category category);
 	

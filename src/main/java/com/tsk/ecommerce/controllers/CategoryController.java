@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tsk.ecommerce.dto.request.CategoryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,62 +25,59 @@ import com.tsk.ecommerce.service.category.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
+import javax.validation.Valid;
+
+import static com.tsk.ecommerce.utils.Constants.PUBLIC_URL;
+import static com.tsk.ecommerce.utils.Constants.SELLER_URL;
+
 @CrossOrigin("*")
 @RestController
 public class CategoryController  {
-	
-	private static final String ADMIN = "/admin/v1/categories";
-	private static final String PUBLIC = "/api/v1/categories";
 
 	@Autowired
 	CategoryService service;
 	 
 	/**
-	 * Documentation path
+	 * Documentation path api
 	 * 
-	 * http://localhost:8080/swagger-ui.html
+	 * http://localhost:8081/swagger-ui.html
 	 */
 	
 	@Operation(summary = "Add a new Category")
 	@ApiResponse(responseCode = "201", description = "Category is created")
-	@PostMapping(ADMIN + "/add")
-	public ResponseEntity<Category> addCategory(@RequestBody Category category) {
-		System.out.print("je suis executé");
+	@PostMapping(SELLER_URL + "/categories/add")
+	public ResponseEntity<Category> addCategory(@Valid @RequestBody CategoryRequest category) {
 		Category c = service.create(category);
 		return new ResponseEntity<>(c, HttpStatus.CREATED);
 	}
 	
-	
-	
+
 	@Operation(summary = "Get all categories")
-	@GetMapping(PUBLIC)
+	@GetMapping(PUBLIC_URL + "/categories")
 	public ResponseEntity<List<Category>> getAllCategories(){
 		List<Category> categories = service.findAllCategory();
 		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
 	
-	
-	
+
 	@Operation(summary = "Get a category by Id")
-	@GetMapping(PUBLIC + "/{id}")
+	@GetMapping(PUBLIC_URL + "/categories/{id}")
 	public ResponseEntity<Category> getCategoryById(@PathVariable("id")Integer id){
 		Category c = service.getCategoryById(id);
 		return new ResponseEntity<>(c, HttpStatus.OK);
 	}
 	
-	
-	
+
 	@Operation(summary = "Update a category by id")
-	@PutMapping(ADMIN + "/update/{id}")
+	@PutMapping(SELLER_URL + "/categories/{id}/update")
 	public ResponseEntity<Category> updateCategory(@PathVariable("id") Integer id, @RequestBody Category category) {
 		Category c = service.update(id, category);
 		return new ResponseEntity<>(c, HttpStatus.OK);
 	}
 	
-	
-	
+
 	@Operation(summary = "Delete a category by Id")
-	@DeleteMapping(ADMIN + "/delete/{id}")
+	@DeleteMapping(SELLER_URL + "/categories/delete/{id}")
 	public Map<String, Boolean> deleteCategoryById(@PathVariable("id") Integer id) {
 		service.deleteCategory(id);
 		Map<String, Boolean> response = new HashMap<String, Boolean>();
@@ -87,10 +85,9 @@ public class CategoryController  {
 		return response;
 	}
 	
-	
-	
+
 	@Operation(summary = "Get all Products by category id")
-	@GetMapping(PUBLIC + "/{id}/products")
+	@GetMapping(PUBLIC_URL + "/categories/{id}/products")
 	public ResponseEntity<List<Product>> getAllProductsByCategory(@PathVariable("id") Integer idCategory){
 		List<Product> products = service.getAllProductsByCategory(idCategory);
 		return new ResponseEntity<>(products, HttpStatus.OK);

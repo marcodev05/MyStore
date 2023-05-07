@@ -33,42 +33,28 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Product create(ProductRequest product) {
-		Product p = new Product();
-		p.setNameProduct(product.getNameProduct());
-		p.setDescription(product.getDescription());
-		p.setPrice(product.getPrice());
-		p.setStock(product.getStock());
-		p.setAvailable(true);
-		p.setSelected(false);
-		p.setCreatedAt(Date.from(Instant.now()));
-		
-		Category c = categoryService.getCategoryById(product.getIdCategory());
-		p.setCategory(c);
-		
-//		Random r = new Random();
-//		Integer rate = r.nextInt(5) + 1; //[1 - 5[
-//		p.setRating(rate);
-		
-		List<Picture> pictures = new ArrayList<Picture>();
-		p.setPictures(pictures);
-
+		Product p = Product.builder()
+				.nameProduct(product.getNameProduct())
+				.description(product.getDescription())
+				.price(product.getPrice())
+				.stock(product.getStock())
+				.available(true)
+				.category(categoryService.getCategoryById(product.getIdCategory()))
+				.createdAt(Date.from(Instant.now()))
+				.build();
 		return productRepository.save(p);
 	}
-
-	
 	
 	
 	@Override
-	public Product update(Long id, Product product) {
+	public Product update(Long id, ProductRequest productRequest) {
 		Product p = this.getProductById(id);
-		p.setNameProduct(product.getNameProduct());
-		p.setDescription(product.getDescription());
-		p.setPrice(product.getPrice());
-		p.setStock(product.getStock());
-		p.setCategory(product.getCategory());
-		
-		List<Picture> pictures = new ArrayList<Picture>();
-		p.setPictures(pictures);
+		p.setNameProduct(productRequest.getNameProduct());
+		p.setDescription(productRequest.getDescription());
+		p.setPrice(productRequest.getPrice());
+		p.setStock(productRequest.getStock());
+		Category category = categoryService.getCategoryById(productRequest.getIdCategory());
+		p.setCategory(category);
 		
 		return productRepository.save(p);
 	}
@@ -80,46 +66,36 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	
-	
-	
 	@Override
 	public Product getProductById(Long id) {
 		Product p = productRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Le produit est introuvable"));
+				.orElseThrow(() -> new ResourceNotFoundException("Product is not found"));
 		return p;
 	}
-	
-	
-	
+
 	
 	@Override
 	public void deleteProduct(Long id) {
 		Product p = this.getProductById(id);
 		productRepository.delete(p);
-
 	}
 
 
-	
-	
 	@Override
 	public Product addToStock(Long id, Integer qty) {
 		Product p = this.getProductById(id);
 		p.setStock(p.getStock() + qty);
-		if(p.getStock() > 0){
+		if (p.getStock() > 0) {
 			p.setAvailable(true);
 		}
 		return productRepository.save(p);
 	}
 
-
-	
 	
 	@Override
 	public List<Picture> getAllPictureByProduct(Long idProduct) {
 		return productRepository.findAllPicturesByProduct(idProduct);
 	}
-
 
 	
 	@Override
@@ -129,20 +105,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 
-	
 	@Override
 	public void reduceQtyByOrderLine(OrderLine orderLine) {
-		
 		Product p = this.getProductById(orderLine.getProduct().getIdProduct());
 		Integer restStock = p.getStock() - orderLine.getQuantity();
 		p.setStock(restStock);
-		
 		if (restStock == 0) {
 			p.setAvailable(false);
 		}
-		productRepository.save(p);	
+		productRepository.save(p);
 	}
-
-
 
 }

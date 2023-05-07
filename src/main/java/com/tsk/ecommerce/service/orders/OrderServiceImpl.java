@@ -42,12 +42,74 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	OrderLineRepository OrderLineRepository;
-	
-//	@Override
+
+	@Override
+	public List<Orders> findAllOrders() {
+		return ordersRepo.findAll();
+	}
+
+
+	@Override
+	public Orders getOrdersById(Long id) {
+		return ordersRepo.findById(id)
+							.orElseThrow(() -> new ResourceNotFoundException("Ce numero de commande n'existe pas !"));
+	}
+
+
+	@Override
+	public Orders getOrdersByCustomerEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void deleteOrders(Long id) {
+		Orders ord = this.getOrdersById(id);
+	}
+
+
+	@Override
+	public Orders create(OrderRequest orderRequest) throws IOException {
+		Orders ord = new Orders();
+		Double total = 0.0;
+		
+		Customer c = customerService.create(orderRequest.getCustomerRequest());
+		ord.setCustomer(c);
+		
+		Collection<OrderLine> ordlines = new ArrayList<OrderLine>();
+		orderRequest.getOrderlineRequests().forEach((o) -> {
+			Product p = productService.getProductById(o.getIdProduct());
+			OrderLine ol = orderlineService.create(new OrderLine(o.getQuantity(), p));
+			ordlines.add(ol);
+		});
+		ord.setOrderLines(ordlines);
+
+		for (OrderLine o : ordlines) {
+			total = total + o.getSubTotal();
+			productService.reduceQtyByOrderLine(o);
+		}
+		ord.setTotal(total);
+		ord.setCreatedAt(new Date());
+		ord.setDelivered(false);
+		ord.setPayed(false);
+
+		return ordersRepo.save(ord);
+	}
+
+
+
+	@Override
+	public List<Orders> getAllNewCommands() {
+		return ordersRepo.findByPayedTrueAndDeliveredFalse();
+	}
+
+
+	//	@Override
 //	public Orders update(Long id, Orders orders) {
 //		Orders ord = this.getOrdersById(id);
 //		Double totalCmd = 0.0;
-//		
+//
 //
 //		if (orders.getCustomer() != null) {
 //			Customer c = customerService.getCustomerByEmail(orders.getCustomer().getEmail());
@@ -64,7 +126,7 @@ public class OrderServiceImpl implements OrderService {
 //				totalCmd = totalCmd + o.getTotal();
 //				productService.reduceQtyByOrderLine(o);
 //			}
-//			
+//
 //			ord.setTotal(totalCmd);
 //		} else
 //			throw new FormatDataInvalidException("Le panier est vide");
@@ -75,80 +137,6 @@ public class OrderServiceImpl implements OrderService {
 //
 //		return ordersRepo.save(ord);
 //	}
-
-	
-	
-	@Override
-	public List<Orders> findAllOrders() {
-		return ordersRepo.findAll();
-	}
-
-	
-	
-	@Override
-	public Orders getOrdersById(Long id) {
-		return ordersRepo.findById(id)
-							.orElseThrow(() -> new ResourceNotFoundException("Ce numero de commande n'existe pas !"));
-	}
-
-
-	@Override
-	public Orders getOrdersByCustomerEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	
-	
-	@Override
-	public void deleteOrders(Long id) {
-		Orders ord = this.getOrdersById(id);
-	}
-
-
-	@Override
-	public Orders create(OrderRequest orderRequest) throws IOException {
-		Orders ord = new Orders();
-		Double total = 0.0;
-		
-		Customer c = customerService.create(orderRequest.getCustomer());
-		ord.setCustomer(c);
-		
-		Collection<OrderLine> ordlines = new ArrayList<OrderLine>();
-		orderRequest.getOrderlines().forEach((o) -> {
-			Product p = productService.getProductById(o.getIdProduct());
-			OrderLine ol = orderlineService.create(new OrderLine(o.getQuantity(), p));
-			ordlines.add(ol);
-		});
-		ord.setOrderLines(ordlines);
-
-		
-		for (OrderLine o : ordlines) {
-			total = total + o.getSubTotal();
-			productService.reduceQtyByOrderLine(o);
-		}
-		ord.setTotal(total);
-
-		ord.setCreatedAt(new Date());
-		ord.setDelivered(false);
-		ord.setPayed(false);
-
-		return ordersRepo.save(ord);
-	}
-
-
-
-	@Override
-	public List<Orders> getAllNewCommands() {
-		return ordersRepo.findByPayedTrueAndDeliveredFalse();
-	}
-	
-	
-	
-	
-
-	
 
 
 }

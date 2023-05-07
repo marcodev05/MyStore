@@ -16,7 +16,6 @@ import com.tsk.ecommerce.exception.ResourceNotFoundException;
 import com.tsk.ecommerce.repository.RoleEntityRepository;
 import com.tsk.ecommerce.repository.UserEntityRepository;
 import com.tsk.ecommerce.exception.FormatDataInvalidException;
-import com.tsk.ecommerce.utils.email.EmailUtil;
 
 @Service
 @Transactional
@@ -35,45 +34,45 @@ public class UserEntityServiceImpl implements UserService {
 	public UserEntity register(SignUpRequest request) throws IOException {
 		UserEntity newUser = new UserEntity();
 		//String id = UUID.randomUUID().toString();
-
-		if (!this.isUsernameExist(request.getUsername())) {
+		if (!this.isUsernameExisted(request.getUsername())) {
 			newUser.setUsername(request.getUsername());
-		} else throw new FormatDataInvalidException("already exist");
-		if (EmailUtil.isEmailFormat(request.getEmail())) {
-			if (this.isEmailExist(request.getEmail())) throw new FormatDataInvalidException("Ce email existe dejà !");
-			else {
-				newUser.setEmail(request.getEmail());
-			}
-		} else
-			throw new FormatDataInvalidException("Email format invalid !");
-		newUser.setPassword(passWordEncoder.encode(request.getPassword()));
+		} else throw new FormatDataInvalidException("User already used");
 
+		if (this.isEmailExisted(request.getEmail())) throw new FormatDataInvalidException("Email already used");
+		else {
+			newUser.setEmail(request.getEmail());
+		}
+
+		this.checkRole(request, newUser);
+		newUser.setPassword(passWordEncoder.encode(request.getPassword()));
+		return userRepository.save(newUser);
+	}
+
+	private void checkRole(SignUpRequest request, UserEntity newUser) {
 		if (request.getRole() == null || request.getRole().isEmpty()) {
-			RoleEntity role = roleRepository.findByName(ERole.ROLE_USER)
-					.orElseThrow(() -> new ResourceNotFoundException("role is not found."));
+			RoleEntity role = roleRepository.findByName(ERole.ROLE_USER).get();
 			newUser.setRoles(Collections.singletonList(role));
 		} else {
-			 switch (request.getRole().toLowerCase()) {
-		        case "admin":
-		          RoleEntity adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-		              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-		          newUser.setRoles(Collections.singletonList(adminRole));
-		          break;
-		          
-		        case "vendor":
-		        	RoleEntity sellerRole = roleRepository.findByName(ERole.ROLE_SELLER)
-		              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+			switch (request.getRole().toLowerCase()) {
+				case "admin":
+					RoleEntity adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					newUser.setRoles(Collections.singletonList(adminRole));
+					break;
+
+				case "seller":
+					RoleEntity sellerRole = roleRepository.findByName(ERole.ROLE_SELLER)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					newUser.setRoles(Collections.singletonList(sellerRole));
-		          break;
-		          
-		        default:
-		        	RoleEntity userRole = roleRepository.findByName(ERole.ROLE_USER)
-		              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-		        	newUser.setRoles(Collections.singletonList(userRole));
-		          break;
-		        }
+					break;
+
+				default:
+					RoleEntity userRole = roleRepository.findByName(ERole.ROLE_USER)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					newUser.setRoles(Collections.singletonList(userRole));
+					break;
+			}
 		}
-		return userRepository.save(newUser);
 	}
 
 
@@ -94,20 +93,16 @@ public class UserEntityServiceImpl implements UserService {
 	}
 
 
-
 	@Override
-	public Boolean isUsernameExist(String username) {
+	public Boolean isUsernameExisted(String username) {
 		return userRepository.existsByUsername(username);
 	}
 
 
-
 	@Override
-	public Boolean isEmailExist(String email) {
+	public Boolean isEmailExisted(String email) {
 		return userRepository.existsByEmail(email);
 	}
-
-
 
 
 	@Override

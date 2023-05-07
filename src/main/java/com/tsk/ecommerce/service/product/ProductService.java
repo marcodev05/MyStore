@@ -12,7 +12,7 @@ public interface ProductService {
 	
 	public Product create(ProductRequest product);
 	
-	public Product update(Long id, Product product);
+	public Product update(Long id, ProductRequest product);
 	
 	public List<Product> findAllProduct();
 	

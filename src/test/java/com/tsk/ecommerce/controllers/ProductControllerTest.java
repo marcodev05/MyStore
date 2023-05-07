@@ -39,12 +39,13 @@ class ProductControllerTest{
 
     @BeforeEach
     void setUp() {
-        product = new Product();
-        product.setIdProduct(1L);
-        product.setNameProduct("KeyBoard");
-        product.setDescription("AZERTY alignment");
-        product.setPrice(400.0);
-        product.setStock(10);
+        product = Product.builder()
+                .idProduct(1L)
+                .nameProduct("KeyBoard")
+                .description("AZERTY alignment")
+                .price(400.0)
+                .stock(10)
+                .build();
     }
 
 

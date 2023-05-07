@@ -19,11 +19,12 @@ class ProductRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        Product inputProduct = new Product();
-        inputProduct.setNameProduct("KeyBoard");
-        inputProduct.setDescription("AZERTY alignment");
-        inputProduct.setPrice(400.0);
-        inputProduct.setStock(10);
+        Product inputProduct = Product.builder()
+                .nameProduct("KeyBoard")
+                .description("AZERTY alignment")
+                .price(400.0)
+                .stock(10)
+                .build();
         productRepository.save(inputProduct);
     }
 

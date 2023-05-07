@@ -3,7 +3,7 @@ package com.tsk.ecommerce.dto.request;
 import java.util.Collection;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.tsk.ecommerce.entities.Picture;
 import lombok.AllArgsConstructor;
@@ -13,12 +13,13 @@ import lombok.Data;
 @AllArgsConstructor
 public class ProductRequest {
 
-	@NotBlank(message = "le nom du produit est obligatoire")
+	@NotBlank(message = "Product name is required")
 	private String nameProduct;
 	
-	@NotBlank(message = "Ce champs est obligatoire")
+	@NotBlank(message = "Description is required")
 	private String description;
-	
+
+	@NotNull
 	private Double price;
 
 	private Integer stock;
@@ -26,5 +27,4 @@ public class ProductRequest {
 	private Collection<Picture> pictures;
 	
 	private Integer idCategory;
-	
 }
