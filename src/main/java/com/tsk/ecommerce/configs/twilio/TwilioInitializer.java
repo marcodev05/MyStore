@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.config.twilio;
+package com.tsk.ecommerce.configs.twilio;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

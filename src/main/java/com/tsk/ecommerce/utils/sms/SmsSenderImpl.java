@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tsk.ecommerce.config.twilio.TwilioConfiguration;
+import com.tsk.ecommerce.configs.twilio.TwilioConfiguration;
 import com.tsk.ecommerce.dto.SmsRequest;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;

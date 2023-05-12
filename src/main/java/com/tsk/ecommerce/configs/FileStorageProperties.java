@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.config;
+package com.tsk.ecommerce.configs;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

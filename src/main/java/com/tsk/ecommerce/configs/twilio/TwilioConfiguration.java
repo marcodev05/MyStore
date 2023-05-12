@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.config.twilio;
+package com.tsk.ecommerce.configs.twilio;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

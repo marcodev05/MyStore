@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tsk.ecommerce.config.FileStorageProperties;
+import com.tsk.ecommerce.configs.FileStorageProperties;
 import com.tsk.ecommerce.exception.MyFileNotFoundException;
 
 @Service

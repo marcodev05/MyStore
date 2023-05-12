@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.config.jwt;
+package com.tsk.ecommerce.configs.jwt;
 
 import java.io.IOException;
 
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.tsk.ecommerce.config.CustomUserDetails;
-import com.tsk.ecommerce.config.CustomUserDetailsService;
+import com.tsk.ecommerce.configs.CustomUserDetails;
+import com.tsk.ecommerce.configs.CustomUserDetailsService;
 
 @Component
 public class JwtFilter extends GenericFilterBean{

@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.config;
+package com.tsk.ecommerce.configs;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.tsk.ecommerce.config.jwt.JwtFilter;
+import com.tsk.ecommerce.configs.jwt.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
