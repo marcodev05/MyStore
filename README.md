@@ -2,7 +2,7 @@
 A simple Spring Boot application that demonstrates basic functionality of ecommerce using a REST API.
 
 ## Prerequisites
-* Java 1.8 or higher
+* Java 11 or higher
 * Maven
 
 ## Api documentation
