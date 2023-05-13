@@ -20,15 +20,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tsk.ecommerce.dto.request.OrderRequest;
+import com.tsk.ecommerce.dtos.requests.OrderRequest;
 import com.tsk.ecommerce.entities.Orders;
-import com.tsk.ecommerce.service.orders.OrderService;
-import com.tsk.ecommerce.utils.email.NotificationService;
+import com.tsk.ecommerce.services.orders.OrderService;
+import com.tsk.ecommerce.services.messageries.email.NotificationEmailService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
-import static com.tsk.ecommerce.utils.Constants.*;
+import static com.tsk.ecommerce.tools.ConstantsApp.*;
 
 @CrossOrigin("*")
 @RestController
@@ -39,7 +39,7 @@ public class OrderController {
 	OrderService service;
 	
 	@Autowired
-	NotificationService notificationService;
+	NotificationEmailService notificationEmailService;
 	 
 	/**
 	 * Documentation path
