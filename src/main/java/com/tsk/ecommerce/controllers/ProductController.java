@@ -9,17 +9,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.tsk.ecommerce.dto.request.ProductRequest;
+import com.tsk.ecommerce.dtos.requests.ProductRequest;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
-import com.tsk.ecommerce.service.product.ProductService;
+import com.tsk.ecommerce.services.product.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import javax.validation.Valid;
 
-import static com.tsk.ecommerce.utils.Constants.*;
+import static com.tsk.ecommerce.tools.ConstantsApp.*;
 
 @CrossOrigin("*")
 @RestController

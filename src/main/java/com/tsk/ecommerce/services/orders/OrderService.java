@@ -1,0 +1,29 @@
+package com.tsk.ecommerce.services.orders;
+
+import java.io.IOException;
+import java.util.List;
+
+import com.tsk.ecommerce.dtos.requests.OrderRequest;
+import com.tsk.ecommerce.entities.Orders;
+
+public interface OrderService {
+
+	public Orders create(OrderRequest orderRequest) throws IOException;
+	
+	public List<Orders> findAllOrders();
+	
+	public List<Orders> getAllNewCommands();
+	
+	public Orders getOrdersById(Long id);
+	
+	public Orders getOrdersByCustomerEmail(String email);
+	
+	public void deleteOrders(Long id);
+	
+	
+	/*
+	 * Quelles sont les 10 produits le plus commandé
+	 * 
+	 */
+	
+}

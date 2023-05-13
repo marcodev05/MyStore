@@ -2,7 +2,6 @@ package com.tsk.ecommerce.controllers;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,12 +23,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
-import com.tsk.ecommerce.service.file.FileStorageService;
-import com.tsk.ecommerce.service.picture.PictureService;
-import com.tsk.ecommerce.service.product.ProductService;
+import com.tsk.ecommerce.services.file.FileStorageService;
+import com.tsk.ecommerce.services.picture.PictureService;
+import com.tsk.ecommerce.services.product.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
-import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin("*")
 @RestController

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tsk.ecommerce.dto.SmsRequest;
-import com.tsk.ecommerce.utils.sms.SmsSender;
+import com.tsk.ecommerce.dtos.requests.SmsRequest;
+import com.tsk.ecommerce.services.messageries.sms.SmsSender;
 
 @RestController
 @RequestMapping("api/v1")

@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tsk.ecommerce.entities.enumerations.ERole;
 
 @Entity
 @Table(name = "roles")
