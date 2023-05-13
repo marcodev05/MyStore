@@ -8,16 +8,10 @@ import com.tsk.ecommerce.entities.Customer;
 
 public interface CustomerService {
 	
-	public Customer create(CustomerRequest customer) throws IOException;
-	
-	public Customer update(Long id, CustomerRequest customer) throws IOException;
-	
-	public List<Customer> findAllCustomer();
-	
-	public Customer getCustomerById(Long id);
-	
-	public Customer getCustomerByEmail(String email);
-	
-	public void deleteCustomer(Long id);
-	
+	Customer create(CustomerRequest customer) throws IOException;
+	Customer update(Long id, CustomerRequest customer) throws IOException;
+	List<Customer> findAllCustomer();
+	Customer getCustomerById(Long id);
+	Customer getCustomerByEmail(String email);
+	void deleteCustomer(Long id);
 }

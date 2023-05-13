@@ -20,11 +20,8 @@ public class CustomUserDetails implements UserDetails {
 		CustomUserDetails c = new CustomUserDetails();
 		c.username = userEntity.getUsername();
 		c.password = userEntity.getPassword();
-		//c.granteAuthority = Collections.singletonList(new SimpleGrantedAuthority(userEntity.getRoles().getName().toString()));
 		List<SimpleGrantedAuthority> simpleGrantedAuthorityCollections = userEntity.getRoles().stream()
-				.map((roleEntity) -> {
-					return new SimpleGrantedAuthority(roleEntity.getName().toString());
-				})
+				.map((roleEntity) -> new SimpleGrantedAuthority(roleEntity.getName().toString()))
 				.collect(Collectors.toList());
 		c.granteAuthority = simpleGrantedAuthorityCollections;
 		return c;
@@ -35,40 +32,33 @@ public class CustomUserDetails implements UserDetails {
 		return granteAuthority;
 	}
 
-	
 	@Override
 	public String getPassword() {
 		return password;
 	}
 
-	
 	@Override
 	public String getUsername() {
 		return username;
 	}
 
-	
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
 	}
 
-	
 	@Override
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
-	
 	@Override
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
-	
 	@Override
 	public boolean isEnabled() {
 		return true;
 	}
-
 }

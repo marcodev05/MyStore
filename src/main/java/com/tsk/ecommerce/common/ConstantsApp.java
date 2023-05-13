@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.tools;
+package com.tsk.ecommerce.common;
 
 public class ConstantsApp {
 

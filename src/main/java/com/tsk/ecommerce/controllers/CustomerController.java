@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.tsk.ecommerce.dtos.requests.CustomerRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,19 +16,17 @@ import com.tsk.ecommerce.services.customer.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
-import static com.tsk.ecommerce.tools.ConstantsApp.*;
+import static com.tsk.ecommerce.common.ConstantsApp.*;
 
 @CrossOrigin("*")
 @RestController
 public class CustomerController {
 
-	@Autowired
-	CustomerService service;
+	private final CustomerService service;
 
-	/**
-	 * Documentation path
-	 * http://localhost:8081/swagger-ui.html
-	 */
+	public CustomerController(CustomerService service) {
+		this.service = service;
+	}
 
 	/************************** *********** *********************\
 	 * 							PUBLIC ROUTES

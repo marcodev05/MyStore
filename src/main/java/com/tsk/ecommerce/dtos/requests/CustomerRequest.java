@@ -1,14 +1,16 @@
 package com.tsk.ecommerce.dtos.requests;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerRequest {
 
     @NotBlank(message = "Name is required")

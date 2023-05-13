@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tsk.ecommerce.dtos.requests.ProductRequest;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.services.product.ProductService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,13 +37,12 @@ class ProductControllerTest{
 
     @BeforeEach
     void setUp() {
-        product = Product.builder()
-                .idProduct(1L)
-                .nameProduct("KeyBoard")
-                .description("AZERTY alignment")
-                .price(400.0)
-                .stock(10)
-                .build();
+        Product inputProduct = new Product();
+        inputProduct.setIdProduct(1L);
+        inputProduct.setNameProduct("KeyBoard");
+        inputProduct.setDescription("AZERTY alignment");
+        inputProduct.setPrice(400.0);
+        inputProduct.setStock(10);
     }
 
 

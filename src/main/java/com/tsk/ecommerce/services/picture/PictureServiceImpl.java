@@ -8,7 +8,7 @@ import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.PictureRepository;
-import com.tsk.ecommerce.exceptions.FormatDataInvalidException;
+import com.tsk.ecommerce.exceptions.BadRequestException;
 import com.tsk.ecommerce.services.product.ProductService;
 
 @Service
@@ -31,7 +31,7 @@ public class PictureServiceImpl implements PictureService {
 			Product p = productService.getProductById(picture.getProduct().getIdProduct());
 			pic.setProduct(p);
 		} else
-			throw new FormatDataInvalidException("Le produit ne peut pas être null");
+			throw new BadRequestException("Le produit ne peut pas être null");
 		
 		pic.setLink(picture.getLink());
 		return pictureRepository.save(pic);

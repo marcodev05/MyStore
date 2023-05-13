@@ -10,13 +10,14 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tsk.ecommerce.entities.auth.UserEntity;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer implements Serializable {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

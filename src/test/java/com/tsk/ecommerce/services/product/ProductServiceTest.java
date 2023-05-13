@@ -3,6 +3,7 @@ package com.tsk.ecommerce.services.product;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.ProductRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,14 +28,13 @@ class ProductServiceTest {
 
     @BeforeEach
     void setUp() {
-        Product product = Product.builder()
-                .idProduct(1L)
-                .nameProduct("KeyBoard")
-                .description("AZERTY alignment")
-                .price(400.0)
-                .stock(10)
-                .build();
-        Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(product));
+        Product inputProduct = new Product();
+        inputProduct.setIdProduct(1L);
+        inputProduct.setNameProduct("KeyBoard");
+        inputProduct.setDescription("AZERTY alignment");
+        inputProduct.setPrice(400.0);
+        inputProduct.setStock(10);
+        Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(inputProduct));
     }
 
     @Test

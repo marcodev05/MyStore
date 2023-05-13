@@ -5,12 +5,12 @@ import java.util.List;
 
 import com.tsk.ecommerce.dtos.requests.CustomerRequest;
 import com.tsk.ecommerce.services.account.AccountService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.CustomerRepository;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -27,8 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public Customer create(CustomerRequest customer) throws IOException {
-		Customer c = Customer.builder()
-				.build();
+		Customer c = new Customer();
 		c.setEmail(customer.getEmail());
 		c.setFirstName(customer.getFirstName());
 		c.setLastName(customer.getLastName());
@@ -37,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 		c.setAddress2(customer.getAddress2());
 		c.setCity(customer.getCity());
 		if (customer.getSignUpRequest() != null) {
-			accountService.register(customer.getSignUpRequest());
+			accountService.registerPhase1(customer.getSignUpRequest());
 		}
 		return customerRepository.save(c);
 	}

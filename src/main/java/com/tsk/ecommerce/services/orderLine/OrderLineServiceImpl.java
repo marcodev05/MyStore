@@ -10,7 +10,7 @@ import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.OrderLineRepository;
 import com.tsk.ecommerce.repositories.ProductRepository;
-import com.tsk.ecommerce.exceptions.FormatDataInvalidException;
+import com.tsk.ecommerce.exceptions.BadRequestException;
 import com.tsk.ecommerce.services.product.ProductService;
 
 @Service
@@ -52,13 +52,13 @@ public class OrderLineServiceImpl implements OrderLineService {
 //					productRepository.save(p);
 
 				} else
-					throw new FormatDataInvalidException("Le stock est insuffisant, reste: " + p.getStock());
+					throw new BadRequestException("Le stock est insuffisant, reste: " + p.getStock());
 
 			} else
 				throw new ResourceNotFoundException("Ce produit est indisponible !");
 
 		} else
-			throw new FormatDataInvalidException(" Il faut préciser le produit!");
+			throw new BadRequestException(" Il faut préciser le produit!");
 
 
 		return orderLineRepository.save(ordln);

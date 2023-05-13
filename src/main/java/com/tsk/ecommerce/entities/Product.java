@@ -16,16 +16,19 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Data
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Product implements Serializable{
 	
@@ -33,7 +36,6 @@ public class Product implements Serializable{
 	private Long idProduct;
 
 	private String nameProduct;
-
 	private String description;
 
 	@Column(nullable = false)
@@ -43,7 +45,6 @@ public class Product implements Serializable{
 	private Integer stock;
 
 	private Boolean available;
-
 	private Boolean selected;
 
 	@Max(value = 5)
