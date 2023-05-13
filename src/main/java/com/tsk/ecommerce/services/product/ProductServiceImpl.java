@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,23 +20,24 @@ import com.tsk.ecommerce.services.category.CategoryService;
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
-	@Autowired
-	ProductRepository productRepository;
-	
-	@Autowired
-	CategoryService categoryService;
-	
+	private final ProductRepository productRepository;
+	private final CategoryService categoryService;
+
+	public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService) {
+		this.productRepository = productRepository;
+		this.categoryService = categoryService;
+	}
+
 	@Override
 	public Product create(ProductRequest product) {
-		Product p = Product.builder()
-				.nameProduct(product.getNameProduct())
-				.description(product.getDescription())
-				.price(product.getPrice())
-				.stock(product.getStock())
-				.available(true)
-				.category(categoryService.getCategoryById(product.getIdCategory()))
-				.createdAt(Date.from(Instant.now()))
-				.build();
+		Product p = new Product();
+				p.setDescription(product.getDescription());
+				p.setNameProduct(product.getNameProduct());
+				p.setPrice(product.getPrice());
+				p.setStock(product.getStock());
+				p.setAvailable(true);
+				p.setCategory(categoryService.getCategoryById(product.getIdCategory()));
+				p.setCreatedAt(Date.from(Instant.now()));
 		return productRepository.save(p);
 	}
 	
@@ -51,7 +51,6 @@ public class ProductServiceImpl implements ProductService {
 		p.setStock(productRequest.getStock());
 		Category category = categoryService.getCategoryById(productRequest.getIdCategory());
 		p.setCategory(category);
-		
 		return productRepository.save(p);
 	}
 
@@ -69,13 +68,11 @@ public class ProductServiceImpl implements ProductService {
 		return p;
 	}
 
-	
 	@Override
 	public void deleteProduct(Long id) {
 		Product p = this.getProductById(id);
 		productRepository.delete(p);
 	}
-
 
 	@Override
 	public Product addToStock(Long id, Integer qty) {
@@ -87,19 +84,16 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.save(p);
 	}
 
-	
 	@Override
 	public List<Picture> getAllPictureByProduct(Long idProduct) {
 		return productRepository.findAllPicturesByProduct(idProduct);
 	}
 
-	
 	@Override
 	public List<Product> findProductByName(String name) {
 		return productRepository.findByNameProductContains(name)
 				.orElseThrow(() -> new ResourceNotFoundException("Le resultat de la recherche est vide"));
 	}
-
 
 	@Override
 	public void reduceQtyByOrderLine(OrderLine orderLine) {

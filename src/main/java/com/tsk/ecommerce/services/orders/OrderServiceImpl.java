@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +16,6 @@ import com.tsk.ecommerce.entities.OrderLine;
 import com.tsk.ecommerce.entities.Orders;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
-import com.tsk.ecommerce.repositories.OrderLineRepository;
 import com.tsk.ecommerce.repositories.OrdersRepository;
 import com.tsk.ecommerce.services.customer.CustomerService;
 import com.tsk.ecommerce.services.orderLine.OrderLineService;
@@ -27,21 +25,18 @@ import com.tsk.ecommerce.services.product.ProductService;
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
-	
-	@Autowired
-	OrdersRepository ordersRepo;
-	
-	@Autowired
-	OrderLineService orderlineService;
-	
-	@Autowired
-	CustomerService customerService;
-	
-	@Autowired
-	ProductService productService;
-	
-	@Autowired
-	OrderLineRepository OrderLineRepository;
+
+	private final OrdersRepository ordersRepo;
+	private final OrderLineService orderlineService;
+	private final CustomerService customerService;
+	private final ProductService productService;
+
+	public OrderServiceImpl(OrdersRepository ordersRepo, OrderLineService orderlineService, CustomerService customerService, ProductService productService) {
+		this.ordersRepo = ordersRepo;
+		this.orderlineService = orderlineService;
+		this.customerService = customerService;
+		this.productService = productService;
+	}
 
 	@Override
 	public List<Orders> findAllOrders() {
@@ -80,7 +75,11 @@ public class OrderServiceImpl implements OrderService {
 		Collection<OrderLine> ordlines = new ArrayList<OrderLine>();
 		orderRequest.getOrderlineRequests().forEach((o) -> {
 			Product p = productService.getProductById(o.getIdProduct());
-			OrderLine ol = orderlineService.create(new OrderLine(o.getQuantity(), p));
+
+			OrderLine orderLine = new OrderLine();
+			orderLine.setQuantity(o.getQuantity());
+			orderLine.setProduct(p);
+			OrderLine ol = orderlineService.create(orderLine);
 			ordlines.add(ol);
 		});
 		ord.setOrderLines(ordlines);

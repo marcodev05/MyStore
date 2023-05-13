@@ -4,6 +4,7 @@ package com.tsk.ecommerce.dtos.requests;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
-@Builder
+@NoArgsConstructor
 public class SignUpRequest {
 	
 	  @NotBlank
@@ -22,10 +23,7 @@ public class SignUpRequest {
 	  @Email(message = "invalid email")
 	  private String email;
 
-	  private String role;
-
 	  @NotBlank
 	  @Size(min = 6, message = "password should have 6 letters at least")
 	  private String password;
-
 }

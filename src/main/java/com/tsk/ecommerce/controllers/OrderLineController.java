@@ -3,7 +3,6 @@ package com.tsk.ecommerce.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,34 +24,25 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 public class OrderLineController {
 	
 	private static final String PUBLIC = "/api/v1/orderlines";
-	
-	@Autowired
-	OrderLineService service;
-	 
-	/**
-	 * Documentation path
-	 * 
-	 * http://localhost:8080/swagger-ui.html
-	 */
-	
+	private final OrderLineService service;
+
+	public OrderLineController(OrderLineService service) {
+		this.service = service;
+	}
+
 	@Operation(summary = "Add a new OrderLine")
 	@ApiResponse(responseCode = "201", description = "OrderLine is created")
 	@PostMapping(PUBLIC + "/add")
 	public ResponseEntity<OrderLine> addOrderLine(@RequestBody OrderLine orderLine) {
-		OrderLine line = service.create(orderLine);
-		return new ResponseEntity<>(line, HttpStatus.CREATED);
+		return new ResponseEntity<>(service.create(orderLine), HttpStatus.CREATED);
 	}
-	
-	
+
 	@Operation(summary = "Get an OrderLine by Id")
 	@GetMapping(PUBLIC + "/{id}")
 	public ResponseEntity<OrderLine> getOrderLineById(@PathVariable("id")Long id){
-		OrderLine ord = service.getOrderLineById(id);
-		return new ResponseEntity<>(ord, HttpStatus.OK);
+		return new ResponseEntity<>(service.getOrderLineById(id), HttpStatus.OK);
 	}
-	
-	
-	
+
 	@Operation(summary = "Delete an OrderLine by Id")
 	@DeleteMapping(PUBLIC + "/delete/{id}")
 	public Map<String, Boolean> deleteOrderLineById(@PathVariable("id") Long id) {

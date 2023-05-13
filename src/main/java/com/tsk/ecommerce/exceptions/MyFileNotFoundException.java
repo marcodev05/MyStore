@@ -10,7 +10,5 @@ public class MyFileNotFoundException extends RuntimeException {
 		super(message);
 		
 	}
-	
-	
 
 }

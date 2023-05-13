@@ -24,17 +24,17 @@ import com.tsk.ecommerce.services.user.UserService;
 import io.jsonwebtoken.security.InvalidKeyException;
 import io.swagger.v3.oas.annotations.Operation;
 
-import static com.tsk.ecommerce.tools.ConstantsApp.PUBLIC_URL;
+import static com.tsk.ecommerce.common.ConstantsApp.PUBLIC_URL;
 
 @CrossOrigin("*")
 @RestController
-public class UserResource {
+public class UserController {
 
 	private final UserService userService;
 	private final AccountService accountService;
 	private final JwtProvider jwtProvider;
 
-	public UserResource(UserService userService, AccountService accountService, JwtProvider jwtProvider) {
+	public UserController(UserService userService, AccountService accountService, JwtProvider jwtProvider) {
 		this.userService = userService;
 		this.accountService = accountService;
 		this.jwtProvider = jwtProvider;
@@ -42,8 +42,8 @@ public class UserResource {
 
 	@Operation(summary = "Add a new user admin")
 	@PostMapping(PUBLIC_URL + "/register")
-	public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpRequest request) throws IOException{		
-		UserEntity u = accountService.register(request);
+	public ResponseEntity<String> registerUserPhase1(@Valid @RequestBody SignUpRequest request) throws IOException{
+		UserEntity u = accountService.registerPhase1(request);
 		return new ResponseEntity<>("Enregistrement réussi !", HttpStatus.CREATED);	
 	}
 
@@ -54,7 +54,8 @@ public class UserResource {
 		String token = jwtProvider.generateToken(loginRequest.getUsername());
 		UserEntity usr = accountService.getByUsername(loginRequest.getUsername());
 		List<String> roles = usr.getRoles().stream()
-				.map((roleEntity) -> roleEntity.getName().toString()).collect(Collectors.toList());
+				.map((roleEntity) -> roleEntity.getName().toString())
+				.collect(Collectors.toList());
 		LoginResponse response = new LoginResponse(token, roles);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

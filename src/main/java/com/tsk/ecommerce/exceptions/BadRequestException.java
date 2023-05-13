@@ -4,13 +4,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-public class FormatDataInvalidException extends RuntimeException {
+public class BadRequestException extends RuntimeException {
 
-	public FormatDataInvalidException(String message) {
+	public BadRequestException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 }

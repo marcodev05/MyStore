@@ -7,10 +7,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,25 +26,20 @@ import com.tsk.ecommerce.services.messageries.email.NotificationEmailService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
-import static com.tsk.ecommerce.tools.ConstantsApp.*;
+import static com.tsk.ecommerce.common.ConstantsApp.*;
 
 @CrossOrigin("*")
 @RestController
-@Transactional
 public class OrderController {
 
-	@Autowired
-	OrderService service;
-	
-	@Autowired
-	NotificationEmailService notificationEmailService;
-	 
-	/**
-	 * Documentation path
-	 *
-	 * http://localhost:8081/swagger-ui.html
-	 */
+	private final OrderService service;
 
+	private final NotificationEmailService notificationEmailService;
+
+	public OrderController(OrderService service, NotificationEmailService notificationEmailService) {
+		this.service = service;
+		this.notificationEmailService = notificationEmailService;
+	}
 
 	/************************** *********** *********************\
 	 * 							USER ROUTES
@@ -61,7 +54,6 @@ public class OrderController {
 		return new ResponseEntity<>(ord, HttpStatus.CREATED);
 	}
 
-
 	@Operation(summary = "Delete my own Order by ID")
 	@DeleteMapping(USER_URL + "/orders/delete/{id}")
 	public Map<String, Boolean> deleteOrdersById(@PathVariable("id")Long id) {
@@ -75,7 +67,6 @@ public class OrderController {
 	/************************** *********** *********************\
 	 * 							SELLER ROUTES
 	 *************************************************************/
-	
 
 	@Operation(summary = "Get all new Order for seller notification")
 	@GetMapping(SELLER_URL + "/orders/newOrders")
@@ -83,7 +74,6 @@ public class OrderController {
 		List<Orders> orders = service.getAllNewCommands();
 		return new ResponseEntity<>(orders , HttpStatus.OK);
 	}
-	
 
 	@Operation(summary = "Get a Order by Id")
 	@GetMapping(SELLER_URL + "/orders/{id}")
