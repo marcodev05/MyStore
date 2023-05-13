@@ -1,7 +1,5 @@
 package com.tsk.ecommerce.services.product;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -37,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 				p.setStock(product.getStock());
 				p.setAvailable(true);
 				p.setCategory(categoryService.getCategoryById(product.getIdCategory()));
-				p.setCreatedAt(Date.from(Instant.now()));
+				//p.setCreatedAt(Date.from(Instant.now()));
 		return productRepository.save(p);
 	}
 	

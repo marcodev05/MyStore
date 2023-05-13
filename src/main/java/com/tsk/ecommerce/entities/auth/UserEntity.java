@@ -3,7 +3,6 @@ package com.tsk.ecommerce.entities.auth;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tsk.ecommerce.entities.Customer;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
