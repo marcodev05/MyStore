@@ -6,8 +6,10 @@ import java.util.regex.Pattern;
 
 public class EmailUtil {
 
+	private static final String EMAIL_REGEX = "([A-Za-z0-9\\.\\_\\-]+[\\.\\_\\-]*[A-Za-z0-9\\.\\_\\-]*)+@([A-Za-z0-9\\.\\_\\-]+[\\.]*[A-Za-z0-9\\.\\_\\-]+)+\\.[A-Za-z]+";
+
 	public static boolean isEmailValid(String valueToValidate) throws IOException {
-		final String regexExpression = "([A-Za-z0-9\\.\\_\\-]+[\\.\\_\\-]*[A-Za-z0-9\\.\\_\\-]*)+@([A-Za-z0-9\\.\\_\\-]+[\\.]*[A-Za-z0-9\\.\\_\\-]+)+\\.[A-Za-z]+";
+		final String regexExpression = EMAIL_REGEX;
 		Pattern regexPattern = Pattern.compile(regexExpression);
 		boolean valid = false;
 		if (valueToValidate != null) {

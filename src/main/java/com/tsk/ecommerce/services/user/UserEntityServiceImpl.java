@@ -13,7 +13,6 @@ import com.tsk.ecommerce.repositories.UserEntityRepository;
 @Transactional
 public class UserEntityServiceImpl implements UserService {
 
-	
 	@Autowired
 	UserEntityRepository userRepository;
 
@@ -35,34 +34,6 @@ public class UserEntityServiceImpl implements UserService {
 		newUser.setPassword(passWordEncoder.encode(request.getPassword()));
 		return userRepository.save(newUser);
 	}*/
-
-/*	private void checkRole(SignUpRequest request, UserEntity newUser) {
-		if (request.getRole() == null || request.getRole().isEmpty()) {
-			RoleEntity role = roleRepository.findByName(ERole.ROLE_USER).get();
-			newUser.setRoles(Collections.singletonList(role));
-		} else {
-			switch (request.getRole().toLowerCase()) {
-				case "admin":
-					RoleEntity adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					newUser.setRoles(Collections.singletonList(adminRole));
-					break;
-
-				case "seller":
-					RoleEntity sellerRole = roleRepository.findByName(ERole.ROLE_SELLER)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					newUser.setRoles(Collections.singletonList(sellerRole));
-					break;
-
-				default:
-					RoleEntity userRole = roleRepository.findByName(ERole.ROLE_USER)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					newUser.setRoles(Collections.singletonList(userRole));
-					break;
-			}
-		}
-	}*/
-
 
 	@Override
 	public void delete(Long idUser) {

@@ -3,6 +3,7 @@ package com.tsk.ecommerce.services.messageries.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
@@ -14,19 +15,15 @@ import com.tsk.ecommerce.entities.Orders;
 public class NotificationEmailService {
 	
 	private static final String MAIL_SHOP = "";
-	//@Autowired
-	//private JavaMailSender javaMailSender;
-	
+	@Autowired
+	private JavaMailSender javaMailSender;
 	@Autowired
 	private MailContentBuilder mailContent;
-	
-	
+
 	@Async
 	public void sendNotification(Orders orders) {
-		
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-			
 			messageHelper.setFrom(MAIL_SHOP);
 			messageHelper.setTo(orders.getCustomer().getEmail());
 			messageHelper.setSubject("Confirmation de l'envoie d'une commande");
@@ -36,21 +33,8 @@ public class NotificationEmailService {
 			String html = mailContent.build(orders);
 			messageHelper.setText(html, true);
 		};
-		
-		//javaMailSender.send(messagePreparator);
-		
-		try {
-			System.out.println("le mail a été bien envoyé !");
-		} catch (MailException e) {
-			//throw new EcommerceException("  Un problem a été survenu lors de l'envoie de mail vers : " + notifMail.getEmailRecipient());
-			System.out.println(e.getStackTrace());
-		}
-		
-		
-		
-		
-		
-		
+		javaMailSender.send(messagePreparator);
+
 		
 //		SimpleMailMessage mail = new SimpleMailMessage();
 //		mail.setTo(customer.getEmail());

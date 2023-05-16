@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tsk.ecommerce.services.product.CrudProductService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -32,23 +32,24 @@ import io.swagger.v3.oas.annotations.Operation;
 @CrossOrigin("*")
 @RestController
 public class CatalogueController {
-	
-	
-	@Autowired
-	private ProductService productService;
-	
-	@Autowired
-	private PictureService pictureService;
-	
-	@Autowired
-	private FileStorageService fileStorageService;
-	
-	
+
+	private final CrudProductService crudProductService;
+	private final PictureService pictureService;
+	private final FileStorageService fileStorageService;
+
+	public CatalogueController(CrudProductService crudProductService,
+							   PictureService pictureService,
+							   FileStorageService fileStorageService) {
+		this.crudProductService = crudProductService;
+		this.pictureService = pictureService;
+		this.fileStorageService = fileStorageService;
+	}
+
+
 	@Operation(summary = "upload a new picture for product")
 	@PostMapping("/api/v1/uploadFile/{id}")
 	public Product uploadFile(@RequestParam("file") MultipartFile file, @PathVariable Long id ) {
-		
-		Product product = productService.getProductById(id);
+		Product product = crudProductService.getProductById(id);
 		Picture picture = new Picture();
 		picture.setProduct(product);
 		
@@ -59,32 +60,23 @@ public class CatalogueController {
 															.toUriString();
 		picture.setLink(fileDownloadUri);
 		pictureService.addPicture(picture);
-		
-		return productService.getProductById(id);
+		return crudProductService.getProductById(id);
 	}
-	
-	
-	
+
 	@Operation(summary = "upload multiple pictures ")
 	@PostMapping("/api/v1/uploadMultipleFiles/{id}")
 	public Product uploadMultipleFiles(@RequestParam("files") MultipartFile[] files, @PathVariable Long id ){
-		
 		Arrays.asList(files)
 				.stream()
 				.map(file -> this.uploadFile(file, id))
 				.collect(Collectors.toList());
-		
-		return productService.getProductById(id);
+		return crudProductService.getProductById(id);
 	}
-	
-	
-	
-	
+
+
 	@GetMapping("/downloadFile/{fileName:.+}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
-		
 		Resource resource = fileStorageService.loadFileAsResource(fileName);
-		
 		//determiner le type de fichier
 		String contentType = null;
 		try {
@@ -92,20 +84,15 @@ public class CatalogueController {
 		} catch (IOException e) {
 			System.out.println("Impossible de determiner le type de fichier");
 		}
-		
+
 		if(contentType == null) {
 			contentType = "application/octet-stream";
 		}
-		
+
 		return ResponseEntity.ok()
 					.contentType(MediaType.parseMediaType(contentType))
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
 					.body(resource);
-		
 	}
-	
-	
-	
-	
 
 }

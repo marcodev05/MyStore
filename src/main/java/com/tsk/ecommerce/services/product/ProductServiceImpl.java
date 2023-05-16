@@ -2,6 +2,7 @@ package com.tsk.ecommerce.services.product;
 
 import java.util.List;
 
+import com.tsk.ecommerce.dtos.requests.ProductSearchRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,7 @@ import com.tsk.ecommerce.services.category.CategoryService;
 
 @Service
 @Transactional
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService, CrudProductService {
 
 	private final ProductRepository productRepository;
 	private final CategoryService categoryService;
@@ -38,8 +39,7 @@ public class ProductServiceImpl implements ProductService {
 				//p.setCreatedAt(Date.from(Instant.now()));
 		return productRepository.save(p);
 	}
-	
-	
+
 	@Override
 	public Product update(Long id, ProductRequest productRequest) {
 		Product p = this.getProductById(id);
@@ -52,12 +52,9 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.save(p);
 	}
 
-	
-	@Override
-	public List<Product> findAllProduct() {
+	public List<Product> searchProduct(ProductSearchRequest request) {
 		return productRepository.findAll();
 	}
-
 	
 	@Override
 	public Product getProductById(Long id) {
@@ -103,5 +100,4 @@ public class ProductServiceImpl implements ProductService {
 		}
 		productRepository.save(p);
 	}
-
 }

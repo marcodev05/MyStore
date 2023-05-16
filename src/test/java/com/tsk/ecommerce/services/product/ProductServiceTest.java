@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductServiceTest {
 
     @Autowired
-    private ProductService productService;
+    private CrudProductService crudProductService;
 
     @MockBean
     private ProductRepository productRepository;
@@ -40,7 +40,7 @@ class ProductServiceTest {
     @Test
     public void whenProductIdExist_then_productFound(){
         Long id = 1L;
-        Product found = productService.getProductById(1L);
+        Product found = crudProductService.getProductById(1L);
         Mockito.verify(productRepository).findById(1L);
         assertNotNull(found);
         assertEquals(id, found.getIdProduct());
@@ -50,7 +50,7 @@ class ProductServiceTest {
     public void whenProductIdDoesNotExist_then_ResourceNotFoundException(){
         Long id = 2L;
         Exception exception = assertThrows(ResourceNotFoundException.class, ()->{
-            Product found = productService.getProductById(2L);
+            Product found = crudProductService.getProductById(2L);
         });
         String expectedMessage = "Le produit est introuvable";
         String actualMessage = exception.getMessage();

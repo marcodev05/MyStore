@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tsk.ecommerce.dtos.requests.ProductSearchRequest;
+import com.tsk.ecommerce.services.product.CrudProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +27,11 @@ import static com.tsk.ecommerce.common.ConstantsApp.*;
 public class ProductController  {
 
 	private final ProductService service;
+	private final CrudProductService crudProductService;
 
-	public ProductController(ProductService service) {
+	public ProductController(ProductService service, CrudProductService crudProductService) {
 		this.service = service;
+		this.crudProductService = crudProductService;
 	}
 
 	/************************** *********** *********************\
@@ -35,14 +39,14 @@ public class ProductController  {
 	 *************************************************************/
 	@Operation(summary = "Get all products")
 	@GetMapping(PUBLIC_URL + "/products")
-	public ResponseEntity<List<Product>> getAllProduct(){
-		return new ResponseEntity<>(service.findAllProduct(), HttpStatus.OK);
+	public ResponseEntity<List<Product>> searchProduct(ProductSearchRequest request){
+		return new ResponseEntity<>(crudProductService.searchProduct(request), HttpStatus.OK);
 	}
 
 	@Operation(summary = "Get a product by Id")
 	@GetMapping(PUBLIC_URL + "/products/{id}")
 	public ResponseEntity<Product> getProductById(@PathVariable("id")Long id){
-		return new ResponseEntity<>(service.getProductById(id), HttpStatus.OK);
+		return new ResponseEntity<>(crudProductService.getProductById(id), HttpStatus.OK);
 	}
 
 	@Operation(summary = "Get All pictures by product")
@@ -65,13 +69,13 @@ public class ProductController  {
 	@ApiResponse(responseCode = "201", description = "Product is created")
 	@PostMapping(SELLER_URL + "/products/add")
 	public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductRequest product) {
-		return new ResponseEntity<>(service.create(product), HttpStatus.CREATED);
+		return new ResponseEntity<>(crudProductService.create(product), HttpStatus.CREATED);
 	}
 
 	@Operation(summary = "Update a product by Id")
 	@PutMapping(SELLER_URL + "/products/{id}/update")
 	public ResponseEntity<Product> updateProduct(@RequestBody ProductRequest productRequest, @PathVariable("id") Long id) {
-		return new ResponseEntity<>(service.update(id, productRequest), HttpStatus.OK);
+		return new ResponseEntity<>(crudProductService.update(id, productRequest), HttpStatus.OK);
 	}
 
 	@Operation(summary = "Add to stock of product")
@@ -83,7 +87,7 @@ public class ProductController  {
 	@Operation(summary = "Delete a product by Id")
 	@DeleteMapping(SELLER_URL + "/products/delete/{id}")
 	public Map<String, Boolean> deleteProduct(@PathVariable("id") Long id) {
-		service.deleteProduct(id);
+		crudProductService.deleteProduct(id);
 		Map<String, Boolean> response = new HashMap<String, Boolean>();
 		response.put("delete", Boolean.TRUE);
 		return response;

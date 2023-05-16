@@ -28,7 +28,6 @@ public class MailContentBuilder {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		String stringDate = simpleDateFormat.format(new Date());
 		props.put("date", stringDate);
-
 		context.setVariables(props);
 		return templateEngine.process("MailTemplate", context);
 	}

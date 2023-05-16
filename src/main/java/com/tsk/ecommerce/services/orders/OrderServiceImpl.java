@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.tsk.ecommerce.services.product.CrudProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,12 +31,18 @@ public class OrderServiceImpl implements OrderService {
 	private final OrderLineService orderlineService;
 	private final CustomerService customerService;
 	private final ProductService productService;
+	private final CrudProductService crudProductService;
 
-	public OrderServiceImpl(OrdersRepository ordersRepo, OrderLineService orderlineService, CustomerService customerService, ProductService productService) {
+	public OrderServiceImpl(OrdersRepository ordersRepo,
+							OrderLineService orderlineService,
+							CustomerService customerService,
+							ProductService productService,
+							CrudProductService crudProductService) {
 		this.ordersRepo = ordersRepo;
 		this.orderlineService = orderlineService;
 		this.customerService = customerService;
 		this.productService = productService;
+		this.crudProductService = crudProductService;
 	}
 
 	@Override
@@ -74,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		Collection<OrderLine> ordlines = new ArrayList<OrderLine>();
 		orderRequest.getOrderlineRequests().forEach((o) -> {
-			Product p = productService.getProductById(o.getIdProduct());
+			Product p = crudProductService.getProductById(o.getIdProduct());
 
 			OrderLine orderLine = new OrderLine();
 			orderLine.setQuantity(o.getQuantity());
