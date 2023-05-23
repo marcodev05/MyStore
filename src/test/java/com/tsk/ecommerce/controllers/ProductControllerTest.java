@@ -3,6 +3,7 @@ package com.tsk.ecommerce.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tsk.ecommerce.dtos.requests.ProductRequest;
 import com.tsk.ecommerce.entities.Product;
+import com.tsk.ecommerce.services.product.CrudProductService;
 import com.tsk.ecommerce.services.product.ProductService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +34,8 @@ class ProductControllerTest{
     private ObjectMapper objectMapper;
     @MockBean
     private ProductService productService;
+    @MockBean
+    private CrudProductService crudProductService;
     private Product product;
 
     @BeforeEach
@@ -48,7 +51,7 @@ class ProductControllerTest{
 
     @Test
     public void shouldGetProductById() throws Exception {
-        Mockito.when(productService.getProductById(1L)).thenReturn(product);
+        Mockito.when(crudProductService.getProductById(1L)).thenReturn(product);
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/products/",1L))
                                         .andExpect(MockMvcResultMatchers.status().isOk())
                                         .andDo(MockMvcResultHandlers.print())
@@ -60,7 +63,7 @@ class ProductControllerTest{
     public void shouldAddProduct() throws Exception {
         ProductRequest inputProduct = new ProductRequest("KeyBoard", "AZERTY alignment",
                                                     400.0,10,new ArrayList<>(),null);
-        Mockito.when(productService.create(inputProduct)).thenReturn(product);
+        Mockito.when(crudProductService.create(inputProduct)).thenReturn(product);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/products/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(inputProduct))
@@ -74,7 +77,7 @@ class ProductControllerTest{
     public void productNameMustNotBeBlank() throws Exception {
         ProductRequest inputProduct = new ProductRequest(null, "AZERTY alignment",
                                                         400.0,10,new ArrayList<>(),null);
-        Mockito.when(productService.create(inputProduct)).thenReturn(product);
+        Mockito.when(crudProductService.create(inputProduct)).thenReturn(product);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/products/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(inputProduct))
@@ -85,7 +88,7 @@ class ProductControllerTest{
 
     @Test
     public void productCanBeDelete() throws Exception {
-        Mockito.doNothing().when(productService).deleteProduct(1L);
+        Mockito.doNothing().when(crudProductService).deleteProduct(1L);
         mockMvc.perform(MockMvcRequestBuilders.delete("/admin/v1/products/delete/", 1L)
                         .header(HttpHeaders.AUTHORIZATION, "Bearer token"))
                 .andExpect(MockMvcResultMatchers.status().isOk());

@@ -1,8 +1,10 @@
-package com.tsk.ecommerce.dtos;
+package com.tsk.ecommerce.dtos.forms;
 
 
 import com.tsk.ecommerce.entities.Orders;
+import lombok.Data;
 
+@Data
 public class NotificationMail {
 
 	private Orders order;
@@ -12,19 +14,8 @@ public class NotificationMail {
 		this.order = order;
 	}
 
-
 	public NotificationMail() {
 		super();
-	}
-
-
-	public Orders getOrder() {
-		return order;
-	}
-
-
-	public void setOrder(Orders order) {
-		this.order = order;
 	}
 
 }

@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Product implements Serializable{
+public class Product extends AuditEntity implements Serializable{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idProduct;
@@ -63,7 +63,7 @@ public class Product implements Serializable{
 	@OneToMany(mappedBy = "product")
 	private Collection<OrderLine> orderLines;
 
-	@CreatedDate
-	private Date createdAt;
+	//@CreatedDate
+	//private Date createdAt;
 
 }

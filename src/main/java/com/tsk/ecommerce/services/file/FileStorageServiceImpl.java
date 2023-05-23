@@ -7,8 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-
-//faaa0f727f4137939405fb07ab4a7d4f8f94e2a6
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -23,8 +21,7 @@ import com.tsk.ecommerce.exceptions.MyFileNotFoundException;
 public class FileStorageServiceImpl implements FileStorageService {
 
 	private  Path fileStorageLocation ;
-	
-	
+
 	@Autowired
 	public FileStorageServiceImpl(FileStorageProperties fileStorageProperties) {
 //		this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
@@ -35,56 +32,38 @@ public class FileStorageServiceImpl implements FileStorageService {
 										.toAbsolutePath()
 										.normalize();
 		
-		try {	
-			
+		try {
 			Files.createDirectories(fileStorageLocation);
-			
 		} catch (IOException e) {
-			
 			e.printStackTrace();
 		}
 	}
 	
-	
-	
-	
-	
-	
+
 	@Override
 	public String storeFile(MultipartFile file) {
-
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
 		try {
 			// copy file to the target location (remplace if exist)
 			Path targetLocation = this.fileStorageLocation.resolve(fileName);
 			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 			return fileName;
-
 		} catch (IOException e) {
-
 			e.printStackTrace();
 			return null;
 		}
-
 	}
-	
-	
-	
+
 	@Override
 	public Resource loadFileAsResource(String fileName) {
-
 		try {
-
 			Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
 			Resource resource = new UrlResource(filePath.toUri());
-			if (resource.exists()) {
-				return resource;
-			} else {
+			if (!resource.exists()) {
 				throw new MyFileNotFoundException(" file not found " + fileName);
 			}
+			return resource;
 		} catch (MalformedURLException e) {
-
 			throw new MyFileNotFoundException(" file not found " + fileName);
 		}
 	}

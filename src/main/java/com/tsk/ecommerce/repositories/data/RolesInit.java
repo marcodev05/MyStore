@@ -20,4 +20,6 @@ public class RolesInit {
         roleEntityRepository.save(new RoleEntity(ERole.ROLE_ADMIN));
         roleEntityRepository.save(new RoleEntity(ERole.ROLE_SELLER));
     }
+
+
 }
