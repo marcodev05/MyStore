@@ -3,9 +3,10 @@ package com.tsk.ecommerce.validators;
 import com.tsk.ecommerce.dtos.requests.SignUpRequest;
 import com.tsk.ecommerce.exceptions.BadRequestException;
 import com.tsk.ecommerce.repositories.UserEntityRepository;
-import org.springframework.stereotype.Component;
 
-@Component
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserValidator {
 
     private final UserEntityRepository userEntityRepository;

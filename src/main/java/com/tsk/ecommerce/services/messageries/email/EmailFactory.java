@@ -3,11 +3,9 @@ package com.tsk.ecommerce.services.messageries.email;
 import com.tsk.ecommerce.entities.auth.UserEntity;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.stereotype.Component;
 
 import javax.mail.internet.MimeMessage;
 
-@Component
 public class EmailFactory implements MimeMessagePreparator {
 
     private static final String MAIL_SHOP = "";

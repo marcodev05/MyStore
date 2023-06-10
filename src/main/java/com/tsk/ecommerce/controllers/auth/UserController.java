@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.tsk.ecommerce.entities.enumerations.ERole;
 import com.tsk.ecommerce.services.account.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,10 @@ import static com.tsk.ecommerce.common.ConstantsApp.PUBLIC_URL;
 @RestController
 public class UserController {
 
-	private final UserService userService;
 	private final AccountService accountService;
 	private final JwtProvider jwtProvider;
 
-	public UserController(UserService userService, AccountService accountService, JwtProvider jwtProvider) {
-		this.userService = userService;
+	public UserController(AccountService accountService, JwtProvider jwtProvider) {
 		this.accountService = accountService;
 		this.jwtProvider = jwtProvider;
 	}
@@ -53,9 +52,7 @@ public class UserController {
 		accountService.getByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
 		String token = jwtProvider.generateToken(loginRequest.getUsername());
 		UserEntity usr = accountService.getByUsername(loginRequest.getUsername());
-		List<String> roles = usr.getRoles().stream()
-				.map((roleEntity) -> roleEntity.getName().toString())
-				.collect(Collectors.toList());
+		List<ERole> roles = (List<ERole>) usr.getRoles();
 		LoginResponse response = new LoginResponse(token, roles);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
