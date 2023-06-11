@@ -8,16 +8,16 @@ import com.tsk.ecommerce.entities.Product;
 
 public interface CategoryService {
 	
-	public Category create(CategoryRequest category);
+	Category create(CategoryRequest category);
 	
-	public Category update(Integer id, Category category);
+	Category update(Integer id, Category category);
 	
-	public List<Category> findAllCategory();
+	List<Category> findAllCategory();
 	
-	public Category getCategoryById(Integer id);
+	Category getCategoryById(Integer id);
 	
-	public List<Product> getAllProductsByCategory(Integer idCategory);
+	List<Product> getAllProductsByCategory(Integer idCategory);
 	
-	public void deleteCategory(Integer id);
+	void deleteCategory(Integer id);
 	
 }

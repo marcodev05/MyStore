@@ -9,6 +9,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import com.tsk.ecommerce.configs.jwt.JwtProvider;
+import com.tsk.ecommerce.exceptions.UnauthorizedException;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -30,8 +32,7 @@ public class JwtFilter extends GenericFilterBean{
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
 		System.out.println(" je doit filtrer cette requette");
 		String token = this.getTokenFromRequest((HttpServletRequest) request);
 		try {
@@ -44,8 +45,9 @@ public class JwtFilter extends GenericFilterBean{
 				SecurityContextHolder.getContext().setAuthentication(auth);
 			}
 			chain.doFilter(request, response);
-		} catch (Exception e) {
+		} catch (UnauthorizedException | IOException | NullPointerException | ServletException e) {
 			e.printStackTrace();
+			throw new UnauthorizedException(" Access denied");
 		}
 	}
 

@@ -1,35 +1,35 @@
 package com.tsk.ecommerce.services.messageries.email;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 
 import com.tsk.ecommerce.entities.Orders;
+import org.springframework.stereotype.Component;
 
 @Component
 public class NotificationEmailService {
 	
 	private static final String MAIL_SHOP = "";
-	@Autowired
-	private JavaMailSender javaMailSender;
-	@Autowired
-	private MailContentBuilder mailContent;
+	private final JavaMailSender javaMailSender;
+	private final MailContentBuilder mailContent;
+
+	public NotificationEmailService(JavaMailSender javaMailSender,
+									MailContentBuilder mailContent) {
+		this.javaMailSender = javaMailSender;
+		this.mailContent = mailContent;
+	}
 
 	@Async
 	public void sendNotification(Orders orders) {
+		//MimeMessagePreparator messagePreparator2 = emailFactory;
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 			messageHelper.setFrom(MAIL_SHOP);
 			messageHelper.setTo(orders.getCustomer().getEmail());
 			messageHelper.setSubject("Confirmation de l'envoie d'une commande");
-			
-			//String name = orders.getCustomer().getFirstName() + " " + orders.getCustomer().getLastName();
-			//String html2 = mailContent.build(notifMail.getClientName(), notifMail.getNumCommand(), null, notifMail.getAddress());
 			String html = mailContent.build(orders);
 			messageHelper.setText(html, true);
 		};
@@ -48,7 +48,7 @@ public class NotificationEmailService {
 //		javaMailSender.send(mail);
 		
 		
-	}	
-		
+	}
+
 
 }

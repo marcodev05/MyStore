@@ -40,10 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.authorizeRequests()
-				.antMatchers("/admin/**").hasRole("ADMIN")
-				.antMatchers("/seller/**").hasRole("SELLER")
-				.antMatchers("/user/**").hasRole("USER")
-				.antMatchers("/public/**").permitAll()
+				.antMatchers("/api/v1/admin/**").hasRole("ADMIN")
+				.antMatchers("/api/v1/seller/**").hasRole("SELLER")
+				.antMatchers("/api/v1/user/**").hasRole("USER")
+				.antMatchers("/api/v1/public/**", "/login", "/register").permitAll()
 				.antMatchers(SWAGGER).permitAll()
 				.and()
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -53,5 +53,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public PasswordEncoder passWordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 }

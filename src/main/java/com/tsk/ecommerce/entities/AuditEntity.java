@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import java.util.Date;
 
 
 @Data
@@ -16,10 +17,10 @@ import javax.persistence.MappedSuperclass;
 public abstract class AuditEntity {
 
     @CreatedDate
-    private long createdAt;
+    private Date createdAt;
 
     @LastModifiedDate
-    private long updatedAt;
+    private Date updatedAt;
 
     @LastModifiedBy
     private String updatedBy;
