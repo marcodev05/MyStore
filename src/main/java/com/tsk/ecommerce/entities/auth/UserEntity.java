@@ -1,6 +1,7 @@
 package com.tsk.ecommerce.entities.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tsk.ecommerce.entities.AuditEntity;
 import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.entities.enumerations.ERole;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import java.util.Date;
 @Entity(name = "users")
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email"),
 							@UniqueConstraint(columnNames = "username")})
-public class UserEntity {
+public class UserEntity extends AuditEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,13 +44,8 @@ public class UserEntity {
 	private Customer customer;
 
 	@Enumerated(value = EnumType.STRING)
-	@ElementCollection(targetClass = ERole.class)
-	@CollectionTable(name = "roles")
+	@ElementCollection(targetClass = ERole.class, fetch = FetchType.EAGER)
+	@CollectionTable(name = "role_entity")
 	private Collection<ERole> roles = new ArrayList<>();
 
-	@CreatedDate
-	private Date createdAt;
-
-	@LastModifiedDate
-	private Date modifiedAt;
 }

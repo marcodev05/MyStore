@@ -35,8 +35,7 @@ public class ProductServiceImpl implements ProductService, CrudProductService {
 				p.setPrice(product.getPrice());
 				p.setStock(product.getStock());
 				p.setAvailable(true);
-				p.setCategory(categoryService.getCategoryById(product.getIdCategory()));
-				//p.setCreatedAt(Date.from(Instant.now()));
+				p.setCategory(categoryService.getCategoryById(product.getCategoryId()));
 		return productRepository.save(p);
 	}
 
@@ -47,7 +46,7 @@ public class ProductServiceImpl implements ProductService, CrudProductService {
 		p.setDescription(productRequest.getDescription());
 		p.setPrice(productRequest.getPrice());
 		p.setStock(productRequest.getStock());
-		Category category = categoryService.getCategoryById(productRequest.getIdCategory());
+		Category category = categoryService.getCategoryById(productRequest.getCategoryId());
 		p.setCategory(category);
 		return productRepository.save(p);
 	}

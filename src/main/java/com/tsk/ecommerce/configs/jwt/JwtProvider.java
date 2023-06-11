@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+import com.tsk.ecommerce.exceptions.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -48,13 +49,14 @@ public class JwtProvider {
 	 * verifier si le token est valide
 	 */
 	
-	public boolean validateToken(String token) throws Exception {
+	public boolean validateToken(String token) throws UnauthorizedException{
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
 			return true;
-		} catch (Exception e) {
-			throw new Exception("token invalid");
-		}	
+		}catch (Exception exception){
+			exception.getStackTrace();
+			return false;
+		}
 	}
 
 	/************************
