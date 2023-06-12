@@ -1,7 +1,6 @@
 package com.tsk.ecommerce.services.security;
 
 import com.tsk.ecommerce.configs.security.CustomUserDetails;
-import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.exceptions.UnauthorizedException;
 import com.tsk.ecommerce.repositories.UserEntityRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -24,11 +24,10 @@ public class NotificationEmailService {
 
 	@Async
 	public void sendNotification(Orders orders) {
-		//MimeMessagePreparator messagePreparator2 = emailFactory;
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 			messageHelper.setFrom(MAIL_SHOP);
-			messageHelper.setTo(orders.getCustomer().getEmail());
+			messageHelper.setTo(orders.getUserEntity().getEmail());
 			messageHelper.setSubject("Confirmation de l'envoie d'une commande");
 			String html = mailContent.build(orders);
 			messageHelper.setText(html, true);
