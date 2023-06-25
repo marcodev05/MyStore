@@ -10,10 +10,10 @@ public class Pagination {
     private Integer page;
 
     @Min(1)
-    private Integer par_page;
+    private Integer size;
 
     public Pagination() {
-        page = 1;
-        par_page = 10;
+        this.page = 1;
+        this.size = 10;
     }
 }

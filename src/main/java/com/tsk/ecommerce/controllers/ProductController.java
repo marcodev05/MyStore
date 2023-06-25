@@ -1,13 +1,10 @@
 package com.tsk.ecommerce.controllers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.tsk.ecommerce.dtos.requests.ProductSearchRequest;
-import com.tsk.ecommerce.dtos.responses.ProductResponseDTO;
+import com.tsk.ecommerce.dtos.responses.PageableResponse;
 import com.tsk.ecommerce.services.product.CrudProductService;
-import com.tsk.ecommerce.dtos.requests.ProductRequest;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.services.product.ProductService;
@@ -17,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import javax.validation.Valid;
 
@@ -25,6 +21,7 @@ import static com.tsk.ecommerce.common.ConstantsApp.*;
 
 @CrossOrigin("*")
 @RestController
+@RequestMapping(PUBLIC_URL+"/products")
 public class ProductController  {
 
 	private final ProductService service;
@@ -35,63 +32,28 @@ public class ProductController  {
 		this.crudProductService = crudProductService;
 	}
 
-	/************************** *********** *********************\
-	 * 							PUBLIC ROUTES
-	 *************************************************************/
 	@Operation(summary = "Get all products")
-	@GetMapping(PUBLIC_URL + "/products")
-	public ResponseEntity<List<Product>> searchProduct(ProductSearchRequest request){
+	@GetMapping
+	public ResponseEntity<PageableResponse<List<Product>>> searchProduct(@Valid ProductSearchRequest request){
 		return new ResponseEntity<>(crudProductService.searchProduct(request), HttpStatus.OK);
 	}
 
+	@GetMapping("{id}")
 	@Operation(summary = "Get a product by Id")
-	@GetMapping(PUBLIC_URL + "/products/{id}")
 	public ResponseEntity<Product> getProductById(@PathVariable("id")Long id){
 		return new ResponseEntity<>(crudProductService.getProductById(id), HttpStatus.OK);
 	}
 
+	@GetMapping("{id}/pictures")
 	@Operation(summary = "Get All pictures by product")
-	@GetMapping(PUBLIC_URL + "/products/{id}/pictures")
 	public ResponseEntity<List<Picture>> getPicturesByProduct(@PathVariable("id")Long id){
 		return new ResponseEntity<>(service.getAllPictureByProduct(id), HttpStatus.OK);
 	}
 
+	@GetMapping("name/{name}")
 	@Operation(summary = "Get list of products by name")
-	@GetMapping(PUBLIC_URL + "/products/name/{name}")
 	public ResponseEntity<List<Product>> getProductsByName(@PathVariable("name")String nameProduct){
 		return new ResponseEntity<>(service.findProductByName(nameProduct), HttpStatus.OK);
-	}
-
-	/************************** *********** *********************\
-	 * 							SELLER ROUTES
-	 *************************************************************/
-
-	@Operation(summary = "Add a new product")
-	@ApiResponse(responseCode = "201", description = "Product is created")
-	@PostMapping(SELLER_URL + "/products/add")
-	public ResponseEntity<ProductResponseDTO> addProduct(@Valid @RequestBody ProductRequest product) {
-		return new ResponseEntity<>(crudProductService.create(product), HttpStatus.CREATED);
-	}
-
-	@Operation(summary = "Update a product by Id")
-	@PutMapping(SELLER_URL + "/products/{id}/update")
-	public ResponseEntity<ProductResponseDTO> updateProduct(@RequestBody ProductRequest productRequest, @PathVariable("id") Long id) {
-		return new ResponseEntity<>(crudProductService.update(id, productRequest), HttpStatus.OK);
-	}
-
-	@Operation(summary = "Add to stock of product")
-	@GetMapping(SELLER_URL + "/products/{id}/addStock/{qty}")
-	public ResponseEntity<Product> addStockProduct( @PathVariable("id") Long id, @PathVariable("qty") Integer qty) {
-		return new ResponseEntity<>(service.addToStock(id, qty), HttpStatus.OK);
-	}
-
-	@Operation(summary = "Delete a product by Id")
-	@DeleteMapping(SELLER_URL + "/products/delete/{id}")
-	public Map<String, Boolean> deleteProduct(@PathVariable("id") Long id) {
-		crudProductService.deleteProduct(id);
-		Map<String, Boolean> response = new HashMap<String, Boolean>();
-		response.put("delete", Boolean.TRUE);
-		return response;
 	}
 
 }

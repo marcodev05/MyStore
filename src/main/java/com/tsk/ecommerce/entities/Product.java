@@ -40,6 +40,7 @@ public class Product extends AuditEntity implements Serializable{
 
 	@Column(nullable = false)
 	private Integer stock;
+
 	@Max(value = 5)
 	@Min(value = 0)
 	private Integer rating;

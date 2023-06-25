@@ -30,22 +30,22 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @CrossOrigin("*")
 @RestController
-public class CatalogueController {
+public class FileController {
 
 	private final CrudProductService crudProductService;
 	private final PictureService pictureService;
 	private final FileStorageService fileStorageService;
 
-	public CatalogueController(CrudProductService crudProductService,
-							   PictureService pictureService,
-							   FileStorageService fileStorageService) {
+	public FileController(CrudProductService crudProductService,
+						  PictureService pictureService,
+						  FileStorageService fileStorageService) {
 		this.crudProductService = crudProductService;
 		this.pictureService = pictureService;
 		this.fileStorageService = fileStorageService;
 	}
 
 	@Operation(summary = "upload a new picture for product")
-	@PostMapping("/api/v1/uploadFile/{id}")
+	@PostMapping("/api/v1/upload-file/{id}")
 	public Product uploadFile(@RequestParam("file") MultipartFile file, @PathVariable Long id ) {
 		Product product = crudProductService.getProductById(id);
 		Picture picture = new Picture();
@@ -62,7 +62,7 @@ public class CatalogueController {
 	}
 
 	@Operation(summary = "upload multiple pictures ")
-	@PostMapping("/api/v1/uploadMultipleFiles/{id}")
+	@PostMapping("/api/v1/upload-multiple-files/{id}")
 	public Product uploadMultipleFiles(@RequestParam("files") MultipartFile[] files, @PathVariable Long id ){
 		Arrays.asList(files)
 				.stream()
@@ -72,7 +72,7 @@ public class CatalogueController {
 	}
 
 
-	@GetMapping("/downloadFile/{fileName:.+}")
+	@GetMapping("/download-file/{fileName:.+}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
 		Resource resource = fileStorageService.loadFileAsResource(fileName);
 		//determiner le type de fichier

@@ -1,10 +1,11 @@
 package com.tsk.ecommerce.configs;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @ConfigurationProperties(prefix = "file")
-@Component
+@Configuration
 public class FileStorageProperties {
 
 	private String uploadDir;

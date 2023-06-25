@@ -12,12 +12,10 @@ import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ProductSearchRequest {
 
 	private String name;
 
 	@Valid
-	private Pagination pagination;
+	private Pagination pagination = new Pagination();
 }

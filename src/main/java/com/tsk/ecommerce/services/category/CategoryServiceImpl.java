@@ -2,23 +2,28 @@ package com.tsk.ecommerce.services.category;
 
 import java.util.List;
 
+import com.tsk.ecommerce.common.Pagination;
 import com.tsk.ecommerce.dtos.requests.CategoryRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import com.tsk.ecommerce.dtos.responses.PageableResponse;
 import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.entities.Product;
-import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.CategoryRepository;
+import com.tsk.ecommerce.services.ObjectFinder;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 @Service
-@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
-	@Autowired
-	CategoryRepository categoryRepository;
-	
+	private final CategoryRepository categoryRepository;
+
+	public CategoryServiceImpl(CategoryRepository categoryRepository) {
+		this.categoryRepository = categoryRepository;
+	}
+
 	@Override
 	public Category create(CategoryRequest category) {
 		Category c = new Category();
@@ -27,7 +32,6 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.save(c);
 	}
 
-	
 	@Override
 	public Category update(Integer id, Category category) {
 		Category c = this.getCategoryById(id);
@@ -36,18 +40,14 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.save(c);
 	}
 
-	
 	@Override
 	public List<Category> findAllCategory() {
 		return categoryRepository.findAll();
 	}
-	
 
 	@Override
 	public Category getCategoryById(Integer id) {
-		Category c = categoryRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Catégorie introuvable ! "));
-		return c;
+		return ObjectFinder.findById(categoryRepository, "category", id);
 	}
 
 	@Override
@@ -56,10 +56,15 @@ public class CategoryServiceImpl implements CategoryService {
 		categoryRepository.delete(c);
 	}
 
-
 	@Override
-	public List<Product> getAllProductsByCategory(Integer idCategory) {
-		return (List<Product>) categoryRepository.findAllProductsByCategory(idCategory);
+	public PageableResponse<List<Product>> getAllProductsByCategory(Integer idCategory, Pagination pagination) {
+		ObjectFinder.findById(categoryRepository, "category", idCategory);
+		Pageable pageable = PageRequest.of(pagination.getPage() - 1, pagination.getSize());
+		Page<Product> productPage = categoryRepository.findAllProductsByCategory(idCategory, pageable);
+		return new PageableResponse<>(
+				productPage.getContent(),
+				productPage.getTotalPages(),
+				productPage.getTotalElements());
 	}
 
 }
