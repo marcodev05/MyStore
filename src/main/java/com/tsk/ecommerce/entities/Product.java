@@ -2,7 +2,6 @@ package com.tsk.ecommerce.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,11 +16,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -33,9 +30,9 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 public class Product extends AuditEntity implements Serializable{
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idProduct;
+	private Long id;
 
-	private String nameProduct;
+	private String name;
 	private String description;
 
 	@Column(nullable = false)
@@ -43,10 +40,6 @@ public class Product extends AuditEntity implements Serializable{
 
 	@Column(nullable = false)
 	private Integer stock;
-
-	private Boolean available;
-	private Boolean selected;
-
 	@Max(value = 5)
 	@Min(value = 0)
 	private Integer rating;
@@ -62,6 +55,4 @@ public class Product extends AuditEntity implements Serializable{
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@OneToMany(mappedBy = "product")
 	private Collection<OrderLine> orderLines;
-
-
 }

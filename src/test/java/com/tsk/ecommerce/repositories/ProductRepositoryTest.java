@@ -22,7 +22,7 @@ class ProductRepositoryTest {
     @BeforeEach
     void setUp() {
         Product inputProduct = new Product();
-        inputProduct.setNameProduct("KeyBoard");
+        inputProduct.setName("KeyBoard");
         inputProduct.setDescription("AZERTY alignment");
         inputProduct.setPrice(400.0);
         inputProduct.setStock(10);
@@ -36,7 +36,7 @@ class ProductRepositoryTest {
 
     @Test
     public void whenFindByName_thenReturnProducts(){
-       List<Product> products = productRepository.findByNameProductContains("KeyBoard").get();
+       List<Product> products = productRepository.findByNameContains("KeyBoard").get();
         assertTrue(products.size() > 0);
     }
 

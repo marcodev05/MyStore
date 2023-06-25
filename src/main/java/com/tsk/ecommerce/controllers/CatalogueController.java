@@ -8,6 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 
 
 import com.tsk.ecommerce.services.product.CrudProductService;
+import com.tsk.ecommerce.entities.Picture;
+import com.tsk.ecommerce.entities.Product;
+import com.tsk.ecommerce.services.file.FileStorageService;
+import com.tsk.ecommerce.services.picture.PictureService;
+
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,12 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.tsk.ecommerce.entities.Picture;
-import com.tsk.ecommerce.entities.Product;
-import com.tsk.ecommerce.services.file.FileStorageService;
-import com.tsk.ecommerce.services.picture.PictureService;
-import com.tsk.ecommerce.services.product.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -44,7 +43,6 @@ public class CatalogueController {
 		this.pictureService = pictureService;
 		this.fileStorageService = fileStorageService;
 	}
-
 
 	@Operation(summary = "upload a new picture for product")
 	@PostMapping("/api/v1/uploadFile/{id}")

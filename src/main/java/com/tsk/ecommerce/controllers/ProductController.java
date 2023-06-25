@@ -5,15 +5,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.tsk.ecommerce.dtos.requests.ProductSearchRequest;
+import com.tsk.ecommerce.dtos.responses.ProductResponseDTO;
 import com.tsk.ecommerce.services.product.CrudProductService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import com.tsk.ecommerce.dtos.requests.ProductRequest;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.services.product.ProductService;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -68,13 +69,13 @@ public class ProductController  {
 	@Operation(summary = "Add a new product")
 	@ApiResponse(responseCode = "201", description = "Product is created")
 	@PostMapping(SELLER_URL + "/products/add")
-	public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductRequest product) {
+	public ResponseEntity<ProductResponseDTO> addProduct(@Valid @RequestBody ProductRequest product) {
 		return new ResponseEntity<>(crudProductService.create(product), HttpStatus.CREATED);
 	}
 
 	@Operation(summary = "Update a product by Id")
 	@PutMapping(SELLER_URL + "/products/{id}/update")
-	public ResponseEntity<Product> updateProduct(@RequestBody ProductRequest productRequest, @PathVariable("id") Long id) {
+	public ResponseEntity<ProductResponseDTO> updateProduct(@RequestBody ProductRequest productRequest, @PathVariable("id") Long id) {
 		return new ResponseEntity<>(crudProductService.update(id, productRequest), HttpStatus.OK);
 	}
 

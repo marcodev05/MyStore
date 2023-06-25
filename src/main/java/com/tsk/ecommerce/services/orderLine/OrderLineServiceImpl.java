@@ -29,11 +29,11 @@ public class OrderLineServiceImpl implements OrderLineService {
         OrderLine ordln = new OrderLine();
         ordln.setQuantity(orderLine.getQuantity());
         if (orderLine.getProduct() != null) {
-            Product p = ObjectFinder.findById(productRepository, "product", orderLine.getProduct().getIdProduct());
+            Product p = ObjectFinder.findById(productRepository, "product", orderLine.getProduct().getId());
             ordln.setProduct(p);
             Double pu = p.getPrice();
 
-            if (p.getAvailable()) {
+            if (p.getStock()>=0) {
                 if (p.getStock() >= orderLine.getQuantity()) {
                     Integer orderQty = orderLine.getQuantity();
                     Double subtotal = pu * orderQty;
@@ -79,9 +79,6 @@ public class OrderLineServiceImpl implements OrderLineService {
 
         Integer ordQte = ordln.getQuantity();
         product.setStock(stockProduct + ordQte);
-        if (product.getStock() > 0) {
-            product.setAvailable(true);
-        }
         productRepository.save(product);
         orderLineRepository.delete(ordln);
     }

@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.controllers.auth;
+package com.tsk.ecommerce.controllers;
 
 import java.io.IOException;
 
@@ -30,7 +30,7 @@ public class AuthenticationController {
 	}
 
 	@Operation(summary = "Add a new user admin")
-	@PostMapping("/register")
+	@PostMapping("/register/phase-1")
 	public ResponseEntity<String> registerUserPhase1(@Valid @RequestBody SignUpRequest request) throws IOException{
 		UserEntity u = accountService.registerPhase1(request);
 		return new ResponseEntity<>("Enregistrement réussi !", HttpStatus.CREATED);	

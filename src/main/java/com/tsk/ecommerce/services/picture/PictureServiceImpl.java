@@ -27,7 +27,7 @@ public class PictureServiceImpl implements PictureService {
 	public Picture addPicture(Picture picture) {
 		Picture pic = new Picture();
 		if (picture.getProduct() != null) {
-			Product p = crudProductService.getProductById(picture.getProduct().getIdProduct());
+			Product p = crudProductService.getProductById(picture.getProduct().getId());
 			pic.setProduct(p);
 		} else
 			throw new BadRequestException("Le produit ne peut pas être null");
