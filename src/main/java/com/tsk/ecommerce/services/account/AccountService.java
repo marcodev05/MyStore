@@ -1,6 +1,6 @@
 package com.tsk.ecommerce.services.account;
 
-import com.tsk.ecommerce.configs.jwt.JwtProvider;
+import com.tsk.ecommerce.services.security.JwtProvider;
 import com.tsk.ecommerce.dtos.requests.LoginRequest;
 import com.tsk.ecommerce.dtos.requests.SignUpRequest;
 import com.tsk.ecommerce.dtos.responses.LoginResponseDTO;

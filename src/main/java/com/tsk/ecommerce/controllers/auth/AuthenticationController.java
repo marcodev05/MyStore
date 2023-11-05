@@ -4,11 +4,14 @@ import java.io.IOException;
 
 import javax.validation.Valid;
 
+import com.tsk.ecommerce.dtos.responses.Response;
+import com.tsk.ecommerce.dtos.responses.ResponseFactory;
 import com.tsk.ecommerce.services.account.AccountService;
 import com.tsk.ecommerce.dtos.requests.LoginRequest;
 import com.tsk.ecommerce.dtos.requests.SignUpRequest;
 import com.tsk.ecommerce.dtos.responses.LoginResponseDTO;
 import com.tsk.ecommerce.entities.auth.UserEntity;
+import com.tsk.ecommerce.services.account.LoginService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +27,14 @@ import io.swagger.v3.oas.annotations.Operation;
 public class AuthenticationController {
 
 	private final AccountService accountService;
+	private final LoginService loginService;
 
-	public AuthenticationController(AccountService accountService) {
+	public AuthenticationController(AccountService accountService, LoginService loginService) {
 		this.accountService = accountService;
+		this.loginService = loginService;
 	}
 
-	@Operation(summary = "Add a new user admin")
+	@Operation(summary = "step 1 register user")
 	@PostMapping("/register")
 	public ResponseEntity<String> registerUserPhase1(@Valid @RequestBody SignUpRequest request) throws IOException{
 		UserEntity u = accountService.registerPhase1(request);
@@ -38,7 +43,7 @@ public class AuthenticationController {
 
 	@Operation(summary = "login")
 	@PostMapping("/login")
-	public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
-		return new ResponseEntity<>(accountService.login(loginRequest), HttpStatus.OK);
+	public Response<LoginResponseDTO> login(LoginRequest loginRequest) {
+		return ResponseFactory.success(loginService.login(loginRequest));
 	}
 }

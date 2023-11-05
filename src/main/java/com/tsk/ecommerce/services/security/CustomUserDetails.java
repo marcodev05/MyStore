@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.configs.security;
+package com.tsk.ecommerce.services.security;
 
 import java.util.Collection;
 import java.util.List;
@@ -11,35 +11,33 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.tsk.ecommerce.entities.auth.UserEntity;
 
 public class CustomUserDetails implements UserDetails {
-	
-	private String username;
-	private String password;
-	Collection<? extends GrantedAuthority> granteAuthority;
 
-	public static CustomUserDetails fromUserEntityToUserDetails(UserEntity userEntity) {
-		CustomUserDetails c = new CustomUserDetails();
-		c.username = userEntity.getUsername();
-		c.password = userEntity.getPassword();
-		List<SimpleGrantedAuthority> simpleGrantedAuthorityCollections = userEntity.getRoles().stream()
-				.map((roleEntity) -> new SimpleGrantedAuthority(roleEntity.name()))
-				.collect(Collectors.toList());
-		c.granteAuthority = simpleGrantedAuthorityCollections;
-		return c;
+	private final UserEntity userEntity;
+
+	public CustomUserDetails(UserEntity userEntity) {
+		this.userEntity = userEntity;
+
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return granteAuthority;
+		return userEntity.getRoles().stream()
+				.map((roleEntity) -> new SimpleGrantedAuthority(roleEntity.name()))
+				.collect(Collectors.toList());
+	}
+
+	public UserEntity getUserEntity() {
+		return userEntity;
 	}
 
 	@Override
 	public String getPassword() {
-		return password;
+		return userEntity.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return username;
+		return userEntity.getUsername();
 	}
 
 	@Override
