@@ -22,10 +22,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
-	JwtFilter jwtFilter;
+	private SecurityAuthenticationEntryPoint securityAuthenticationEntryPoint;
 
 	@Autowired
-	SecurityAuthenticationEntryPoint securityAuthenticationEntryPoint;
+	private LoginAuthenticationProvider loginAuthenticationProvider;
 
 	private static final String[] SWAGGER = {
 			"/v2/api-docs",
@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/api/v1/public/**", "/login", "/register").permitAll()
 				.antMatchers(SWAGGER).permitAll()
 				.and()
-				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+				.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Override
