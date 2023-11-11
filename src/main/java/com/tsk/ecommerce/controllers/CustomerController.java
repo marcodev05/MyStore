@@ -80,11 +80,11 @@ public class CustomerController {
 
 
 	/************************** *********** *********************\
-	 * 							SELLER ROUTES
+	 * 							ADMIN ROUTES
 	 *************************************************************/
 
 	@Operation(summary = "Get all Customers")
-	@GetMapping(SELLER_URL + "customers")
+	@GetMapping(ADMIN_URL + "customers")
 	public ResponseEntity<List<Customer>> getAllCustomer(){
 		List<Customer> Customers = service.findAllCustomer();
 		return new ResponseEntity<>(Customers, HttpStatus.OK);

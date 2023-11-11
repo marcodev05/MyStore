@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import javax.validation.Valid;
 
 import static com.tsk.ecommerce.common.ConstantsApp.PUBLIC_URL;
-import static com.tsk.ecommerce.common.ConstantsApp.SELLER_URL;
+import static com.tsk.ecommerce.common.ConstantsApp.ADMIN_URL;
 
 @CrossOrigin("*")
 @RestController
@@ -40,7 +40,7 @@ public class CategoryController  {
 
 	@Operation(summary = "Add a new Category")
 	@ApiResponse(responseCode = "201", description = "Category is created")
-	@PostMapping(SELLER_URL + "/categories/add")
+	@PostMapping(ADMIN_URL + "/categories/add")
 	public ResponseEntity<Category> addCategory(@Valid @RequestBody CategoryRequest category) {
 		return new ResponseEntity<>(service.create(category), HttpStatus.CREATED);
 	}
@@ -58,13 +58,13 @@ public class CategoryController  {
 	}
 
 	@Operation(summary = "Update a category by id")
-	@PutMapping(SELLER_URL + "/categories/{id}/update")
+	@PutMapping(ADMIN_URL + "/categories/{id}/update")
 	public ResponseEntity<Category> updateCategory(@PathVariable("id") Integer id, @RequestBody Category category) {
 		return new ResponseEntity<>(service.update(id, category), HttpStatus.OK);
 	}
 
 	@Operation(summary = "Delete a category by Id")
-	@DeleteMapping(SELLER_URL + "/categories/{id}/delete")
+	@DeleteMapping(ADMIN_URL + "/categories/{id}/delete")
 	public Map<String, Boolean> deleteCategoryById(@PathVariable("id") Integer id) {
 		service.deleteCategory(id);
 		Map<String, Boolean> response = new HashMap<String, Boolean>();

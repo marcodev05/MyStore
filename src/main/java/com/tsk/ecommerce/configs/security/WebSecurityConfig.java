@@ -51,7 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.and()
 				.authorizeRequests()
 				.antMatchers("/api/v1/admin/**").hasRole("ADMIN")
-				.antMatchers("/api/v1/seller/**").hasRole("SELLER")
 				.antMatchers("/api/v1/user/**").hasRole("USER")
 				.antMatchers("/api/v1/public/**", "/login", "/register").permitAll()
 				.antMatchers(SWAGGER).permitAll()

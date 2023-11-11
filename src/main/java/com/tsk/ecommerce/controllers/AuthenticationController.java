@@ -1,23 +1,19 @@
-package com.tsk.ecommerce.controllers.auth;
+package com.tsk.ecommerce.controllers;
 
-import java.io.IOException;
 
 import javax.validation.Valid;
 
 import com.tsk.ecommerce.dtos.responses.Response;
 import com.tsk.ecommerce.dtos.responses.ResponseFactory;
-import com.tsk.ecommerce.services.account.AccountService;
+import com.tsk.ecommerce.services.account.RegistrationService;
 import com.tsk.ecommerce.dtos.requests.LoginRequest;
 import com.tsk.ecommerce.dtos.requests.SignUpRequest;
 import com.tsk.ecommerce.dtos.responses.LoginResponseDTO;
 import com.tsk.ecommerce.entities.auth.UserEntity;
 import com.tsk.ecommerce.services.account.LoginService;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,19 +22,18 @@ import io.swagger.v3.oas.annotations.Operation;
 @RestController
 public class AuthenticationController {
 
-	private final AccountService accountService;
+	private final RegistrationService registrationService;
 	private final LoginService loginService;
 
-	public AuthenticationController(AccountService accountService, LoginService loginService) {
-		this.accountService = accountService;
+	public AuthenticationController(RegistrationService registrationService, LoginService loginService) {
+		this.registrationService = registrationService;
 		this.loginService = loginService;
 	}
 
 	@Operation(summary = "step 1 register user")
 	@PostMapping("/register")
-	public ResponseEntity<String> registerUserPhase1(@Valid @RequestBody SignUpRequest request) throws IOException{
-		UserEntity u = accountService.registerPhase1(request);
-		return new ResponseEntity<>("Enregistrement réussi !", HttpStatus.CREATED);	
+	public Response<UserEntity> registerUserPhase1(@Valid SignUpRequest request){
+		return ResponseFactory.success(registrationService.registerPhase1(request));
 	}
 
 	@Operation(summary = "login")

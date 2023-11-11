@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.tsk.ecommerce.dtos.requests.CustomerRequest;
-import com.tsk.ecommerce.services.account.AccountService;
+import com.tsk.ecommerce.services.account.RegistrationService;
 import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.CustomerRepository;
@@ -18,11 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class CustomerServiceImpl implements CustomerService {
 
 	private final CustomerRepository customerRepository;
-	private final AccountService accountService;
+	private final RegistrationService registrationService;
 
-	public CustomerServiceImpl(CustomerRepository customerRepository, AccountService accountService) {
+	public CustomerServiceImpl(CustomerRepository customerRepository, RegistrationService registrationService) {
 		this.customerRepository = customerRepository;
-		this.accountService = accountService;
+		this.registrationService = registrationService;
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 		c.setAddress2(customer.getAddress2());
 		c.setCity(customer.getCity());
 		if (customer.getSignUpRequest() != null) {
-			accountService.registerPhase1(customer.getSignUpRequest());
+			registrationService.registerPhase1(customer.getSignUpRequest());
 		}
 		return customerRepository.save(c);
 	}

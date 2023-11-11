@@ -65,18 +65,18 @@ public class OrderController {
 
 
 	/************************** *********** *********************\
-	 * 							SELLER ROUTES
+	 * 							ADMIN ROUTES
 	 *************************************************************/
 
 	@Operation(summary = "Get all new Order for seller notification")
-	@GetMapping(SELLER_URL + "/orders/newOrders")
+	@GetMapping(ADMIN_URL + "/orders/newOrders")
 	public ResponseEntity<List<Orders>> getAllNewOrders(){
 		List<Orders> orders = service.getAllNewCommands();
 		return new ResponseEntity<>(orders , HttpStatus.OK);
 	}
 
 	@Operation(summary = "Get a Order by Id")
-	@GetMapping(SELLER_URL + "/orders/{id}")
+	@GetMapping(ADMIN_URL + "/orders/{id}")
 	public ResponseEntity<Orders> getOrdersById(@PathVariable("id")Long id){
 		Orders ord = service.getOrdersById(id);
 		return new ResponseEntity<>(ord, HttpStatus.OK);

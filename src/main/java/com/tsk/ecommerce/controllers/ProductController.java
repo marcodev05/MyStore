@@ -62,30 +62,30 @@ public class ProductController  {
 	}
 
 	/************************** *********** *********************\
-	 * 							SELLER ROUTES
+	 * 							ADMIN ROUTES
 	 *************************************************************/
 
 	@Operation(summary = "Add a new product")
 	@ApiResponse(responseCode = "201", description = "Product is created")
-	@PostMapping(SELLER_URL + "/products/add")
+	@PostMapping(ADMIN_URL + "/products/add")
 	public ResponseEntity<Product> addProduct(@Valid @RequestBody ProductRequest product) {
 		return new ResponseEntity<>(crudProductService.create(product), HttpStatus.CREATED);
 	}
 
 	@Operation(summary = "Update a product by Id")
-	@PutMapping(SELLER_URL + "/products/{id}/update")
+	@PutMapping(ADMIN_URL + "/products/{id}/update")
 	public ResponseEntity<Product> updateProduct(@RequestBody ProductRequest productRequest, @PathVariable("id") Long id) {
 		return new ResponseEntity<>(crudProductService.update(id, productRequest), HttpStatus.OK);
 	}
 
 	@Operation(summary = "Add to stock of product")
-	@GetMapping(SELLER_URL + "/products/{id}/addStock/{qty}")
+	@GetMapping(ADMIN_URL + "/products/{id}/addStock/{qty}")
 	public ResponseEntity<Product> addStockProduct( @PathVariable("id") Long id, @PathVariable("qty") Integer qty) {
 		return new ResponseEntity<>(service.addToStock(id, qty), HttpStatus.OK);
 	}
 
 	@Operation(summary = "Delete a product by Id")
-	@DeleteMapping(SELLER_URL + "/products/delete/{id}")
+	@DeleteMapping(ADMIN_URL + "/products/delete/{id}")
 	public Map<String, Boolean> deleteProduct(@PathVariable("id") Long id) {
 		crudProductService.deleteProduct(id);
 		Map<String, Boolean> response = new HashMap<String, Boolean>();

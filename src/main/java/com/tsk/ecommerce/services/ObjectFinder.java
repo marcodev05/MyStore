@@ -10,7 +10,7 @@ public class ObjectFinder {
     public static <T> T findById(JpaRepository repository, String entity, Object id) {
         if (repository == null || id == null) return null;
         Optional<T> object = repository.findById(id);
-        if (!object.isPresent()) {
+        if (object.isEmpty()) {
             throw new ResourceNotFoundException(entity + " not found");
         }
         return object.get();

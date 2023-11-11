@@ -25,21 +25,20 @@ import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.services.file.FileStorageService;
 import com.tsk.ecommerce.services.picture.PictureService;
-import com.tsk.ecommerce.services.product.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
 
 @CrossOrigin("*")
 @RestController
-public class CatalogueController {
+public class FileController {
 
 	private final CrudProductService crudProductService;
 	private final PictureService pictureService;
 	private final FileStorageService fileStorageService;
 
-	public CatalogueController(CrudProductService crudProductService,
-							   PictureService pictureService,
-							   FileStorageService fileStorageService) {
+	public FileController(CrudProductService crudProductService,
+						  PictureService pictureService,
+						  FileStorageService fileStorageService) {
 		this.crudProductService = crudProductService;
 		this.pictureService = pictureService;
 		this.fileStorageService = fileStorageService;
