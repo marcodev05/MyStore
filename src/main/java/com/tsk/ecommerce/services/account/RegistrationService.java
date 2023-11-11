@@ -4,7 +4,7 @@ import com.tsk.ecommerce.dtos.requests.SignUpRequest;
 import com.tsk.ecommerce.entities.auth.UserEntity;
 import com.tsk.ecommerce.entities.enumerations.ERole;
 import com.tsk.ecommerce.repositories.UserEntityRepository;
-import com.tsk.ecommerce.validators.UserValidator;
+import com.tsk.ecommerce.services.validators.UserValidator;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

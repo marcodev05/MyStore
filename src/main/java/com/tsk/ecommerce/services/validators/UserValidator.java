@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.validators;
+package com.tsk.ecommerce.services.validators;
 
 import com.tsk.ecommerce.dtos.requests.SignUpRequest;
 import com.tsk.ecommerce.exceptions.BadRequestException;

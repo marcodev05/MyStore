@@ -25,7 +25,7 @@ public class InitialiseUserData {
     public void init(){
         UserEntity seller = new UserEntity();
         seller.setUsername("seller");
-        seller.setRoles(List.of(ERole.ROLE_SELLER, ERole.ROLE_USER, ERole.ROLE_ADMIN));
+        seller.setRoles(List.of(ERole.ROLE_USER, ERole.ROLE_ADMIN));
         seller.setPassword(passwordEncoder.encode("seller1234"));
         seller.setEmail("seller@gmail.com");
         userEntityRepository.save(seller);
