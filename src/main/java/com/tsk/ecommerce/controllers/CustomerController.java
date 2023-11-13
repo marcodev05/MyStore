@@ -6,19 +6,18 @@ import java.util.List;
 import java.util.Map;
 
 import com.tsk.ecommerce.dtos.requests.CustomerRequest;
+import com.tsk.ecommerce.entities.Customer;
+import com.tsk.ecommerce.services.customer.CustomerService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.tsk.ecommerce.entities.Customer;
-import com.tsk.ecommerce.services.customer.CustomerService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import static com.tsk.ecommerce.common.ConstantsApp.*;
 
-@CrossOrigin("*")
 @RestController
 public class CustomerController {
 

@@ -9,16 +9,14 @@ import com.tsk.ecommerce.services.account.RegistrationService;
 import com.tsk.ecommerce.dtos.requests.LoginRequest;
 import com.tsk.ecommerce.dtos.requests.SignUpRequest;
 import com.tsk.ecommerce.dtos.responses.LoginResponseDTO;
-import com.tsk.ecommerce.entities.auth.UserEntity;
+import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.services.account.LoginService;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
 
-@CrossOrigin("*")
 @RestController
 public class AuthenticationController {
 

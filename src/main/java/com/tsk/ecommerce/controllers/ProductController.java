@@ -22,7 +22,6 @@ import javax.validation.Valid;
 
 import static com.tsk.ecommerce.common.ConstantsApp.*;
 
-@CrossOrigin("*")
 @RestController
 public class ProductController  {
 
@@ -39,7 +38,8 @@ public class ProductController  {
 	 *************************************************************/
 	@Operation(summary = "Get all products")
 	@GetMapping(PUBLIC_URL + "/products")
-	public ResponseEntity<List<Product>> searchProduct(ProductSearchRequest request){
+	public ResponseEntity<List<Product>> searchProduct(@Valid ProductSearchRequest request){
+		System.out.println("list products");
 		return new ResponseEntity<>(crudProductService.searchProduct(request), HttpStatus.OK);
 	}
 

@@ -63,7 +63,4 @@ public class Product extends AuditEntity implements Serializable{
 	@OneToMany(mappedBy = "product")
 	private Collection<OrderLine> orderLines;
 
-	//@CreatedDate
-	//private Date createdAt;
-
 }

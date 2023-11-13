@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +27,6 @@ import javax.validation.Valid;
 import static com.tsk.ecommerce.common.ConstantsApp.PUBLIC_URL;
 import static com.tsk.ecommerce.common.ConstantsApp.ADMIN_URL;
 
-@CrossOrigin("*")
 @RestController
 public class CategoryController  {
 
@@ -64,7 +62,7 @@ public class CategoryController  {
 	}
 
 	@Operation(summary = "Delete a category by Id")
-	@DeleteMapping(ADMIN_URL + "/categories/{id}/delete")
+	@DeleteMapping(ADMIN_URL + "/categories/{id}")
 	public Map<String, Boolean> deleteCategoryById(@PathVariable("id") Integer id) {
 		service.deleteCategory(id);
 		Map<String, Boolean> response = new HashMap<String, Boolean>();
