@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.services.security;
+package com.tsk.ecommerce.services.security.jwt;
 
 import java.security.KeyStore;
 import java.security.PrivateKey;

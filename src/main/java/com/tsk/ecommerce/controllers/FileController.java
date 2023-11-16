@@ -23,7 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.services.file.FileStorageService;
-import com.tsk.ecommerce.services.picture.PictureService;
+import com.tsk.ecommerce.services.product.PictureService;
 
 import io.swagger.v3.oas.annotations.Operation;
 

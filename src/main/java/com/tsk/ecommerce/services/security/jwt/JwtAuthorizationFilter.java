@@ -1,6 +1,8 @@
-package com.tsk.ecommerce.services.security;
+package com.tsk.ecommerce.services.security.jwt;
 
 import com.tsk.ecommerce.exceptions.UnauthorizedException;
+import com.tsk.ecommerce.services.security.CustomUserDetails;
+import com.tsk.ecommerce.services.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,6 +1,7 @@
 package com.tsk.ecommerce.dtos.requests;
 
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
@@ -10,10 +11,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class LoginRequest {
-	
-	@NotEmpty
+
+	@NotBlank
 	private String username;
-    @NotEmpty
+
+	@NotBlank
 	private String password;
 
 	public LoginRequest(@NotEmpty String username, @NotEmpty String password) {

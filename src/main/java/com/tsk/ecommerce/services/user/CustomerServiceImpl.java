@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.services.customer;
+package com.tsk.ecommerce.services.user;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,6 +9,7 @@ import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.CustomerRepository;
 
+import com.tsk.ecommerce.services.user.CustomerService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

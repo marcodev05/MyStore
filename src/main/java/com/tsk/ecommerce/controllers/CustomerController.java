@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.tsk.ecommerce.dtos.requests.CustomerRequest;
 import com.tsk.ecommerce.entities.Customer;
-import com.tsk.ecommerce.services.customer.CustomerService;
+import com.tsk.ecommerce.services.user.CustomerService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
