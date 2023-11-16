@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.services.picture;
+package com.tsk.ecommerce.services.product;
 
 import com.tsk.ecommerce.entities.Picture;
 

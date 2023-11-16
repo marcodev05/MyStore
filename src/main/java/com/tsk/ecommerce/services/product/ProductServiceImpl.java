@@ -13,18 +13,17 @@ import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.ProductRepository;
-import com.tsk.ecommerce.services.category.CategoryService;
 
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService, CrudProductService {
 
 	private final ProductRepository productRepository;
-	private final CategoryService categoryService;
+	private final ICrudCategoryService ICrudCategoryService;
 
-	public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService) {
+	public ProductServiceImpl(ProductRepository productRepository, ICrudCategoryService ICrudCategoryService) {
 		this.productRepository = productRepository;
-		this.categoryService = categoryService;
+		this.ICrudCategoryService = ICrudCategoryService;
 	}
 
 	@Override
@@ -35,7 +34,7 @@ public class ProductServiceImpl implements ProductService, CrudProductService {
 				p.setPrice(product.getPrice());
 				p.setStock(product.getStock());
 				p.setAvailable(true);
-				p.setCategory(categoryService.getCategoryById(product.getCategoryId()));
+				p.setCategory(ICrudCategoryService.getCategoryById(product.getCategoryId()));
 		return productRepository.save(p);
 	}
 
@@ -46,7 +45,7 @@ public class ProductServiceImpl implements ProductService, CrudProductService {
 		p.setDescription(productRequest.getDescription());
 		p.setPrice(productRequest.getPrice());
 		p.setStock(productRequest.getStock());
-		Category category = categoryService.getCategoryById(productRequest.getCategoryId());
+		Category category = ICrudCategoryService.getCategoryById(productRequest.getCategoryId());
 		p.setCategory(category);
 		return productRepository.save(p);
 	}

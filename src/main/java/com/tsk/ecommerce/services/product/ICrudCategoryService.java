@@ -5,7 +5,7 @@ import java.util.List;
 import com.tsk.ecommerce.dtos.requests.CategoryRequest;
 import com.tsk.ecommerce.entities.Category;
 
-public interface CrudCategoryService {
+public interface ICrudCategoryService {
 	
 	Category create(CategoryRequest category);
 	

@@ -18,8 +18,7 @@ import com.tsk.ecommerce.entities.Orders;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.OrdersRepository;
-import com.tsk.ecommerce.services.customer.CustomerService;
-import com.tsk.ecommerce.services.orderLine.OrderLineService;
+import com.tsk.ecommerce.services.user.CustomerService;
 import com.tsk.ecommerce.services.product.ProductService;
 
 

@@ -1,9 +1,9 @@
 package com.tsk.ecommerce.services.account;
 
-import com.tsk.ecommerce.services.security.JwtProvider;
+import com.tsk.ecommerce.services.security.jwt.JwtProvider;
 import com.tsk.ecommerce.dtos.requests.LoginRequest;
 import com.tsk.ecommerce.dtos.responses.LoginResponseDTO;
-import com.tsk.ecommerce.entities.auth.UserEntity;
+import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.services.security.LoginAuthenticationToken;
 
 import org.springframework.security.authentication.AuthenticationManager;

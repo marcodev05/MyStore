@@ -22,11 +22,9 @@ public class SecurityAuthenticationEntryPoint implements AuthenticationEntryPoin
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        System.out.println("commence");
         final Response<String> data = ResponseFactory.unauthorized("This api required an authentication");
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
         httpServletResponse.setStatus(data.getStatus());
-        String jsonResponse = objectMapper.writeValueAsString(data);
-        httpServletResponse.getWriter().write(jsonResponse);
+        objectMapper.writeValue(httpServletResponse.getOutputStream(), data);
     }
 }

@@ -16,7 +16,7 @@ import com.tsk.ecommerce.repositories.CategoryRepository;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CrudCategoryServiceImpl implements CrudCategoryService {
+public class CategoryService implements ICrudCategoryService {
 
 	private final CategoryRepository categoryRepository;
 	
@@ -52,7 +52,7 @@ public class CrudCategoryServiceImpl implements CrudCategoryService {
 	public void deleteCategory(Integer id) {
 		categoryRepository.deleteById(id);
 	}
-	
+
 	public List<Product> getAllProductsByCategory(Integer idCategory) {
 		//TODO find products by category
 		return new ArrayList<>();
