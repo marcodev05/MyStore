@@ -22,6 +22,7 @@ public class Category extends AuditEntity implements Serializable{
 	private Integer id;
 	private String name;
 	private String description;
+	private String image;
 
 	@Override
 	public boolean equals(Object o) {

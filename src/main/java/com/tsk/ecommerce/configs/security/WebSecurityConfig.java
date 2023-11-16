@@ -29,9 +29,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
 	private SecurityAuthenticationEntryPoint securityAuthenticationEntryPoint;
-
 	@Autowired
 	private LoginAuthenticationProvider loginAuthenticationProvider;
+	@Autowired
+	private JwtAuthorizationFilter jwtAuthorizationFilter;
 
 	private static final String[] SWAGGER = {
 			"/v2/api-docs",
@@ -63,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.antMatchers("/api/v1/public/**", "/login", "/register").permitAll()
 				.antMatchers(SWAGGER).permitAll()
 				.and()
-				.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+				.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Override

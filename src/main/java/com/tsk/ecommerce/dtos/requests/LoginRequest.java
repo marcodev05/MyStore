@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginRequest {
 
-	@NotBlank
+	@NotBlank(message = "Username is mandatory")
 	private String username;
 
-	@NotBlank
+	@NotBlank(message = "Password is mandatory")
 	private String password;
 
 	public LoginRequest(@NotEmpty String username, @NotEmpty String password) {

@@ -12,10 +12,13 @@ import com.tsk.ecommerce.dtos.responses.LoginResponseDTO;
 import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.services.account.LoginService;
 
+import com.tsk.ecommerce.services.validators.FieldValidator;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
+
 
 @RestController
 public class AuthenticationController {
@@ -30,13 +33,13 @@ public class AuthenticationController {
 
 	@Operation(summary = "step 1 register user")
 	@PostMapping("/register")
-	public Response<UserEntity> registerUserPhase1(@Valid SignUpRequest request){
-		return ResponseFactory.success(registrationService.registerPhase1(request));
+	public Response<UserEntity> registerUserPhase1(@Valid SignUpRequest request, BindingResult bindingResult){
+		return ResponseFactory.success(registrationService.registerPhase1(request, bindingResult));
 	}
 
 	@Operation(summary = "login")
 	@PostMapping("/login")
-	public Response<LoginResponseDTO> login(LoginRequest loginRequest) {
-		return ResponseFactory.success(loginService.login(loginRequest));
+	public Response<LoginResponseDTO> login(@Valid LoginRequest loginRequest, BindingResult bindingResult) {
+		return ResponseFactory.success(loginService.login(loginRequest, bindingResult));
 	}
 }

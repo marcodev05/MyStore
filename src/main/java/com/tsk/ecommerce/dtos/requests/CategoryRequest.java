@@ -12,10 +12,9 @@ public class CategoryRequest {
     @NotBlank(message = "name category is required")
     private String name;
 
-    @NotBlank(message = "description is required")
+    @NotBlank(message = "Description is required")
     private String description;
-
-    @NotNull
+    
     private MultipartFile image;
 
 }

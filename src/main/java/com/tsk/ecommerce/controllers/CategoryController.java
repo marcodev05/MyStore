@@ -6,6 +6,7 @@ import com.tsk.ecommerce.dtos.responses.Response;
 import com.tsk.ecommerce.dtos.responses.ResponseFactory;
 import com.tsk.ecommerce.services.product.CategoryService;
 
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,14 +55,14 @@ public class CategoryController  {
 	@Operation(summary = "Add a new Category")
 	@ApiResponse(responseCode = "201", description = "Category is created")
 	@PostMapping(ADMIN_URL + "/categories")
-	public Response<Category> addCategory(@Valid CategoryRequest category) {
-		return ResponseFactory.created(service.create(category));
+	public Response<Category> addCategory(@Valid CategoryRequest category, BindingResult bindingResult) {
+		return ResponseFactory.created(service.create(category, bindingResult));
 	}
 
 	@Operation(summary = "Update a category by id")
 	@PostMapping(ADMIN_URL + "/categories/{id}/update")
-	public Response<Category> updateCategory(@PathVariable("id") Integer id, @Valid Category category) {
-		return ResponseFactory.success(service.update(id, category));
+	public Response<Category> updateCategory(@PathVariable("id") Integer id, @Valid CategoryRequest request, BindingResult bindingResult) {
+		return ResponseFactory.success(service.update(id, request, bindingResult));
 	}
 
 	@Operation(summary = "Delete a category by Id")

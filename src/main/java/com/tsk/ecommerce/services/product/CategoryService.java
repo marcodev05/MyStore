@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.tsk.ecommerce.dtos.requests.CategoryRequest;
 import com.tsk.ecommerce.services.ObjectFinder;
+import com.tsk.ecommerce.services.validators.FieldValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.repositories.CategoryRepository;
+import org.springframework.validation.BindingResult;
 
 @Service
 @Transactional
@@ -21,7 +23,8 @@ public class CategoryService implements ICrudCategoryService {
 	private final CategoryRepository categoryRepository;
 	
 	@Override
-	public Category create(CategoryRequest category) {
+	public Category create(CategoryRequest category, BindingResult bindingResult) {
+		FieldValidator.validate(bindingResult);
 		Category c = new Category();
 		c.setName(category.getName());
 		c.setDescription(category.getDescription());
@@ -30,10 +33,11 @@ public class CategoryService implements ICrudCategoryService {
 	}
 
 	@Override
-	public Category update(Integer id, Category category) {
+	public Category update(Integer id, CategoryRequest request, BindingResult bindingResult) {
+		FieldValidator.validate(bindingResult);
 		Category c = this.getCategoryById(id);
-		c.setName(category.getName());
-		c.setDescription(category.getDescription());
+		c.setName(request.getName());
+		c.setDescription(request.getDescription());
 		//Todo update image if not null
 		return categoryRepository.save(c);
 	}

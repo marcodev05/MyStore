@@ -1,6 +1,7 @@
 package com.tsk.ecommerce.entities;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,4 +25,7 @@ public abstract class AuditEntity {
 
     @LastModifiedBy
     private String updatedBy;
+
+    @CreatedBy
+    private String createdBy;
 }

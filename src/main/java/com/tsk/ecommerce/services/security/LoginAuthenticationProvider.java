@@ -1,7 +1,5 @@
 package com.tsk.ecommerce.services.security;
 
-import com.tsk.ecommerce.exceptions.CustomAuthenticationException;
-import com.tsk.ecommerce.services.i18n.I18nService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -15,8 +13,6 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private I18nService i18nService;
-    @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
     @Override
@@ -27,7 +23,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
         if (passwordEncoder.matches(loginAuthenticationToken.getPassword(), customUserDetails.getPassword())) {
             return new LoginAuthenticationToken(customUserDetails.getUserEntity(), customUserDetails.getAuthorities());
         }
-        throw new CustomAuthenticationException(i18nService.get("error.access.unauthorized"));
+        return null;
     }
 
     @Override

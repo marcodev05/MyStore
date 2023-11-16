@@ -4,10 +4,12 @@ import com.tsk.ecommerce.dtos.requests.SignUpRequest;
 import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.entities.enumerations.ERole;
 import com.tsk.ecommerce.repositories.UserEntityRepository;
+import com.tsk.ecommerce.services.validators.FieldValidator;
 import com.tsk.ecommerce.services.validators.UserValidator;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import java.util.Collections;
 
@@ -26,7 +28,8 @@ public class RegistrationService {
         this.userValidator = userValidator;
     }
 
-    public UserEntity registerPhase1(SignUpRequest request){
+    public UserEntity registerPhase1(SignUpRequest request, BindingResult bindingResult){
+        FieldValidator.validate(bindingResult);
         userValidator.validateSignUp(request);
         UserEntity newUser = of(request);
         return userEntityRepository.save(newUser);

@@ -6,9 +6,11 @@ import com.tsk.ecommerce.dtos.responses.LoginResponseDTO;
 import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.services.security.LoginAuthenticationToken;
 
+import com.tsk.ecommerce.services.validators.FieldValidator;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 @Service
 public class LoginService {
@@ -21,7 +23,8 @@ public class LoginService {
         this.jwtProvider = jwtProvider;
     }
 
-    public LoginResponseDTO login(LoginRequest request) {
+    public LoginResponseDTO login(LoginRequest request, BindingResult bindingResult) {
+        FieldValidator.validate(bindingResult);
         Authentication authentication = authenticationManager.authenticate(new LoginAuthenticationToken(request.getUsername(), request.getPassword()));
         UserEntity userEntity = (UserEntity) authentication.getPrincipal();
         String token = jwtProvider.generateToken(userEntity.getUsername());
