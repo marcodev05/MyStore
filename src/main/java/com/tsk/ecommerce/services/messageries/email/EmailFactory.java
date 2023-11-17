@@ -1,6 +1,6 @@
 package com.tsk.ecommerce.services.messageries.email;
 
-import com.tsk.ecommerce.entities.auth.UserEntity;
+import com.tsk.ecommerce.entities.UserEntity;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 

@@ -1,15 +1,12 @@
 package com.tsk.ecommerce.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,15 +15,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
+@Entity(name = "categories")
 public class Category extends AuditEntity implements Serializable{
 	
 	@Id @GeneratedValue( strategy = GenerationType.IDENTITY)
-	private Integer categoryId;
+	private Integer id;
 	private String name;
 	private String description;
+	private String image;
 
-	@JsonBackReference
-	@OneToMany(mappedBy = "category")
-	private Collection<Product> products;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+		Category category = (Category) o;
+		return Objects.equals(name, category.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(super.hashCode(), name);
+	}
 }

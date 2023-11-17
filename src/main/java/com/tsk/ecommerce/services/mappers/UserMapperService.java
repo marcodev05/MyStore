@@ -1,10 +1,8 @@
 package com.tsk.ecommerce.services.mappers;
 
 import com.tsk.ecommerce.dtos.responses.LoginResponseDTO;
-import com.tsk.ecommerce.entities.auth.UserEntity;
+import com.tsk.ecommerce.entities.UserEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserMapperService {

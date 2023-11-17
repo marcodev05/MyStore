@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.tsk.ecommerce.entities.auth.UserEntity;
+import com.tsk.ecommerce.entities.UserEntity;
 
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
 

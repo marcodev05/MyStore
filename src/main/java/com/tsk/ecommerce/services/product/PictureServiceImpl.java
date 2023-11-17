@@ -1,6 +1,7 @@
-package com.tsk.ecommerce.services.picture;
+package com.tsk.ecommerce.services.product;
 
 import com.tsk.ecommerce.services.product.CrudProductService;
+import com.tsk.ecommerce.services.product.PictureService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,7 +10,6 @@ import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.PictureRepository;
 import com.tsk.ecommerce.exceptions.BadRequestException;
-import com.tsk.ecommerce.services.product.ProductService;
 
 @Service
 @Transactional

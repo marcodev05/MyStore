@@ -28,7 +28,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 //										.toAbsolutePath()
 //										.normalize();
 		
-		this.fileStorageLocation = Paths.get(System.getProperty("user.home") + "/ecom/products/photos")
+		this.fileStorageLocation = Paths.get(System.getProperty("user.home") + "/ecom/photos")
 										.toAbsolutePath()
 										.normalize();
 		

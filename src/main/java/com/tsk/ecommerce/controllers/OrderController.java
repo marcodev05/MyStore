@@ -28,7 +28,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import static com.tsk.ecommerce.common.ConstantsApp.*;
 
-@CrossOrigin("*")
 @RestController
 public class OrderController {
 

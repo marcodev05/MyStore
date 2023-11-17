@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.services.customer;
+package com.tsk.ecommerce.services.user;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,8 +9,11 @@ import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.CustomerRepository;
 
+import com.tsk.ecommerce.services.user.CustomerService;
+import com.tsk.ecommerce.services.validators.FieldValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 
 
 @Service
@@ -27,6 +30,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public Customer create(CustomerRequest customer) throws IOException {
+		/*FieldValidator.validate(bindingResult);
 		Customer c = new Customer();
 		c.setEmail(customer.getEmail());
 		c.setFirstName(customer.getFirstName());
@@ -38,7 +42,8 @@ public class CustomerServiceImpl implements CustomerService {
 		if (customer.getSignUpRequest() != null) {
 			registrationService.registerPhase1(customer.getSignUpRequest());
 		}
-		return customerRepository.save(c);
+		return customerRepository.save(c);*/
+		return null;
 	}
 
 

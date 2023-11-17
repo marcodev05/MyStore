@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.entities.auth;
+package com.tsk.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tsk.ecommerce.entities.AuditEntity;

@@ -17,7 +17,7 @@ public class I18nService {
         return get(key, null);
     }
 
-    public String get(String key, Object[] args){
-        return messageSource.getMessage(key, args, "", LocaleContextHolder.getLocale());
+    public String get(String key, String... args){
+        return messageSource.getMessage(key, args, "Message not configured", LocaleContextHolder.getLocale());
     }
 }

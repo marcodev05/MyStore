@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.services.customer;
+package com.tsk.ecommerce.services.user;
 
 import java.io.IOException;
 import java.util.List;
