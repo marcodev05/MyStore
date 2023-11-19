@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.dtos.requests;
+package com.tsk.ecommerce.dtos.requests.products;
 
 import com.tsk.ecommerce.common.Pagination;
 import com.tsk.ecommerce.entities.Picture;

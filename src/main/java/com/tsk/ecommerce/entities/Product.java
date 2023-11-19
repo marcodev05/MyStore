@@ -51,7 +51,7 @@ public class Product extends AuditEntity implements Serializable{
 	@Min(value = 0)
 	private Integer rating;
 
-	@OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+	@OneToMany(cascade = CascadeType.REMOVE)
 	private Collection<Picture> pictures;
 
 	@JsonProperty(access = Access.WRITE_ONLY)

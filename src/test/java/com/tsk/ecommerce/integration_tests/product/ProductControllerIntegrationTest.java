@@ -1,7 +1,7 @@
 package com.tsk.ecommerce.integration_tests.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tsk.ecommerce.dtos.requests.ProductRequest;
+import com.tsk.ecommerce.dtos.requests.products.ProductRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

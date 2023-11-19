@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.dtos.requests;
+package com.tsk.ecommerce.dtos.requests.products;
 
 import java.util.Collection;
 
@@ -23,9 +23,11 @@ public class ProductRequest {
 	private Double price;
 
 	private Integer stock;
-	
+
+	@NotNull(message = "pictures should not be null")
 	private Collection<Picture> pictures;
 
 	@NotNull(message = "category is required")
 	private Long categoryId;
+
 }
