@@ -61,7 +61,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.authorizeRequests()
 				.antMatchers("/api/v1/admin/**").hasRole("ADMIN")
 				.antMatchers("/api/v1/user/**").hasRole("USER")
-				.antMatchers("/api/v1/public/**", "/login", "/register").permitAll()
+				.antMatchers("/api/v1/public/**", "/login", "/register", "/uploads/**").permitAll()
 				.antMatchers(SWAGGER).permitAll()
 				.and()
 				.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);

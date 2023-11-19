@@ -5,14 +5,13 @@ import javax.validation.Valid;
 
 import com.tsk.ecommerce.dtos.responses.Response;
 import com.tsk.ecommerce.dtos.responses.ResponseFactory;
-import com.tsk.ecommerce.services.account.RegistrationService;
+import com.tsk.ecommerce.services.user.account.RegistrationService;
 import com.tsk.ecommerce.dtos.requests.LoginRequest;
 import com.tsk.ecommerce.dtos.requests.SignUpRequest;
 import com.tsk.ecommerce.dtos.responses.LoginResponseDTO;
 import com.tsk.ecommerce.entities.UserEntity;
-import com.tsk.ecommerce.services.account.LoginService;
+import com.tsk.ecommerce.services.user.account.LoginService;
 
-import com.tsk.ecommerce.services.validators.FieldValidator;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

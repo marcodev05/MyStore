@@ -11,8 +11,10 @@ public class ObjectFinder {
         if (repository == null || id == null) return null;
         Optional<T> object = repository.findById(id);
         if (object.isEmpty()) {
-            throw new ResourceNotFoundException(entity, (String) id);
+            throw new ResourceNotFoundException(entity, id.toString());
         }
         return object.get();
     }
+
+
 }

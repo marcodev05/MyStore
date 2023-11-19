@@ -3,10 +3,7 @@ package com.tsk.ecommerce.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,10 +16,12 @@ import lombok.NoArgsConstructor;
 public class Category extends AuditEntity implements Serializable{
 	
 	@Id @GeneratedValue( strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private String name;
 	private String description;
-	private String image;
+
+	@OneToOne(cascade = CascadeType.REMOVE)
+	private Picture image;
 
 	@Override
 	public boolean equals(Object o) {
