@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.services.user.account;
+package com.tsk.ecommerce.services.user;
 
 import com.tsk.ecommerce.dtos.requests.SignUpRequest;
 import com.tsk.ecommerce.entities.UserEntity;

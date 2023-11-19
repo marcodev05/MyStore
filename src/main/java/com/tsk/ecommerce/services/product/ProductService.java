@@ -11,6 +11,4 @@ public interface ProductService {
 	List<Picture> getAllPictureByProduct(Long idProduct);
 	List<Product> findProductByName(String name);
 	void reduceQtyByOrderLine(OrderLine orderLine);
-//	Product addPicture(Long idProduct, Picture picture);
-	
 }

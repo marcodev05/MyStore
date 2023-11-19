@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.services.user.account;
+package com.tsk.ecommerce.services.user;
 
 import com.tsk.ecommerce.services.security.jwt.JwtProvider;
 import com.tsk.ecommerce.dtos.requests.LoginRequest;
