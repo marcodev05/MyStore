@@ -27,5 +27,5 @@ public class ProductRequest {
 	private Collection<Picture> pictures;
 
 	@NotNull(message = "category is required")
-	private Integer categoryId;
+	private Long categoryId;
 }

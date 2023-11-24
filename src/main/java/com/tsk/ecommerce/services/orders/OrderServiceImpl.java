@@ -12,13 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tsk.ecommerce.dtos.requests.OrderRequest;
-import com.tsk.ecommerce.entities.Customer;
 import com.tsk.ecommerce.entities.OrderLine;
 import com.tsk.ecommerce.entities.Orders;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.OrdersRepository;
-import com.tsk.ecommerce.services.user.CustomerService;
 import com.tsk.ecommerce.services.product.ProductService;
 
 
@@ -28,18 +26,15 @@ public class OrderServiceImpl implements OrderService {
 
 	private final OrdersRepository ordersRepo;
 	private final OrderLineService orderlineService;
-	private final CustomerService customerService;
 	private final ProductService productService;
 	private final CrudProductService crudProductService;
 
 	public OrderServiceImpl(OrdersRepository ordersRepo,
 							OrderLineService orderlineService,
-							CustomerService customerService,
 							ProductService productService,
 							CrudProductService crudProductService) {
 		this.ordersRepo = ordersRepo;
 		this.orderlineService = orderlineService;
-		this.customerService = customerService;
 		this.productService = productService;
 		this.crudProductService = crudProductService;
 	}
@@ -74,10 +69,6 @@ public class OrderServiceImpl implements OrderService {
 	public Orders create(OrderRequest orderRequest) throws IOException {
 		Orders ord = new Orders();
 		Double total = 0.0;
-		
-		Customer c = customerService.create(orderRequest.getCustomerRequest());
-		ord.setCustomer(c);
-		
 		Collection<OrderLine> ordlines = new ArrayList<OrderLine>();
 		orderRequest.getOrderlineRequests().forEach((o) -> {
 			Product p = crudProductService.getProductById(o.getIdProduct());

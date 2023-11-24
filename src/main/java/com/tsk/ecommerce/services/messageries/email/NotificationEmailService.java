@@ -28,7 +28,6 @@ public class NotificationEmailService {
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 			messageHelper.setFrom(MAIL_SHOP);
-			messageHelper.setTo(orders.getCustomer().getEmail());
 			messageHelper.setSubject("Confirmation de l'envoie d'une commande");
 			String html = mailContent.build(orders);
 			messageHelper.setText(html, true);

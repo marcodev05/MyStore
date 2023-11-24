@@ -3,9 +3,9 @@ package com.tsk.ecommerce.services.file;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
-public interface FileStorageService {
+public interface FileOperations {
 	
-	String storeFile(MultipartFile file);
-	Resource loadFileAsResource(String fileName);
-	
+	Object store(MultipartFile file);
+	Object delete(String fileName);
+	Resource getResource(String fileName);
 }

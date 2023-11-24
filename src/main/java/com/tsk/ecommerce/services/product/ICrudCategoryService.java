@@ -10,12 +10,12 @@ public interface ICrudCategoryService {
 	
 	Category create(CategoryRequest category, BindingResult bindingResult);
 	
-	Category update(Integer id, CategoryRequest request, BindingResult bindingResult);
+	Category update(Long id, CategoryRequest request, BindingResult bindingResult);
 	
 	List<Category> findAllCategory();
 	
-	Category getCategoryById(Integer id);
-	
-	void deleteCategory(Integer id);
+	Category getCategoryById(Long id);
+
+	void deleteCategory(Long id);
 	
 }

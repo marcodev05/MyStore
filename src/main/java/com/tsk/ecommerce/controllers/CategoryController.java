@@ -42,7 +42,7 @@ public class CategoryController  {
 
 	@Operation(summary = "Get a category by Id")
 	@GetMapping(PUBLIC_URL + "/categories/{id}")
-	public Response<Category> getCategoryById(@PathVariable("id")Integer id){
+	public Response<Category> getCategoryById(@PathVariable("id")Long id){
 		return ResponseFactory.success(service.getCategoryById(id));
 	}
 
@@ -61,13 +61,13 @@ public class CategoryController  {
 
 	@Operation(summary = "Update a category by id")
 	@PostMapping(ADMIN_URL + "/categories/{id}/update")
-	public Response<Category> updateCategory(@PathVariable("id") Integer id, @Valid CategoryRequest request, BindingResult bindingResult) {
+	public Response<Category> updateCategory(@PathVariable("id") Long id, @Valid CategoryRequest request, BindingResult bindingResult) {
 		return ResponseFactory.success(service.update(id, request, bindingResult));
 	}
 
 	@Operation(summary = "Delete a category by Id")
 	@DeleteMapping(ADMIN_URL + "/categories/{id}")
-	public Response<String> deleteCategoryById(@PathVariable("id") Integer id) {
+	public Response<String> deleteCategoryById(@PathVariable("id") Long id) {
 		service.deleteCategory(id);
 		return ResponseFactory.success("Category deleted successfully");
 	}
