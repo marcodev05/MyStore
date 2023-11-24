@@ -20,24 +20,18 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "users")
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email"),
-							@UniqueConstraint(columnNames = "username")})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email"),@UniqueConstraint(columnNames = "username")})
 public class UserEntity extends AuditEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 	
-	@NotBlank(message = "username is required")
 	private String username;
 
-	@NotBlank(message = "password is required")
-	@Size(min = 6, message = "password should have 6 letters at least")
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
-	@Email(message = "Invalid email")
-	@NotBlank
 	private String email;
 
 	@OneToOne
