@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.tsk.ecommerce.dtos.forms.FileUploaded;
+import com.tsk.ecommerce.entities.models.FileUploaded;
 import com.tsk.ecommerce.exceptions.BadRequestException;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import org.springframework.core.io.Resource;

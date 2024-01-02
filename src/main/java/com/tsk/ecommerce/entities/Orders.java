@@ -37,15 +37,14 @@ public class Orders implements Serializable {
 	private Date createdAt;
 	
 	@ManyToOne
-	@JoinColumn(name = "customer")
-	private Customer customer;
+	@JoinColumn(name = "addresse")
+	private Addresse addresse;
 	
 	@OneToMany(mappedBy = "order")
 	private Collection<OrderLine> orderLines;
 
-	public Orders(Customer customer, Collection<OrderLine> orderLines) {
+	public Orders(Collection<OrderLine> orderLines) {
 		super();
-		this.customer = customer;
 		this.orderLines = orderLines;
 	}
 

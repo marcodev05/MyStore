@@ -3,7 +3,7 @@ package com.tsk.ecommerce.services.product;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tsk.ecommerce.dtos.forms.FileUploaded;
+import com.tsk.ecommerce.entities.models.FileUploaded;
 import com.tsk.ecommerce.dtos.requests.CategoryRequest;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.repositories.PictureRepository;
