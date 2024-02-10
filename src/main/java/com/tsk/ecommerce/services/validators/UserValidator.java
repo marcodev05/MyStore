@@ -21,11 +21,11 @@ public class UserValidator {
     }
 
     public Boolean isUsernameExisted(String username) {
-        return userEntityRepository.existsByUsername(username);
+        return userEntityRepository.findByUsername(username).isPresent();
     }
 
     public Boolean isEmailExisted(String email) {
-        return userEntityRepository.existsByEmail(email);
+        return userEntityRepository.findByEmail(email).isPresent();
     }
 
 }

@@ -83,8 +83,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> findProductByName(String name) {
-		return productRepository.findByNameProductContains(name)
-				.orElseThrow(() -> new ResourceNotFoundException("Le resultat de la recherche est vide"));
+		return productRepository.findByNameProductContains(name);
 	}
 
 	@Override
