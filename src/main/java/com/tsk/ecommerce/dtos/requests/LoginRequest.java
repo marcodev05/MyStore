@@ -2,7 +2,6 @@ package com.tsk.ecommerce.dtos.requests;
 
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,7 @@ public class LoginRequest {
 	@NotBlank(message = "Password is mandatory")
 	private String password;
 
-	public LoginRequest(@NotEmpty String username, @NotEmpty String password) {
+	public LoginRequest(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}

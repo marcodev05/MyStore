@@ -14,6 +14,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Query("select p.pictures from Product p where p.idProduct = ?1 ")
 	List<Picture> findAllPicturesByProduct(Long idProduct);
 	
-	Optional<List<Product>> findByNameProductContains(String nameProduct);
+	List<Product> findByNameProductContains(String nameProduct);
 	
 }

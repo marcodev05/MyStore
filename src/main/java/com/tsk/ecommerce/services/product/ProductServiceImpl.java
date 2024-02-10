@@ -2,51 +2,53 @@ package com.tsk.ecommerce.services.product;
 
 import java.util.List;
 
-import com.tsk.ecommerce.dtos.requests.ProductSearchRequest;
+import com.tsk.ecommerce.dtos.requests.products.ProductSearchRequest;
+import com.tsk.ecommerce.dtos.requests.products.UpdateProductRequest;
+import com.tsk.ecommerce.repositories.CategoryRepository;
+import com.tsk.ecommerce.services.ObjectFinder;
+import com.tsk.ecommerce.services.mappers.ProductMapper;
+import com.tsk.ecommerce.services.validators.FieldValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tsk.ecommerce.dtos.requests.ProductRequest;
-import com.tsk.ecommerce.entities.Category;
+import com.tsk.ecommerce.dtos.requests.products.ProductRequest;
 import com.tsk.ecommerce.entities.OrderLine;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.ProductRepository;
+import org.springframework.validation.BindingResult;
 
 @Service
 @Transactional
-public class ProductServiceImpl implements ProductService, CrudProductService {
+public class ProductServiceImpl implements ProductService {
 
 	private final ProductRepository productRepository;
-	private final ICrudCategoryService ICrudCategoryService;
+	private final CategoryRepository categoryRepository;
+	private final ProductMapper productMapper;
 
-	public ProductServiceImpl(ProductRepository productRepository, ICrudCategoryService ICrudCategoryService) {
+	public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository, ProductMapper productMapper) {
 		this.productRepository = productRepository;
-		this.ICrudCategoryService = ICrudCategoryService;
+		this.categoryRepository = categoryRepository;
+		this.productMapper = productMapper;
 	}
 
 	@Override
-	public Product create(ProductRequest product) {
-		Product p = new Product();
-				p.setDescription(product.getDescription());
-				p.setNameProduct(product.getNameProduct());
-				p.setPrice(product.getPrice());
-				p.setStock(product.getStock());
-				p.setAvailable(true);
-				p.setCategory(ICrudCategoryService.getCategoryById(product.getCategoryId()));
+	public Product create(ProductRequest request, BindingResult bindingResult) {
+		FieldValidator.validate(bindingResult);
+		Product p = productMapper.toProductEntity(request);
+		p.setAvailable(true);
+		//todo handle images
 		return productRepository.save(p);
 	}
 
 	@Override
-	public Product update(Long id, ProductRequest productRequest) {
+	public Product update(Long id, UpdateProductRequest productRequest, BindingResult bindingResult) {
+		FieldValidator.validate(bindingResult);
 		Product p = this.getProductById(id);
-		p.setNameProduct(productRequest.getNameProduct());
-		p.setDescription(productRequest.getDescription());
-		p.setPrice(productRequest.getPrice());
-		p.setStock(productRequest.getStock());
-		Category category = ICrudCategoryService.getCategoryById(productRequest.getCategoryId());
-		p.setCategory(category);
+		productRequest.commitTo(p);
+		//todo handle images
+		p.setCategory(ObjectFinder.findById(categoryRepository, "category", productRequest.getCategoryId()));
 		return productRepository.save(p);
 	}
 
@@ -56,15 +58,12 @@ public class ProductServiceImpl implements ProductService, CrudProductService {
 	
 	@Override
 	public Product getProductById(Long id) {
-		Product p = productRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Product is not found"));
-		return p;
+		return ObjectFinder.findById(productRepository, "product", id);
 	}
 
 	@Override
 	public void deleteProduct(Long id) {
-		Product p = this.getProductById(id);
-		productRepository.delete(p);
+		productRepository.deleteById(id);
 	}
 
 	@Override
@@ -84,8 +83,7 @@ public class ProductServiceImpl implements ProductService, CrudProductService {
 
 	@Override
 	public List<Product> findProductByName(String name) {
-		return productRepository.findByNameProductContains(name)
-				.orElseThrow(() -> new ResourceNotFoundException("Le resultat de la recherche est vide"));
+		return productRepository.findByNameProductContains(name);
 	}
 
 	@Override

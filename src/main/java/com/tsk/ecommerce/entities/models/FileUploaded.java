@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.dtos.forms;
+package com.tsk.ecommerce.entities.models;
 
 import com.tsk.ecommerce.entities.enumerations.UploadedFileType;
 import lombok.AllArgsConstructor;

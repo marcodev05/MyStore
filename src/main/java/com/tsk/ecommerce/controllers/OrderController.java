@@ -10,7 +10,6 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tsk.ecommerce.dtos.requests.OrderRequest;
 import com.tsk.ecommerce.entities.Orders;
 import com.tsk.ecommerce.services.orders.OrderService;
-import com.tsk.ecommerce.services.messageries.email.NotificationEmailService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -33,16 +31,9 @@ public class OrderController {
 
 	private final OrderService service;
 
-	private final NotificationEmailService notificationEmailService;
-
-	public OrderController(OrderService service, NotificationEmailService notificationEmailService) {
+	public OrderController(OrderService service) {
 		this.service = service;
-		this.notificationEmailService = notificationEmailService;
 	}
-
-	/************************** *********** *********************\
-	 * 							USER ROUTES
-	 *************************************************************/
 
 	@Operation(summary = "Create a new Orders")
 	@ApiResponse(responseCode = "201", description = "Order is created")
@@ -80,12 +71,5 @@ public class OrderController {
 		Orders ord = service.getOrdersById(id);
 		return new ResponseEntity<>(ord, HttpStatus.OK);
 	}
-
-//	@Operation(summary = "Update an Order by id")
-//	@PutMapping(USER_URL + "/orders/update/{id}")
-//	public ResponseEntity<Orders> updateOrders(@PathVariable("id") Long id, @RequestBody Orders Orders) {
-//		Orders c = service.update(id, Orders);
-//		return new ResponseEntity<>(c, HttpStatus.OK);
-//	}
 
 }

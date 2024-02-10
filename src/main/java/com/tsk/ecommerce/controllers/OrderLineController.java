@@ -18,10 +18,11 @@ import com.tsk.ecommerce.services.orders.OrderLineService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
+import static com.tsk.ecommerce.common.ConstantsApp.PUBLIC_URL;
+
 @RestController
 public class OrderLineController {
-	
-	private static final String PUBLIC = "/api/v1/orderlines";
+
 	private final OrderLineService service;
 
 	public OrderLineController(OrderLineService service) {
@@ -30,19 +31,19 @@ public class OrderLineController {
 
 	@Operation(summary = "Add a new OrderLine")
 	@ApiResponse(responseCode = "201", description = "OrderLine is created")
-	@PostMapping(PUBLIC + "/add")
+	@PostMapping(PUBLIC_URL + "/add")
 	public ResponseEntity<OrderLine> addOrderLine(@RequestBody OrderLine orderLine) {
 		return new ResponseEntity<>(service.create(orderLine), HttpStatus.CREATED);
 	}
 
 	@Operation(summary = "Get an OrderLine by Id")
-	@GetMapping(PUBLIC + "/{id}")
+	@GetMapping(PUBLIC_URL + "/{id}")
 	public ResponseEntity<OrderLine> getOrderLineById(@PathVariable("id")Long id){
 		return new ResponseEntity<>(service.getOrderLineById(id), HttpStatus.OK);
 	}
 
 	@Operation(summary = "Delete an OrderLine by Id")
-	@DeleteMapping(PUBLIC + "/delete/{id}")
+	@DeleteMapping(PUBLIC_URL + "/delete/{id}")
 	public Map<String, Boolean> deleteOrderLineById(@PathVariable("id") Long id) {
 		service.deleteOrderLine(id);
 		Map<String, Boolean> response = new HashMap<String, Boolean>();

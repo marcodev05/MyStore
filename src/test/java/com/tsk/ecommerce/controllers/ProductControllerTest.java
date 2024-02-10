@@ -1,7 +1,7 @@
 package com.tsk.ecommerce.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tsk.ecommerce.dtos.requests.ProductRequest;
+import com.tsk.ecommerce.dtos.requests.products.ProductRequest;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.services.product.CrudProductService;
 import com.tsk.ecommerce.services.product.ProductService;

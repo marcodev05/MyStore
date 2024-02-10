@@ -1,6 +1,6 @@
 package com.tsk.ecommerce.repositories.custom;
 
-import com.tsk.ecommerce.dtos.requests.ProductSearchRequest;
+import com.tsk.ecommerce.dtos.requests.products.ProductSearchRequest;
 import com.tsk.ecommerce.entities.Product;
 import org.springframework.stereotype.Repository;
 
