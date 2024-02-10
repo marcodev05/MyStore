@@ -14,14 +14,13 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "users")
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email"),
-							@UniqueConstraint(columnNames = "username")})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email"),@UniqueConstraint(columnNames = "username")})
 public class UserEntity extends AuditEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
-
+  
 	private String username;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
