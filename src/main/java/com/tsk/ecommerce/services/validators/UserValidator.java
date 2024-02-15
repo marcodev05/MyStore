@@ -16,7 +16,7 @@ public class UserValidator {
     }
 
     public void validateSignUp(SignUpRequest request){
-        if (isUsernameExisted(request.getUsername())) throw new BadRequestException("User already used");
+        if (isUsernameExisted(request.getUsername())) throw new BadRequestException("Username already used");
         if (isEmailExisted(request.getEmail())) throw new BadRequestException("Email already used");
     }
 

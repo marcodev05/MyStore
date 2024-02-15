@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -37,9 +36,9 @@ class RegistrationServiceTest {
     @Test
     void registerPhase1() {
         //given
-        SignUpRequest request = new SignUpRequest("toto", "toto@toto.com", "seller1234");
+        SignUpRequest request = new SignUpRequest("toto", "toto@toto.com", "test1234");
         BindingResult bindingResult = mock(BindingResult.class);
-        Mockito.when(userEntityRepository.save(any(UserEntity.class))).thenReturn(getUserEntity(true));
+        Mockito.when(userEntityRepository.save(any(UserEntity.class))).thenReturn(getUserEntity());
 
         //when
         UserEntity user = registrationService.registerPhase1(request, bindingResult);
@@ -51,8 +50,7 @@ class RegistrationServiceTest {
         assertEquals("toto", user.getUsername());
     }
 
-    private static UserEntity getUserEntity(boolean isSaved) {
-        final Long id = isSaved ? 1L : null;
-        return new UserEntity(id, "toto", "seller1234", "toto@toto.com", "toto", "test", List.of(ERole.ROLE_USER));
+    private static UserEntity getUserEntity() {
+        return new UserEntity(1L, "toto", "test1234", "toto@toto.com", "toto", "test", List.of(ERole.ROLE_USER));
     }
 }

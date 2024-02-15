@@ -20,7 +20,6 @@ import com.tsk.ecommerce.repositories.ProductRepository;
 import org.springframework.validation.BindingResult;
 
 @Service
-@Transactional
 public class ProductServiceImpl implements ProductService {
 
 	private final ProductRepository productRepository;
