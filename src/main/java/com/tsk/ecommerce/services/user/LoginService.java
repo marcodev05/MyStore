@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 @Service
-public class LoginService {
+public class LoginService implements ILoginService {
 
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
