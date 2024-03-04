@@ -6,4 +6,4 @@ server:
 
 spring:
     profiles:
-        active: dev
+        active: test

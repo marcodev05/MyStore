@@ -1,8 +1,12 @@
 package com.tsk.ecommerce.controllers;
 
+import com.tsk.ecommerce.entities.RoleEntity;
 import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.entities.enumerations.ERole;
+import com.tsk.ecommerce.repositories.RoleEntityRepository;
 import com.tsk.ecommerce.repositories.UserEntityRepository;
+import com.tsk.ecommerce.services.ObjectFinder;
+import com.tsk.ecommerce.services.data.UserDataInitializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -18,11 +22,16 @@ public class TestConfig {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserEntityRepository userEntityRepository;
+    @Autowired
+    private RoleEntityRepository roleRepository;
+   // @Autowired
+    //private UserDataInitializer userDataInitializer;
 
     @Bean
     public CommandLineRunner initializeTestData() {
         return args -> {
-          initialiseSimpleUser(userEntityRepository);
+           // userDataInitializer.initializeRole();
+            initialiseSimpleUser(userEntityRepository);
         };
     }
 
@@ -33,8 +42,15 @@ public class TestConfig {
         user.setEmail("test@email.com");
         user.setFirstname("Test");
         user.setLastname("User");
-        user.setRoles(List.of(ERole.ROLE_USER, ERole.ROLE_ADMIN));
-        userEntityRepository.save(user);
+        UserEntity savedUser = userEntityRepository.save(user);
+        addRoleToUser(savedUser.getId(), List.of(ERole.ROLE_USER, ERole.ROLE_ADMIN));
+    }
+
+    public void addRoleToUser(Long idUser, List<ERole> roleNames) {
+        UserEntity userEntity = ObjectFinder.findById(userEntityRepository, "user", idUser);
+        List<RoleEntity> roles = roleRepository.findByNameIn(roleNames);
+        userEntity.getRoles().addAll(roles);
+        userEntityRepository.save(userEntity);
     }
 
 }

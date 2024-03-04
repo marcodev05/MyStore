@@ -33,10 +33,8 @@ public class UpdateProductRequest {
 	private Long categoryId;
 
 	public void commitTo(Product product){
-		product.setNameProduct(nameProduct);
+		product.setName(nameProduct);
 		product.setDescription(description);
-		product.setPrice(price);
-		product.setStock(stock);
 	}
 
 

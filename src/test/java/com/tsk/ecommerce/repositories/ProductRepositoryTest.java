@@ -25,14 +25,12 @@ class ProductRepositoryTest {
     public void whenFindByName_thenReturnProducts() {
         //given
         Product inputProduct = new Product();
-        inputProduct.setNameProduct("KeyBoard");
+        inputProduct.setName("KeyBoard");
         inputProduct.setDescription("some description");
-        inputProduct.setPrice(400.0);
-        inputProduct.setStock(10);
         productRepository.save(inputProduct);
 
         //when
-        List<Product> products = productRepository.findByNameProductContains("KeyBoard");
+        List<Product> products = productRepository.findByNameContains("KeyBoard");
 
         //then
         assertTrue(!products.isEmpty());

@@ -1,6 +1,8 @@
 package com.tsk.ecommerce.dtos.responses;
 
+import com.tsk.ecommerce.entities.Product;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 public class ResponseFactory {
 
@@ -9,9 +11,9 @@ public class ResponseFactory {
                 .setError(false);
     }
 
-    public static <T> Response<T> created(T data){
-        return new Response<T>(data).setStatus(HttpStatus.CREATED.value()).setMessage("Created successfully")
-                .setError(false);
+    public static <T> ResponseEntity<Response<T>> created(T data){
+        Response<T> response = new Response<T>(data).setStatus(HttpStatus.CREATED.value()).setMessage("Created successfully").setError(false);
+       return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     public static <T> Response<T> notFound(T data){

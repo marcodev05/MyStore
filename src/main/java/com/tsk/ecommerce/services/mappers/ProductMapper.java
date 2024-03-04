@@ -17,9 +17,7 @@ public class ProductMapper {
     public Product toProductEntity(ProductRequest request){
         Product p = new Product();
         p.setDescription(request.getDescription());
-        p.setNameProduct(request.getNameProduct());
-        p.setPrice(request.getPrice());
-        p.setStock(request.getStock());
+        p.setName(request.getName());
         p.setCategory(ObjectFinder.findById(categoryRepository, "category", request.getCategoryId()));
         return p;
     }

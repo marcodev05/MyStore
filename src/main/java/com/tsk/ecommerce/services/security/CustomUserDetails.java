@@ -15,13 +15,12 @@ public class CustomUserDetails implements UserDetails {
 
 	public CustomUserDetails(UserEntity userEntity) {
 		this.userEntity = userEntity;
-
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return userEntity.getRoles().stream()
-				.map((roleEntity) -> new SimpleGrantedAuthority(roleEntity.name()))
+				.map((roleEntity) -> new SimpleGrantedAuthority(roleEntity.getName().name()))
 				.collect(Collectors.toList());
 	}
 
