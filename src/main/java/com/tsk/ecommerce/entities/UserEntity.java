@@ -13,8 +13,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "users")
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email"),
-							@UniqueConstraint(columnNames = "username")})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email"),@UniqueConstraint(columnNames = "username")})
 public class UserEntity extends AuditEntity {
 	
 	@Id
