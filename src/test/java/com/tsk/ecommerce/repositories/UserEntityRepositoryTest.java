@@ -54,6 +54,6 @@ class UserEntityRepositoryTest {
     }
 
     private static UserEntity getUserEntity() {
-        return new UserEntity(1L, "toto", "password", "toto@toto.com", "toto", "test", List.of(ERole.ROLE_USER));
+        return new UserEntity(1L, "toto", "password", "toto@toto.com", "toto", "test", null);
     }
 }

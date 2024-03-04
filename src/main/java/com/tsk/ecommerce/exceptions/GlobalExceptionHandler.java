@@ -36,21 +36,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleBadRequestException(BadRequestException ex, HttpServletRequest request) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(exceptionMapperService.toResponseDTO(ex, HttpStatus.BAD_REQUEST, request));
+                .body(ResponseFactory.badRequest(new ExceptionEntity(ex.getMessage(), request.getRequestURI())));
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<Object> handleUnauthorizedException(UnauthorizedException ex, HttpServletRequest request) {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
-                .body(exceptionMapperService.toResponseDTO(ex, HttpStatus.UNAUTHORIZED, request));
+                .body(ResponseFactory.unauthorized(new ExceptionEntity(ex.getMessage(), request.getRequestURI())));
     }
 
     @ExceptionHandler(ForbiddenException.class)
     public ResponseEntity<Object> handleForbiddenException(ForbiddenException ex, HttpServletRequest request) {
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
-                .body(exceptionMapperService.toResponseDTO(ex, HttpStatus.FORBIDDEN, request));
+                .body(ResponseFactory.forbidden(new ExceptionEntity(ex.getMessage(), request.getRequestURI())));
     }
 
     @ExceptionHandler(ValidationException.class)

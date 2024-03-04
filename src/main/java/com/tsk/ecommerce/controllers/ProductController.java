@@ -60,8 +60,8 @@ public class ProductController  {
 
 	@Operation(summary = "Add a new product")
 	@ApiResponse(responseCode = "201", description = "Product is created")
-	@PostMapping(ADMIN_URL + "/products/add")
-	public Response<Product> addProduct(@Valid ProductRequest product, BindingResult bindingResult) {
+	@PostMapping(ADMIN_URL + "/products")
+	public ResponseEntity<Response<Product>> addProduct(@Valid ProductRequest product, BindingResult bindingResult) {
 		return ResponseFactory.created(service.create(product, bindingResult));
 	}
 

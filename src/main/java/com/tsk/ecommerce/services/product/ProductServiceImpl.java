@@ -8,6 +8,7 @@ import com.tsk.ecommerce.repositories.CategoryRepository;
 import com.tsk.ecommerce.services.ObjectFinder;
 import com.tsk.ecommerce.services.mappers.ProductMapper;
 import com.tsk.ecommerce.services.validators.FieldValidator;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,6 @@ import com.tsk.ecommerce.repositories.ProductRepository;
 import org.springframework.validation.BindingResult;
 
 @Service
-@Transactional
 public class ProductServiceImpl implements ProductService {
 
 	private final ProductRepository productRepository;
@@ -35,9 +35,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product create(ProductRequest request, BindingResult bindingResult) {
+		//String user = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		FieldValidator.validate(bindingResult);
 		Product p = productMapper.toProductEntity(request);
-		p.setAvailable(true);
 		//todo handle images
 		return productRepository.save(p);
 	}
@@ -69,31 +69,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product addToStock(Long id, Integer qty) {
 		Product p = this.getProductById(id);
-		p.setStock(p.getStock() + qty);
-		if (p.getStock() > 0) {
-			p.setAvailable(true);
-		}
 		return productRepository.save(p);
 	}
 
 	@Override
-	public List<Picture> getAllPictureByProduct(Long idProduct) {
-		return productRepository.findAllPicturesByProduct(idProduct);
-	}
-
-	@Override
 	public List<Product> findProductByName(String name) {
-		return productRepository.findByNameProductContains(name);
-	}
-
-	@Override
-	public void reduceQtyByOrderLine(OrderLine orderLine) {
-		Product p = this.getProductById(orderLine.getProduct().getIdProduct());
-		Integer restStock = p.getStock() - orderLine.getQuantity();
-		p.setStock(restStock);
-		if (restStock == 0) {
-			p.setAvailable(false);
-		}
-		productRepository.save(p);
+		return productRepository.findByNameContains(name);
 	}
 }

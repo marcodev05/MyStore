@@ -33,17 +33,15 @@ class ProductServiceTest {
         Long id = 1L;
         //given
         Product inputProduct = new Product();
-        inputProduct.setIdProduct(1L);
-        inputProduct.setNameProduct("testNameProduct");
+        inputProduct.setId(1L);
+        inputProduct.setName("testNameProduct");
         inputProduct.setDescription("testDescription");
-        inputProduct.setPrice(400.0);
-        inputProduct.setStock(10);
         Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(inputProduct));
 
         Product found = productService.getProductById(1L);
         Mockito.verify(productRepository).findById(1L);
         assertNotNull(found);
-        assertEquals(id, found.getIdProduct());
+        assertEquals(id, found.getId());
     }
 
     @Test
@@ -51,11 +49,9 @@ class ProductServiceTest {
         Long id = 2L;
         //given
         Product inputProduct = new Product();
-        inputProduct.setIdProduct(1L);
-        inputProduct.setNameProduct("testNameProduct");
+        inputProduct.setId(1L);
+        inputProduct.setName("testNameProduct");
         inputProduct.setDescription("testDescription");
-        inputProduct.setPrice(400.0);
-        inputProduct.setStock(10);
         Mockito.when(productRepository.findById(1L)).thenReturn(Optional.empty());
 
         ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () ->  productService.getProductById(1L));

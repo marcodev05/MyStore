@@ -1,5 +1,10 @@
 package com.tsk.ecommerce.dtos.responses;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.NoArgsConstructor;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@NoArgsConstructor
 public class Response<T> {
     private T data;
     private String message;

@@ -14,7 +14,7 @@ import lombok.Data;
 public class ProductRequest {
 
 	@NotBlank(message = "Product name is required")
-	private String nameProduct;
+	private String name;
 	
 	@NotBlank(message = "Description is required")
 	private String description;
@@ -24,10 +24,7 @@ public class ProductRequest {
 
 	private Integer stock;
 
-	@NotNull(message = "pictures should not be null")
-	private Collection<Picture> pictures;
-
-	@NotNull(message = "category is required")
+	//@NotNull(message = "category is required")
 	private Long categoryId;
 
 }

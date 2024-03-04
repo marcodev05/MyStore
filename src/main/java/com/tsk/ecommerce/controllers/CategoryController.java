@@ -6,6 +6,7 @@ import com.tsk.ecommerce.dtos.responses.Response;
 import com.tsk.ecommerce.dtos.responses.ResponseFactory;
 import com.tsk.ecommerce.services.product.CategoryService;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,7 +56,7 @@ public class CategoryController  {
 	@Operation(summary = "Add a new Category")
 	@ApiResponse(responseCode = "201", description = "Category is created")
 	@PostMapping(ADMIN_URL + "/categories")
-	public Response<Category> addCategory(@Valid CategoryRequest category, BindingResult bindingResult) {
+	public ResponseEntity<Response<Category>> addCategory(@Valid CategoryRequest category, BindingResult bindingResult) {
 		return ResponseFactory.created(service.create(category, bindingResult));
 	}
 
