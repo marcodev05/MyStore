@@ -1,5 +1,5 @@
 # EcommerceBack Spring boot
-A simple Spring Boot application that demonstrates basic functionality of ecommerce using a REST API.
+A simple Spring Boot application that demonstrates basic functionality of ecommerce for my code review.
 
 ## Prerequisites
 * Java 11 or higher
