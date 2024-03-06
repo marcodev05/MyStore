@@ -1,7 +1,6 @@
-package com.tsk.ecommerce.services.data;
+package com.tsk.ecommerce.services.tools;
 
-import com.tsk.ecommerce.entities.enumerations.ERole;
-import com.tsk.ecommerce.services.user.RegistrationService;
+import com.tsk.ecommerce.services.user.UserDataInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class AppDataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
     userDataInitializer.initializeRole();
-    userDataInitializer.initAdminUser();
+    //userDataInitializer.initAdminUser();
     logger.info("----- Ecommerce application started ------");
     }
 

@@ -1,22 +1,18 @@
-package com.tsk.ecommerce.services.product;
+package com.tsk.ecommerce.services.product.impl;
 
 import java.util.List;
 
-import com.tsk.ecommerce.dtos.requests.products.ProductSearchRequest;
+import com.tsk.ecommerce.dtos.requests.products.ProductSearchDto;
 import com.tsk.ecommerce.dtos.requests.products.UpdateProductRequest;
 import com.tsk.ecommerce.repositories.CategoryRepository;
 import com.tsk.ecommerce.services.ObjectFinder;
 import com.tsk.ecommerce.services.mappers.ProductMapper;
+import com.tsk.ecommerce.services.product.ProductService;
 import com.tsk.ecommerce.services.validators.FieldValidator;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.tsk.ecommerce.dtos.requests.products.ProductRequest;
-import com.tsk.ecommerce.entities.OrderLine;
-import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.entities.Product;
-import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import com.tsk.ecommerce.repositories.ProductRepository;
 import org.springframework.validation.BindingResult;
 
@@ -52,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.save(p);
 	}
 
-	public List<Product> searchProduct(ProductSearchRequest request) {
+	public List<Product> searchProduct(ProductSearchDto request) {
 		return productRepository.findAll();
 	}
 	

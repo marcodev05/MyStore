@@ -8,7 +8,7 @@ public class StringUtils {
     private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
     private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
     public static Boolean isBlank(String string){
-        return string.isBlank() || string == null;
+        return string == null || string.trim().isEmpty();
     }
 
     public static String toSlug(String input) {

@@ -6,6 +6,7 @@ import com.tsk.ecommerce.repositories.CategoryRepository;
 import com.tsk.ecommerce.repositories.ProductRepository;
 
 import com.tsk.ecommerce.services.mappers.ProductMapper;
+import com.tsk.ecommerce.services.product.impl.ProductServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class LoginRequest {
+public class LoginRequestDto {
 
 	@NotBlank(message = "Username is mandatory")
 	private String username;
@@ -17,7 +17,7 @@ public class LoginRequest {
 	@NotBlank(message = "Password is mandatory")
 	private String password;
 
-	public LoginRequest(String username, String password) {
+	public LoginRequestDto(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}

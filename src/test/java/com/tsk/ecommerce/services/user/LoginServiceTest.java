@@ -1,10 +1,11 @@
 package com.tsk.ecommerce.services.user;
 
-import com.tsk.ecommerce.dtos.requests.LoginRequest;
+import com.tsk.ecommerce.dtos.requests.LoginRequestDto;
 import com.tsk.ecommerce.dtos.responses.LoginResponseDTO;
 import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.services.security.LoginAuthenticationToken;
 import com.tsk.ecommerce.services.security.jwt.JwtProvider;
+import com.tsk.ecommerce.services.user.impl.LoginServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,12 +29,12 @@ class LoginServiceTest {
     @Mock
     private JwtProvider jwtProvider;
     @InjectMocks
-    private LoginService loginService;
+    private LoginServiceImpl loginServiceImpl;
 
     @Test
     void login() {
         //given
-        final LoginRequest request = new LoginRequest("testUsername", "testPassword");
+        final LoginRequestDto request = new LoginRequestDto("testUsername", "testPassword");
 
         //config mock
         final BindingResult bindingResult = mock(BindingResult.class);
@@ -45,7 +46,7 @@ class LoginServiceTest {
         when(jwtProvider.generateToken("testUsername")).thenReturn("testToken");
 
         //when
-        LoginResponseDTO responseDTO = loginService.login(request, bindingResult);
+        LoginResponseDTO responseDTO = loginServiceImpl.login(request, bindingResult);
 
         //then
         assertNotNull(responseDTO.getUser());
