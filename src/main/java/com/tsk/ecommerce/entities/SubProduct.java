@@ -27,7 +27,7 @@ public class SubProduct extends AuditEntity {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "sub_category")
+    @JoinColumn(name = "product")
     private Product product;
 
     @OneToMany

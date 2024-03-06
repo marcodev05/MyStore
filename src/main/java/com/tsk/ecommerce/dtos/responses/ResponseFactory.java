@@ -1,6 +1,5 @@
 package com.tsk.ecommerce.dtos.responses;
 
-import com.tsk.ecommerce.entities.Product;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

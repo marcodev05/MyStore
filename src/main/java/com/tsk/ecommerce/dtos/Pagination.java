@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.common;
+package com.tsk.ecommerce.dtos;
 
 import lombok.Data;
 
@@ -10,10 +10,10 @@ public class Pagination {
     private Integer page;
 
     @Min(1)
-    private Integer par_page;
+    private Integer size;
 
     public Pagination() {
         page = 1;
-        par_page = 10;
+        size = 10;
     }
 }

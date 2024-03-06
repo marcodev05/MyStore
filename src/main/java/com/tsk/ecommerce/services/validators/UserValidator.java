@@ -1,6 +1,6 @@
 package com.tsk.ecommerce.services.validators;
 
-import com.tsk.ecommerce.dtos.requests.SignUpRequest;
+import com.tsk.ecommerce.dtos.requests.SignUpRequestDto;
 import com.tsk.ecommerce.exceptions.BadRequestException;
 import com.tsk.ecommerce.repositories.UserEntityRepository;
 
@@ -15,7 +15,7 @@ public class UserValidator {
         this.userEntityRepository = userEntityRepository;
     }
 
-    public void validateSignUp(SignUpRequest request){
+    public void validateSignUp(SignUpRequestDto request){
         if (isUsernameExisted(request.getUsername())) throw new BadRequestException("Username already used");
         if (isEmailExisted(request.getEmail())) throw new BadRequestException("Email already used");
     }

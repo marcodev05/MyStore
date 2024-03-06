@@ -22,8 +22,8 @@ public class OrderLine implements Serializable {
 	private Double subTotal;
 	
 	@ManyToOne
-	@JoinColumn(name = "product")
-	private Product product;
+	@JoinColumn(name = "sub_product")
+	private SubProduct subProduct;
 	
 	@ManyToOne
 	@JoinColumn(name = "order_id")

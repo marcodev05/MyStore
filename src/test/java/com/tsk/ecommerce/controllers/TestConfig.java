@@ -6,7 +6,6 @@ import com.tsk.ecommerce.entities.enumerations.ERole;
 import com.tsk.ecommerce.repositories.RoleEntityRepository;
 import com.tsk.ecommerce.repositories.UserEntityRepository;
 import com.tsk.ecommerce.services.ObjectFinder;
-import com.tsk.ecommerce.services.data.UserDataInitializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.TestConfiguration;

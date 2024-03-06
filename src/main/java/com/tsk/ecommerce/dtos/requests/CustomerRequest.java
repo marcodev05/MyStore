@@ -33,5 +33,5 @@ public class CustomerRequest {
     @NotNull
     private String city;
 
-    private SignUpRequest signUpRequest;
+    private SignUpRequestDto signUpRequestDto;
 }

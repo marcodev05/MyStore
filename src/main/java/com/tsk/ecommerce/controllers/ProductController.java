@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.tsk.ecommerce.dtos.requests.products.ProductSearchRequest;
+import com.tsk.ecommerce.dtos.requests.products.ProductSearchDto;
 import com.tsk.ecommerce.dtos.requests.products.UpdateProductRequest;
 import com.tsk.ecommerce.dtos.responses.Response;
 import com.tsk.ecommerce.dtos.responses.ResponseFactory;
@@ -38,7 +38,7 @@ public class ProductController  {
 	 *************************************************************/
 	@Operation(summary = "Get all products")
 	@GetMapping(PUBLIC_URL + "/products")
-	public Response<List<Product>> searchProduct(@Valid ProductSearchRequest request){
+	public Response<List<Product>> searchProduct(@Valid ProductSearchDto request){
 		return ResponseFactory.success(service.searchProduct(request));
 	}
 

@@ -1,20 +1,16 @@
 package com.tsk.ecommerce.dtos.requests.products;
 
-import com.tsk.ecommerce.common.Pagination;
-import com.tsk.ecommerce.entities.Picture;
+import com.tsk.ecommerce.dtos.Pagination;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.Collection;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductSearchRequest {
+public class ProductSearchDto {
 
 	private String name;
 

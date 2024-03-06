@@ -1,12 +1,13 @@
 package com.tsk.ecommerce.services.user;
 
 
-import com.tsk.ecommerce.dtos.requests.SignUpRequest;
+import com.tsk.ecommerce.dtos.requests.SignUpRequestDto;
 import com.tsk.ecommerce.entities.RoleEntity;
 import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.entities.enumerations.ERole;
 import com.tsk.ecommerce.repositories.RoleEntityRepository;
 import com.tsk.ecommerce.repositories.UserEntityRepository;
+import com.tsk.ecommerce.services.user.impl.RegistrationServiceImpl;
 import com.tsk.ecommerce.services.validators.UserValidator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,7 +28,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class RegistrationServiceTest {
+class RegistrationServiceImplTest {
     @Mock
     private UserEntityRepository userEntityRepository;
     @Mock
@@ -37,12 +38,12 @@ class RegistrationServiceTest {
     @Mock
     private RoleEntityRepository roleRepository;
     @InjectMocks
-    private RegistrationService registrationService;
+    private RegistrationServiceImpl registrationServiceImpl;
 
     @Test
     void registerPhase1() {
         //given
-        SignUpRequest request = new SignUpRequest("toto", "toto@toto.com", "test1234");
+        SignUpRequestDto request = new SignUpRequestDto("toto", "toto@toto.com", "test1234");
         BindingResult bindingResult = mock(BindingResult.class);
         UserEntity userEntity = getUserEntity();
         UserEntity userMock = mock(UserEntity.class);
@@ -53,7 +54,7 @@ class RegistrationServiceTest {
         Mockito.when(roleRepository.findByNameIn(List.of(ERole.ROLE_USER))).thenReturn(getRoleEntities());
 
         //when
-        UserEntity user = registrationService.registerPhase1(request, bindingResult);
+        UserEntity user = registrationServiceImpl.registerPhase1(request, bindingResult);
 
         //then
         verify(userValidator).validateSignUp(request);
