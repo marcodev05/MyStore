@@ -15,18 +15,6 @@ import java.util.Map;
 @Service
 public class ExceptionMapperService {
 
-    public ExceptionResponseDTO toResponseDTO(RuntimeException exception,HttpStatus status, HttpServletRequest request){
-        ExceptionResponseDTO response = new ExceptionResponseDTO();
-        response.setError(status.getReasonPhrase());
-        response.setStatus(status.value());
-        response.setMessage(exception.getMessage());
-        response.setPath(request.getRequestURI());
-
-        LocalDateTime timestamp = LocalDateTime.now();
-        response.setTimestamp(timestamp);
-        return response;
-    }
-
     public ExceptionResponseDTO toResponseDTO(MethodArgumentNotValidException exception, HttpStatus status){
         Map<String, String> errors = new HashMap<>();
         exception.getBindingResult().getAllErrors().forEach(error -> {

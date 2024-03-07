@@ -1,18 +1,24 @@
 package com.tsk.ecommerce.services.product.impl;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import com.tsk.ecommerce.dtos.PaginationResponse;
 import com.tsk.ecommerce.dtos.requests.category.CategorySearchDto;
+import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.entities.models.FileUploaded;
 import com.tsk.ecommerce.dtos.requests.category.CategoryRequestDto;
 import com.tsk.ecommerce.entities.Picture;
+import com.tsk.ecommerce.exceptions.BadRequestException;
 import com.tsk.ecommerce.repositories.PictureRepository;
 import com.tsk.ecommerce.services.ObjectFinder;
 import com.tsk.ecommerce.services.file.FileUploadService;
 import com.tsk.ecommerce.services.product.CategoryService;
 import com.tsk.ecommerce.services.validators.FieldValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,14 +39,22 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Category create(CategoryRequestDto request, BindingResult bindingResult) {
 		FieldValidator.validate(bindingResult);
+		isCodeCategoryExists(request.getCode());
 		Category c = new Category();
-		c.setName(request.getName());
-		c.setCode(request.getCode());
-		c.setDescription(request.getDescription());
-		if (request.getImage() != null) {
-			uploadPicture(request.getImage(), c);
+			c.setName(request.getName());
+			c.setCode(request.getCode());
+			c.setDescription(request.getDescription());
+			if (request.getImage() != null) {
+				uploadPicture(request.getImage(), c);
+			}
+			return categoryRepository.save(c);
+	}
+
+	private void isCodeCategoryExists(String code){
+		Optional<Category> optionalCategory = categoryRepository.findByCode(code);
+		if (optionalCategory.isPresent()){
+			throw new BadRequestException("Code category already exists", "code");
 		}
-		return categoryRepository.save(c);
 	}
 
 	@Override

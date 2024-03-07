@@ -2,12 +2,14 @@ package com.tsk.ecommerce.services.product.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.tsk.ecommerce.common.StringUtils;
 import com.tsk.ecommerce.dtos.PaginationResponse;
 import com.tsk.ecommerce.dtos.requests.products.ProductSearchDto;
 import com.tsk.ecommerce.dtos.requests.products.UpdateProductRequest;
 import com.tsk.ecommerce.entities.Category;
+import com.tsk.ecommerce.exceptions.BadRequestException;
 import com.tsk.ecommerce.repositories.CategoryRepository;
 import com.tsk.ecommerce.services.ObjectFinder;
 import com.tsk.ecommerce.services.mappers.ProductMapper;
@@ -68,6 +70,7 @@ public class ProductServiceImpl implements ProductService {
     public Product create(ProductRequestDto request, BindingResult bindingResult) {
         //String user = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         FieldValidator.validate(bindingResult);
+        isCodeProductExists(request.getCode());
         Product p = productMapper.toProductEntity(request);
         //todo handle images
         return productRepository.save(p);
@@ -83,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(p);
     }
 
-	@Override
+    @Override
     public PaginationResponse<List<Product>> searchProduct(ProductSearchDto request) {
         Specification<Product> specification = getProductSearchSpecification(request);
 
@@ -104,4 +107,10 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
+    private void isCodeProductExists(String code) {
+        Optional<Product> optionalProduct = productRepository.findByCode(code);
+        if (optionalProduct.isPresent()) {
+            throw new BadRequestException("Code category already exists", "code");
+        }
+    }
 }
