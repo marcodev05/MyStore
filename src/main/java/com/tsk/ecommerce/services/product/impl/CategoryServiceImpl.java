@@ -68,6 +68,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void deleteCategory(Long id) {
+		//@Todo check if this category don't have product online or currently in order.
 		Category category = getCategoryById(id);
 		categoryRepository.deleteById(id);
 		fileUploadService.delete(category.getImage().getName());

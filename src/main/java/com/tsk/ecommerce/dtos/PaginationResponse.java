@@ -9,6 +9,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class PaginationResponse<T> {
     private T content;
-    private Pagination pagination;
     private Long total;
 }

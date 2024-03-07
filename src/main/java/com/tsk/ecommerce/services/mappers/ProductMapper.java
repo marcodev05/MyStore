@@ -1,6 +1,6 @@
 package com.tsk.ecommerce.services.mappers;
 
-import com.tsk.ecommerce.dtos.requests.products.ProductRequest;
+import com.tsk.ecommerce.dtos.requests.products.ProductRequestDto;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.repositories.CategoryRepository;
 import com.tsk.ecommerce.services.ObjectFinder;
@@ -14,10 +14,11 @@ public class ProductMapper {
         this.categoryRepository = categoryRepository;
     }
 
-    public Product toProductEntity(ProductRequest request){
+    public Product toProductEntity(ProductRequestDto request){
         Product p = new Product();
         p.setDescription(request.getDescription());
         p.setName(request.getName());
+        p.setCode(request.getCode());
         p.setCategory(ObjectFinder.findById(categoryRepository, "category", request.getCategoryId()));
         return p;
     }

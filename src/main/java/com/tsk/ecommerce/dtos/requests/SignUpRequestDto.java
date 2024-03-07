@@ -21,10 +21,10 @@ public class SignUpRequestDto {
 
 	@Schema(description = "User email")
 	@NotBlank(message = "email is mandatory")
-	@Email(message = "invalid email")
+	@Email(message = "Email invalid")
 	private String email;
 
 	@NotBlank
-	@Size(min = 6, message = "password should have 6 letters at least")
+	@Size(min = 6, message = "Password should have 6 letters at least")
 	private String password;
 }

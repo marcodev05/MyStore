@@ -5,21 +5,23 @@ import com.tsk.ecommerce.dtos.PaginationResponse;
 import com.tsk.ecommerce.dtos.requests.category.CategorySearchDto;
 import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.repositories.custom.CategoryCustomRepository;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class CategoryCustomRepositoryImpl implements CategoryCustomRepository {
     private final EntityManager em;
 
-    public CategoryCustomRepositoryImpl(EntityManager em) {
-        this.em = em;
+    private static void setOrderBy(CategorySearchDto params, CriteriaBuilder cb, Root<Category> root, CriteriaQuery<Category> criteriaQuery) {
+        Order order = params.getOrderBy().isAscending()
+                ? cb.asc(root.get(params.getOrderBy().getField()))
+                : cb.desc(root.get(params.getOrderBy().getField()));
+        criteriaQuery.orderBy(order);
     }
 
     @Override
@@ -39,21 +41,19 @@ public class CategoryCustomRepositoryImpl implements CategoryCustomRepository {
         }
 
         // Predicate orPredicate = cb.or(namePredicate, codePredicate);
-        if (!predicates.isEmpty()){
+        if (!predicates.isEmpty()) {
             criteriaQuery.where(
                     cb.or(predicates.toArray(new Predicate[0]))
             );
         }
 
+        setOrderBy(params, cb, root, criteriaQuery);
         TypedQuery<Category> query = em.createQuery(criteriaQuery);
 
         query.setFirstResult(params.getPagination().getPage() - 1);
         query.setMaxResults(params.getPagination().getSize());
 
-        List<Category> categories = query.getResultList();
-
-        Long total = getTotal(cb, predicates);
-        return new PaginationResponse<>(categories, params.getPagination(), total);
+        return new PaginationResponse<>(query.getResultList(), getTotal(cb, predicates));
     }
 
     private Long getTotal(CriteriaBuilder cb, List<Predicate> predicates) {

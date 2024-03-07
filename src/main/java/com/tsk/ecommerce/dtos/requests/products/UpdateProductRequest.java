@@ -19,12 +19,6 @@ public class UpdateProductRequest {
 	@NotBlank(message = "Description is required")
 	private String description;
 
-	@NotNull
-	private Double price;
-
-	@NotNull
-	private Integer stock;
-
 	private Collection<Picture> pictures;
 
 	private Collection<Long> pictureToDeletes;
@@ -36,7 +30,5 @@ public class UpdateProductRequest {
 		product.setName(nameProduct);
 		product.setDescription(description);
 	}
-
-
 
 }
