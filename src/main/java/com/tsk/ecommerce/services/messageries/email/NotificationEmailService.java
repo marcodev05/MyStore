@@ -6,7 +6,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 
-import com.tsk.ecommerce.entities.Orders;
+import com.tsk.ecommerce.entities.Order;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,13 +23,13 @@ public class NotificationEmailService {
 	}
 
 	@Async
-	public void sendNotification(Orders orders) {
+	public void sendNotification(Order order) {
 		//MimeMessagePreparator messagePreparator2 = emailFactory;
 		MimeMessagePreparator messagePreparator = mimeMessage -> {
 			MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 			messageHelper.setFrom(MAIL_SHOP);
 			messageHelper.setSubject("Confirmation de l'envoie d'une commande");
-			String html = mailContent.build(orders);
+			String html = mailContent.build(order);
 			messageHelper.setText(html, true);
 		};
 		javaMailSender.send(messagePreparator);

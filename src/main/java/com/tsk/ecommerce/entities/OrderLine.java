@@ -27,5 +27,5 @@ public class OrderLine implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "order_id")
-	private Orders order;
+	private Order order;
 }

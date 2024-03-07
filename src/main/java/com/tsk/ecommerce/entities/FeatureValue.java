@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "feature_values")
+@Entity
+@Table(name = "feature_values")
 public class FeatureValue {
 
     @Id

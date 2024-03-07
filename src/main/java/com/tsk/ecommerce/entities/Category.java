@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity(name = "categories")
+@Entity
+@Table(name = "categories", uniqueConstraints = {@UniqueConstraint(columnNames = "code")})
 public class Category extends AuditEntity implements Serializable{
 	
 	@Id @GeneratedValue( strategy = GenerationType.IDENTITY)
