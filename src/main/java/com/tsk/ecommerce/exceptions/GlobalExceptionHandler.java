@@ -1,8 +1,8 @@
 package com.tsk.ecommerce.exceptions;
 
+import com.tsk.ecommerce.common.StringUtils;
 import com.tsk.ecommerce.dtos.responses.Response;
 import com.tsk.ecommerce.dtos.responses.ResponseFactory;
-import com.tsk.ecommerce.services.mappers.ExceptionMapperService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +12,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-
-    private final ExceptionMapperService exceptionMapperService;
-
-    public GlobalExceptionHandler(ExceptionMapperService exceptionMapperService) {
-        this.exceptionMapperService = exceptionMapperService;
-    }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> handleCustomException(ResourceNotFoundException ex, HttpServletRequest request) {
@@ -34,9 +30,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Object> handleBadRequestException(BadRequestException ex, HttpServletRequest request) {
+        ExceptionEntity exceptionEntity = StringUtils.isBlank(ex.getFieldName())
+                ? new ExceptionEntity(ex.getMessage(), request.getRequestURI())
+                : new ExceptionEntity(ex.getFieldName(), ex.getMessage(), request.getRequestURI());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(ResponseFactory.badRequest(new ExceptionEntity(ex.getMessage(), request.getRequestURI())));
+                .body(ResponseFactory.badRequest(exceptionEntity));
     }
 
     @ExceptionHandler(UnauthorizedException.class)
@@ -55,11 +54,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<Response<Object>> handleValidationException(ValidationException ex) {
-        Map<String, String> errors = new HashMap<>();
+        Map<String, List<String>> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName = ((FieldError) error).getField();
-            String message = error.getDefaultMessage();
-            errors.put(fieldName, message);
+            List<String> messages = new ArrayList<>();
+            if (errors.containsKey(fieldName)) {
+                messages = errors.get(fieldName);
+            }
+            messages.add(error.getDefaultMessage());
+            errors.put(fieldName, messages);
         });
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ResponseFactory.badRequest(errors));

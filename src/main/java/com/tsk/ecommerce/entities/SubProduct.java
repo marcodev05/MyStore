@@ -11,7 +11,8 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "articles")
+@Entity
+@Table(name = "sub_products", uniqueConstraints = {@UniqueConstraint(columnNames = "code")})
 public class SubProduct extends AuditEntity {
 
     @Id

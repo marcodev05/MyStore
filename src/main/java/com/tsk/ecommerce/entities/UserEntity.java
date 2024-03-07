@@ -12,8 +12,8 @@ import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "users")
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email"),@UniqueConstraint(columnNames = "username")})
+@Entity
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email"),@UniqueConstraint(columnNames = "username")})
 public class UserEntity extends AuditEntity {
 	
 	@Id
@@ -33,8 +33,4 @@ public class UserEntity extends AuditEntity {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<RoleEntity> roles = new ArrayList<>();
-
-	public Collection<RoleEntity> getRoles() {
-		return roles;
-	}
 }

@@ -28,44 +28,44 @@ import static com.tsk.ecommerce.common.ConstantsApp.PUBLIC_URL;
 import static com.tsk.ecommerce.common.ConstantsApp.ADMIN_URL;
 
 @RestController
-public class CategoryController  {
+public class CategoryController {
 
-	private final CategoryService service;
+    private final CategoryService service;
 
-	public CategoryController(CategoryService service) {
-		this.service = service;
-	}
+    public CategoryController(CategoryService service) {
+        this.service = service;
+    }
 
-	@Operation(summary = "Search for categories")
-	@GetMapping(PUBLIC_URL + "/categories")
-	public Response<PaginationResponse<List<Category>>> searchCategories(CategorySearchDto params){
-		return ResponseFactory.success(service.searchCategory(params));
-	}
+    @Operation(summary = "Search for categories")
+    @GetMapping(PUBLIC_URL + "/categories")
+    public Response<PaginationResponse<List<Category>>> searchCategories(CategorySearchDto params) {
+        return ResponseFactory.success(service.searchCategory(params));
+    }
 
-	@Operation(summary = "Get a category by Id")
-	@GetMapping(PUBLIC_URL + "/categories/{id}")
-	public Response<Category> getCategoryById(@PathVariable("id")Long id){
-		return ResponseFactory.success(service.getCategoryById(id));
-	}
+    @Operation(summary = "Get a category by Id")
+    @GetMapping(PUBLIC_URL + "/categories/{id}")
+    public Response<Category> getCategoryById(@PathVariable("id") Long id) {
+        return ResponseFactory.success(service.getCategoryById(id));
+    }
 
-	@Operation(summary = "Add a new Category")
-	@ApiResponse(responseCode = "201", description = "Category is created")
-	@PostMapping(ADMIN_URL + "/categories")
-	public ResponseEntity<Response<Category>> addCategory(@Valid CategoryRequestDto category, BindingResult bindingResult) {
-		return ResponseFactory.created(service.create(category, bindingResult));
-	}
+    @Operation(summary = "Add a new Category")
+    @ApiResponse(responseCode = "201", description = "Category is created")
+    @PostMapping(ADMIN_URL + "/categories")
+    public ResponseEntity<Response<Category>> addCategory(@Valid CategoryRequestDto category, BindingResult bindingResult) {
+        return ResponseFactory.created(service.create(category, bindingResult));
+    }
 
-	@Operation(summary = "Update a category by id")
-	@PostMapping(ADMIN_URL + "/categories/{id}/update")
-	public Response<Category> updateCategory(@PathVariable("id") Long id, @Valid CategoryRequestDto request, BindingResult bindingResult) {
-		return ResponseFactory.success(service.update(id, request, bindingResult));
-	}
+    @Operation(summary = "Update a category by id")
+    @PostMapping(ADMIN_URL + "/categories/{id}/update")
+    public Response<Category> updateCategory(@PathVariable("id") Long id, @Valid CategoryRequestDto request, BindingResult bindingResult) {
+        return ResponseFactory.success(service.update(id, request, bindingResult));
+    }
 
-	@Operation(summary = "Delete a category by Id")
-	@DeleteMapping(ADMIN_URL + "/categories/{id}")
-	public Response<String> deleteCategoryById(@PathVariable("id") Long id) {
-		service.deleteCategory(id);
-		return ResponseFactory.success("Category deleted successfully");
-	}
+    @Operation(summary = "Delete a category by Id")
+    @DeleteMapping(ADMIN_URL + "/categories/{id}")
+    public Response<String> deleteCategoryById(@PathVariable("id") Long id) {
+        service.deleteCategory(id);
+        return ResponseFactory.success("Category deleted successfully");
+    }
 
 }

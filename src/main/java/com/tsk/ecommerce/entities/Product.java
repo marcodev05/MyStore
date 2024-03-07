@@ -1,8 +1,6 @@
 package com.tsk.ecommerce.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +9,8 @@ import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "sub_categories")
+@Entity
+@Table(name = "products", uniqueConstraints = {@UniqueConstraint(columnNames = "code")})
 public class Product extends AuditEntity implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

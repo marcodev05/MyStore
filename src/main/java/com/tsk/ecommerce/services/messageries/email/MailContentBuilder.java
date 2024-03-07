@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.tsk.ecommerce.entities.Orders;
+import com.tsk.ecommerce.entities.Order;
 
 @Component
 public class MailContentBuilder {
@@ -19,7 +19,7 @@ public class MailContentBuilder {
 		this.templateEngine = templateEngine;
 	}
 
-	public String build(Orders order) {
+	public String build(Order order) {
 		Context context = new Context();
 		Map<String, Object> props = new HashMap<String, Object>();
 		props.put("order", order);
