@@ -17,6 +17,7 @@ public class Product extends AuditEntity implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String code;
     private String description;
 
     @OneToMany

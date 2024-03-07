@@ -13,7 +13,4 @@ public class OrderRequest {
 
 	@NotBlank(message = "your order is empty")
 	private Collection<OrderlineRequest> orderlineRequests;
-	
-	@NotBlank(message = "customer information is empty")
-	private CustomerRequest customerRequest;
 }
