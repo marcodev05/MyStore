@@ -6,7 +6,7 @@ import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.entities.enumerations.ERole;
 import com.tsk.ecommerce.repositories.RoleEntityRepository;
 import com.tsk.ecommerce.repositories.UserEntityRepository;
-import com.tsk.ecommerce.services.ObjectFinder;
+import com.tsk.ecommerce.services.tools.IObjectFinder;
 import com.tsk.ecommerce.services.user.RegistrationService;
 import com.tsk.ecommerce.services.validators.FieldValidator;
 import com.tsk.ecommerce.services.validators.UserValidator;
@@ -25,15 +25,18 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final UserEntityRepository userEntityRepository;
     private final RoleEntityRepository roleRepository;
     private final UserValidator userValidator;
+    private final IObjectFinder objectFinder;
 
     public RegistrationServiceImpl(PasswordEncoder passWordEncoder,
                                    UserEntityRepository userEntityRepository,
                                    RoleEntityRepository roleRepository,
-                                   UserValidator userValidator) {
+                                   UserValidator userValidator,
+                                   IObjectFinder objectFinder) {
         this.passWordEncoder = passWordEncoder;
         this.userEntityRepository = userEntityRepository;
         this.roleRepository = roleRepository;
         this.userValidator = userValidator;
+        this.objectFinder = objectFinder;
     }
 
     @Override
@@ -47,9 +50,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public UserEntity addRoleToUser(Long idUser, List<ERole> roleNames) {
-        UserEntity userEntity = ObjectFinder.findById(userEntityRepository, "user", idUser);
+        UserEntity userEntity = objectFinder.findById(userEntityRepository, "user", idUser);
         List<RoleEntity> roles = roleRepository.findByNameIn(roleNames);
-        userEntity.getRoles().addAll(roles); //how to mock getRoles()
+        userEntity.getRoles().addAll(roles);
         return userEntityRepository.save(userEntity);
     }
 

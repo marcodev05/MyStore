@@ -5,7 +5,8 @@ import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.entities.enumerations.ERole;
 import com.tsk.ecommerce.repositories.RoleEntityRepository;
 import com.tsk.ecommerce.repositories.UserEntityRepository;
-import com.tsk.ecommerce.services.ObjectFinder;
+import com.tsk.ecommerce.services.tools.ObjectFinder;
+import com.tsk.ecommerce.services.user.UserDataInitializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -14,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
-@TestConfiguration
+//@TestConfiguration
 public class TestConfig {
 
     @Autowired
@@ -24,12 +25,12 @@ public class TestConfig {
     @Autowired
     private RoleEntityRepository roleRepository;
    // @Autowired
-    //private UserDataInitializer userDataInitializer;
+    private UserDataInitializer userDataInitializer;
 
     @Bean
     public CommandLineRunner initializeTestData() {
         return args -> {
-           // userDataInitializer.initializeRole();
+            userDataInitializer.initializeRole();
             initialiseSimpleUser(userEntityRepository);
         };
     }

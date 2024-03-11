@@ -11,7 +11,8 @@ import com.tsk.ecommerce.dtos.requests.products.UpdateProductRequest;
 import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.exceptions.BadRequestException;
 import com.tsk.ecommerce.repositories.CategoryRepository;
-import com.tsk.ecommerce.services.ObjectFinder;
+import com.tsk.ecommerce.services.tools.IObjectFinder;
+import com.tsk.ecommerce.services.tools.ObjectFinder;
 import com.tsk.ecommerce.services.mappers.ProductMapper;
 import com.tsk.ecommerce.services.product.ProductService;
 import com.tsk.ecommerce.services.validators.FieldValidator;
@@ -38,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final ProductMapper productMapper;
+    private final IObjectFinder objectFinder;
 
     private static Specification<Product> getProductSearchSpecification(ProductSearchDto request) {
         return (root, criteriaQuery, criteriaBuilder) -> {
@@ -99,7 +101,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductById(Long id) {
-        return ObjectFinder.findById(productRepository, "product", id);
+        return objectFinder.findById(productRepository, "product", id);
     }
 
     @Override

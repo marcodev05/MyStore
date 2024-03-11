@@ -3,10 +3,11 @@ package com.tsk.ecommerce.services.mappers;
 import com.tsk.ecommerce.dtos.requests.products.ProductRequestDto;
 import com.tsk.ecommerce.entities.Product;
 import com.tsk.ecommerce.repositories.CategoryRepository;
-import com.tsk.ecommerce.services.ObjectFinder;
+import com.tsk.ecommerce.services.tools.ObjectFinder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class ProductMapper {
     private final CategoryRepository categoryRepository;
 
