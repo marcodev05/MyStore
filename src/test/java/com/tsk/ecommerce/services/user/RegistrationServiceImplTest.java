@@ -48,14 +48,13 @@ class RegistrationServiceImplTest {
     void registerPhase1() {
         //given
         SignUpRequestDto request = new SignUpRequestDto("toto", "toto@toto.com", "test1234");
-        BindingResult bindingResult = mock(BindingResult.class);
 
         when(userEntityRepository.save(any(UserEntity.class))).thenReturn(USER_TOTO);
         when(objectFinder.findById(userEntityRepository, "user", USER_TOTO.getId())).thenReturn(USER_TOTO);
         when(roleRepository.findByNameIn(List.of(ERole.ROLE_USER))).thenReturn(Collections.singletonList(ROLE_USER));
 
         //when
-        registrationServiceImpl.registerPhase1(request, bindingResult);
+        registrationServiceImpl.registerPhase1(request);
 
         //then
         verify(userValidator, times(1)).validateSignUp(request);

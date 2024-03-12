@@ -6,7 +6,6 @@ import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.entities.enumerations.ERole;
 import com.tsk.ecommerce.services.user.impl.RegistrationServiceImpl;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BeanPropertyBindingResult;
 
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class UserDataInitializer {
 
     public void initAdminUser(){
         SignUpRequestDto request = new SignUpRequestDto("test-admin", "test-admin@gmail.com", "admin1234");
-        UserEntity savedUser = registrationServiceImpl.registerPhase1(request, new BeanPropertyBindingResult(null, "user"));
+        UserEntity savedUser = registrationServiceImpl.registerPhase1(request);
         registrationServiceImpl.addRoleToUser(savedUser.getId(), List.of(ERole.ROLE_ADMIN));
     }
 

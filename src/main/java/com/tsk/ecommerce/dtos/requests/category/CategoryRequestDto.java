@@ -18,7 +18,6 @@ public class CategoryRequestDto {
     private String name;
 
     @NotBlank(message = "code is required")
-    @Min(value = 4, message = "Minimum 4 letters")
     private String code;
 
     @NotBlank(message = "Description is required")

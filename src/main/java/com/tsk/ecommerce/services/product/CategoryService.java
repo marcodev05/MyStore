@@ -9,9 +9,9 @@ import org.springframework.validation.BindingResult;
 import java.util.List;
 
 public interface CategoryService {
-    Category create(CategoryRequestDto category, BindingResult bindingResult);
+    Category create(CategoryRequestDto category);
 
-    Category update(Long id, CategoryRequestDto request, BindingResult bindingResult);
+    Category update(Long id, CategoryRequestDto request);
 
     PaginationResponse<List<Category>> searchCategory(CategorySearchDto params);
 

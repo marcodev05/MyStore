@@ -42,7 +42,7 @@ class LoginServiceTest {
         when(authentication.getPrincipal()).thenReturn(USER_TOTO);
 
         //when
-        LoginResponseDTO responseDTO = loginServiceImpl.login(request, bindingResult);
+        LoginResponseDTO responseDTO = loginServiceImpl.login(request);
 
         //then
         assertNotNull(responseDTO.getUser());

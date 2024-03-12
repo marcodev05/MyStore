@@ -58,7 +58,6 @@ class CategoryServiceImplTest {
         requestDto.setImage(categoryImage);
 
         //mock config
-        BindingResult mockBindingResult = mock(BindingResult.class);
         FileUploaded mockFileUploaded = mock(FileUploaded.class);
         when(categoryRepository.findByCode(any())).thenReturn(Optional.empty());
         when(categoryMapper.fromCategoryDto(any(Category.class), any(CategoryRequestDto.class))).thenAnswer(var-> var.getArgument(0));
@@ -66,7 +65,7 @@ class CategoryServiceImplTest {
         when(categoryRepository.save(any(Category.class))).thenReturn(categoryOne);
 
         //when
-        Category responseCategory = categoryService.create(requestDto, mockBindingResult);
+        Category responseCategory = categoryService.create(requestDto);
 
         //then
         verify(pictureRepository, times(1)).save(any(Picture.class));
@@ -94,7 +93,7 @@ class CategoryServiceImplTest {
         when(categoryMapper.fromCategoryDto(categoryOne, requestDto)).thenReturn(mockUpdatedCategory);
         when(categoryRepository.save(any(Category.class))).thenReturn(mockUpdatedCategory);
 
-        Category returnerCategory = categoryService.update(categoryOne.getId(), requestDto, mockBindingResult);
+        Category returnerCategory = categoryService.update(categoryOne.getId(), requestDto);
 
         verify(categoryRepository).save(any(Category.class));
         verify(categoryMapper, times(1)).fromCategoryDto(categoryOne, requestDto);

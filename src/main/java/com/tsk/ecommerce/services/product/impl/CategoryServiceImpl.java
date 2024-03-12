@@ -36,8 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private final CategoryMapper categoryMapper;
 
 	@Override
-	public Category create(CategoryRequestDto request, BindingResult bindingResult) {
-		FieldValidator.validate(bindingResult);
+	public Category create(CategoryRequestDto request) {
 		isCodeCategoryExists(request.getCode());
 		Category c = categoryMapper.fromCategoryDto(new Category(), request);
 		uploadPicture(request.getImage(), c);
@@ -52,8 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Category update(Long id, CategoryRequestDto request, BindingResult bindingResult) {
-		FieldValidator.validate(bindingResult);
+	public Category update(Long id, CategoryRequestDto request) {
 		Category c = categoryMapper.fromCategoryDto(this.getCategoryById(id), request);
 		if (request.getImage() != null) {
 			updatePicture(request.getImage(), c);

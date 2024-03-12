@@ -40,8 +40,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public UserEntity registerPhase1(SignUpRequestDto request, BindingResult bindingResult) {
-        FieldValidator.validate(bindingResult);
+    public UserEntity registerPhase1(SignUpRequestDto request) {
         userValidator.validateSignUp(request);
         UserEntity newUser = of(request);
         UserEntity savedUser = userEntityRepository.save(newUser);
