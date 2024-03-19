@@ -4,7 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -26,6 +29,24 @@ public class Product extends AuditEntity implements Serializable {
     @JoinColumn(name = "category")
     private Category category;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
-    private Collection<Picture> pictures;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Picture> pictures = new ArrayList<>();
+
+    public List<Picture> removePicture(Picture picture){
+        this.getPictures().remove(picture);
+        return pictures;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(name, product.name) && Objects.equals(code, product.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, code);
+    }
 }

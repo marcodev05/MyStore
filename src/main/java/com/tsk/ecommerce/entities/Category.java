@@ -1,6 +1,7 @@
 package com.tsk.ecommerce.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -38,4 +39,5 @@ public class Category extends AuditEntity implements Serializable{
 	public int hashCode() {
 		return Objects.hash(super.hashCode(), name);
 	}
+
 }

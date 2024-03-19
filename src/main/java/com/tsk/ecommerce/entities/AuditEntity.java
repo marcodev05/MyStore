@@ -1,5 +1,6 @@
 package com.tsk.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,8 +25,10 @@ public abstract class AuditEntity {
     private Date updatedAt;
 
     @LastModifiedBy
+    @JsonIgnore
     private String updatedBy;
 
     @CreatedBy
+    @JsonIgnore
     private String createdBy;
 }

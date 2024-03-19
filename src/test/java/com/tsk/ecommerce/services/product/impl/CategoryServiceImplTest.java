@@ -18,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.BeanUtils;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
@@ -84,7 +83,6 @@ class CategoryServiceImplTest {
         requestDto.setDescription("Category one description");
 
         //mock config
-        BindingResult mockBindingResult = mock(BindingResult.class);
         Category mockUpdatedCategory = new Category();
         BeanUtils.copyProperties(categoryOne, mockUpdatedCategory);
         mockUpdatedCategory.setName(requestDto.getName());

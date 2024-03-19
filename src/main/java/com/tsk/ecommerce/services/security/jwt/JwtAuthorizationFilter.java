@@ -1,6 +1,5 @@
 package com.tsk.ecommerce.services.security.jwt;
 
-import com.tsk.ecommerce.exceptions.ForbiddenException;
 import com.tsk.ecommerce.exceptions.UnauthorizedException;
 import com.tsk.ecommerce.services.security.CustomUserDetails;
 import com.tsk.ecommerce.services.security.CustomUserDetailsService;

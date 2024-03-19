@@ -10,8 +10,8 @@ import com.tsk.ecommerce.entities.Product;
 import org.springframework.validation.BindingResult;
 
 public interface ProductService {
-	Product create(ProductRequestDto product, BindingResult bindingResult);
-	Product update(Long id, UpdateProductRequest product, BindingResult bindingResult);
+	Product create(ProductRequestDto product);
+	Product update(Long id, UpdateProductRequest product);
 	PaginationResponse<List<Product>> searchProduct(ProductSearchDto request);
 	Product getProductById(Long id);
 	void deleteProduct(Long id);

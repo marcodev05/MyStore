@@ -5,23 +5,23 @@ import java.util.Optional;
 
 import com.tsk.ecommerce.dtos.PaginationResponse;
 import com.tsk.ecommerce.dtos.requests.category.CategorySearchDto;
+import com.tsk.ecommerce.entities.UserEntity;
 import com.tsk.ecommerce.entities.models.FileUploaded;
 import com.tsk.ecommerce.dtos.requests.category.CategoryRequestDto;
 import com.tsk.ecommerce.entities.Picture;
 import com.tsk.ecommerce.exceptions.BadRequestException;
 import com.tsk.ecommerce.repositories.PictureRepository;
 import com.tsk.ecommerce.services.mappers.CategoryMapper;
+import com.tsk.ecommerce.services.security.SecurityHelper;
 import com.tsk.ecommerce.services.tools.IObjectFinder;
 import com.tsk.ecommerce.services.file.FileUploadService;
 import com.tsk.ecommerce.services.product.CategoryService;
-import com.tsk.ecommerce.services.validators.FieldValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.repositories.CategoryRepository;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
