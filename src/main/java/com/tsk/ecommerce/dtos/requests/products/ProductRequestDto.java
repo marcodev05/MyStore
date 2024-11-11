@@ -6,6 +6,10 @@ import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,5 +26,7 @@ public class ProductRequestDto {
 
 	@NotNull(message = "category is required")
 	private Long categoryId;
+
+	private List<MultipartFile> files;
 
 }

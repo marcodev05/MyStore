@@ -6,9 +6,12 @@ import com.tsk.ecommerce.dtos.responses.ResponseFactory;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> handleCustomException(ResourceNotFoundException ex, HttpServletRequest request) {
@@ -52,8 +55,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(ResponseFactory.forbidden(new ExceptionEntity(ex.getMessage(), request.getRequestURI())));
     }
 
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<Response<Object>> handleValidationException(ValidationException ex) {
+    @ExceptionHandler(BindException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Response<Object>> handleValidationException(BindException ex) {
         Map<String, List<String>> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName = ((FieldError) error).getField();
@@ -68,11 +72,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(ResponseFactory.badRequest(errors));
     }
 
-/*
-    @Override
+
+  /* @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(exceptionMapperService.toResponseDTO(ex, HttpStatus.BAD_REQUEST));
-    }
-*/
+        BindingResult bindingResult = ex.getBindingResult();
+        System.out.println("method argument not valid exception");
+        return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
+    }*/
+
 }

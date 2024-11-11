@@ -26,14 +26,14 @@ class ProductRepositoryTest {
         //given
         Product inputProduct = new Product();
         inputProduct.setName("KeyBoard");
-        inputProduct.setDescription("some description");
+        inputProduct.setDescription("test description");
         productRepository.save(inputProduct);
 
         //when
         List<Product> products = productRepository.findByNameContains("KeyBoard");
 
         //then
-        assertTrue(!products.isEmpty());
+        assertFalse(products.isEmpty());
     }
 
 }

@@ -11,7 +11,6 @@ import com.tsk.ecommerce.dtos.responses.Response;
 import com.tsk.ecommerce.dtos.responses.ResponseFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.tsk.ecommerce.dtos.requests.products.ProductRequestDto;
@@ -46,14 +45,14 @@ public class ProductController  {
 	@Operation(summary = "Add a new product")
 	@ApiResponse(responseCode = "201", description = "Product is created")
 	@PostMapping(ADMIN_URL + "/products")
-	public ResponseEntity<Response<Product>> addProduct(@Valid ProductRequestDto product, BindingResult bindingResult) {
-		return ResponseFactory.created(service.create(product, bindingResult));
+	public ResponseEntity<Response<Product>> addProduct(@Valid ProductRequestDto product) {
+		return ResponseFactory.created(service.create(product));
 	}
 
 	@Operation(summary = "Update a product by Id")
 	@PostMapping(ADMIN_URL + "/products/{id}/update")
-	public Response<Product> updateProduct(@Valid UpdateProductRequest productRequest, BindingResult bindingResult, @PathVariable("id") Long id) {
-		return ResponseFactory.success(service.update(id, productRequest, bindingResult));
+	public Response<Product> updateProduct(@Valid UpdateProductRequest productRequest, @PathVariable("id") Long id) {
+		return ResponseFactory.success(service.update(id, productRequest));
 	}
 
 	@Operation(summary = "Delete a product by Id")

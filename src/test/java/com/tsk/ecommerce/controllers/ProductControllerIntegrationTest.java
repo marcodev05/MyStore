@@ -1,13 +1,15 @@
 package com.tsk.ecommerce.controllers;
 
+import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.entities.Product;
+import com.tsk.ecommerce.repositories.CategoryRepository;
+import com.tsk.ecommerce.repositories.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
@@ -24,9 +26,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ProductControllerTest {
+class ProductControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @BeforeEach
     void setUp() {
@@ -48,11 +55,12 @@ class ProductControllerTest {
     @WithMockUser(username = "testUsername", roles = {"ADMIN"})
     @Transactional
     public void shouldAddProduct() throws Exception {
+        Category category = categoryRepository.save(createCategoryData());
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("name", "testName");
         params.add("description", "testDescription");
-        params.add("price", String.valueOf(400.0));
-        params.add("stock", String.valueOf(12));
+        params.add("code", "TESTCODE");
+        params.add("categoryId", String.valueOf(category.getId()));
 
         mockMvc.perform(MockMvcRequestBuilders.post(ADMIN_URL + "/products")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -68,8 +76,7 @@ class ProductControllerTest {
     public void productNameMustNotBeBlank() throws Exception {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("description", "testDescription");
-        params.add("price", String.valueOf(400.0));
-        params.add("stock", String.valueOf(12));
+        params.add("code", "TESTCODE");
 
         mockMvc.perform(MockMvcRequestBuilders.post(ADMIN_URL + "/products")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -81,9 +88,26 @@ class ProductControllerTest {
     @Test
     @WithMockUser(username = "testUsername", roles = {"ADMIN"})
     public void testProductCanBeDelete() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete(ADMIN_URL + "/products/delete/", 1L)
-                        .header(HttpHeaders.AUTHORIZATION, "Bearer token"))
-                .andExpect(status().isOk());
+        productRepository.save(createMockProduct());
+        mockMvc.perform(MockMvcRequestBuilders.delete(ADMIN_URL + "/products/"+ 1L))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    private Category createCategoryData(){
+        Category category = new Category();
+        category.setCode("TESTCODE");
+        category.setDescription("Test_description");
+        category.setName("Test_name");
+        return category;
+    }
+
+    private Product createMockProduct(){
+        Product product = new Product();
+        product.setCode("ONE");
+        product.setName("Product ONE");
+        product.setDescription("Product ONE description");
+        return product;
     }
 
 }

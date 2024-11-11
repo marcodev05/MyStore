@@ -9,12 +9,7 @@ import com.tsk.ecommerce.dtos.responses.ResponseFactory;
 import com.tsk.ecommerce.services.product.CategoryService;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.tsk.ecommerce.entities.Category;
 import com.tsk.ecommerce.dtos.requests.category.CategoryRequestDto;
@@ -51,14 +46,14 @@ public class CategoryController {
     @Operation(summary = "Add a new Category")
     @ApiResponse(responseCode = "201", description = "Category is created")
     @PostMapping(ADMIN_URL + "/categories")
-    public ResponseEntity<Response<Category>> addCategory(@Valid CategoryRequestDto category, BindingResult bindingResult) {
-        return ResponseFactory.created(service.create(category, bindingResult));
+    public ResponseEntity<Response<Category>> addCategory(@Valid CategoryRequestDto category) {
+        return ResponseFactory.created(service.create(category));
     }
 
     @Operation(summary = "Update a category by id")
     @PostMapping(ADMIN_URL + "/categories/{id}/update")
-    public Response<Category> updateCategory(@PathVariable("id") Long id, @Valid CategoryRequestDto request, BindingResult bindingResult) {
-        return ResponseFactory.success(service.update(id, request, bindingResult));
+    public Response<Category> updateCategory(@PathVariable("id") Long id, @Valid CategoryRequestDto request) {
+        return ResponseFactory.success(service.update(id, request));
     }
 
     @Operation(summary = "Delete a category by Id")

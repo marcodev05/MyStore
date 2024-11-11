@@ -1,6 +1,7 @@
 package com.tsk.ecommerce.entities;
 
 import com.tsk.ecommerce.entities.enumerations.ERole;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "roles")
 public class RoleEntity {

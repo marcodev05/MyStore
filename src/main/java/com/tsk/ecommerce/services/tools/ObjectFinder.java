@@ -1,4 +1,4 @@
-package com.tsk.ecommerce.services;
+package com.tsk.ecommerce.services.tools;
 
 import com.tsk.ecommerce.exceptions.ResourceNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +15,5 @@ public class ObjectFinder {
         }
         return object.get();
     }
-
 
 }

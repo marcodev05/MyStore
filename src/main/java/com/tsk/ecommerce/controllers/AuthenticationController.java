@@ -29,13 +29,13 @@ public class AuthenticationController {
 
 	@Operation(summary = "step 1 register user")
 	@PostMapping("/register")
-	public Response<UserEntity> registerUserPhase1(@Valid SignUpRequestDto request, BindingResult bindingResult){
-		return ResponseFactory.success(registrationService.registerPhase1(request, bindingResult));
+	public Response<UserEntity> registerUserPhase1(@Valid SignUpRequestDto request){
+		return ResponseFactory.success(registrationService.registerPhase1(request));
 	}
 
 	@Operation(summary = "login")
 	@PostMapping("/login")
-	public Response<LoginResponseDTO> login(@Valid LoginRequestDto loginRequestDto, BindingResult bindingResult) {
-		return ResponseFactory.success(loginService.login(loginRequestDto, bindingResult));
+	public Response<LoginResponseDTO> login(@Valid LoginRequestDto loginRequestDto) {
+		return ResponseFactory.success(loginService.login(loginRequestDto));
 	}
 }
